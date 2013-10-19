@@ -1,13 +1,10 @@
-# Compiled Object files
-*.slo
-*.lo
-*.o
+*.user
+build
 
-# Compiled Dynamic libraries
-*.so
-*.dylib
-
-# Compiled Static libraries
-*.lai
-*.la
-*.a
+## generic files to ignore
+*~
+*.lock
+*.DS_Store
+[Tt]humbs.db
+*.swp
+*.out
