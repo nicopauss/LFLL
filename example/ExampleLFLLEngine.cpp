@@ -72,14 +72,14 @@ namespace {
     }};
 
 
-    typedef LFLLTuple<LFLLTriangle, LFLLTriangle, LFLLPiShape> Input1Types;
-    typedef LFLLTuple<LFLLTriangle, LFLLPiShape> Input2Types;
+    typedef LFLLTuple<const LFLLTriangle, const LFLLTriangle, const LFLLPiShape> Input1Types;
+    typedef LFLLTuple<const LFLLTriangle, const LFLLPiShape> Input2Types;
 
     const Input1Types inputTerms1 = makeLFLLTuple(t1A, t1B, t1C);
     const Input2Types inputTerms2 = makeLFLLTuple(t2X, t2Y);
 
-    const LFLLInputFuzzifier<NbTermsForInput1> inputFuzzifier1(inputTerms1);
-    const LFLLInputFuzzifier<NbTermsForInput2> inputFuzzifier2(inputTerms2);
+    const LFLLInputFuzzifier<Input1Types> inputFuzzifier1(inputTerms1);
+    const LFLLInputFuzzifier<Input2Types> inputFuzzifier2(inputTerms2);
     const LFLLRulesEngine<NbInput, NbRules, NbOutput> rulesEngine(rules);
     const LFLLSugenoDefuzzifier<NbRules, NbTermsForOutput1> defuzzifier(crispValues);
 }

@@ -25,6 +25,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include <lfll/LFLLTriangle.h>
 #include <lfll/LFLLRectangle.h>
 #include <lfll/LFLLSingleton.h>
+#include <lfll/LFLLTuple.h>
 
 #include <lfll/LFLLInputFuzzifier.h>
 
@@ -40,11 +41,14 @@ TEST(LFLLInputFuzzifierTest, Test1)
     LFLLRectangle rectangle(2.5f, 9.f);
     LFLLSingleton singleton(1.64f);
 
-    const LFLLTerms<5> inputTerms = {{
-        &piShape, &trapezoid, &triangle, &rectangle, &singleton
-    }};
+    typedef LFLLTuple<LFLLPiShape, LFLLTrapezoid,
+            LFLLTriangle, LFLLRectangle, LFLLSingleton>
+            InputTypes;
 
-    const LFLLInputFuzzifier<5> inputFuzzifier(inputTerms);
+    const InputTypes inputTerms = makeLFLLTuple(
+        piShape, trapezoid, triangle, rectangle, singleton);
+
+    const LFLLInputFuzzifier<InputTypes> inputFuzzifier(inputTerms);
 
     LFLLMembership<5> degrees =
         inputFuzzifier.fuzzifyVariable(1.64f);
@@ -71,11 +75,14 @@ TEST(LFLLInputFuzzifierTest, Test2)
     LFLLRectangle rectangle(2.5f, 9.f);
     LFLLSingleton singleton(1.64f);
 
-    const LFLLTerms<5> inputTerms = {{
-        &piShape, &trapezoid, &triangle, &rectangle, &singleton
-    }};
+    typedef LFLLTuple<LFLLPiShape, LFLLTrapezoid,
+            LFLLTriangle, LFLLRectangle, LFLLSingleton>
+            InputTypes;
 
-    const LFLLInputFuzzifier<5> inputFuzzifier(inputTerms);
+    const InputTypes inputTerms = makeLFLLTuple(
+        piShape, trapezoid, triangle, rectangle, singleton);
+
+    const LFLLInputFuzzifier<InputTypes> inputFuzzifier(inputTerms);
 
     LFLLMembership<5> degrees =
         inputFuzzifier.fuzzifyVariable(8.47f);

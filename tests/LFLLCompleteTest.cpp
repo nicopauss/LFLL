@@ -27,6 +27,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include <lfll/LFLLInputFuzzifier.h>
 #include <lfll/LFLLRulesEngine.h>
 #include <lfll/LFLLSugenoDefuzzifier.h>
+#include <lfll/LFLLTuple.h>
 
 #include "LFLLTests.h"
 
@@ -50,18 +51,16 @@ TEST(LFLLCompleteTest, LFLLComplete)
     LFLLTriangle t21(-0.4f, .0f, .6f);
     LFLLTriangle t22(0.1f, .8f, 1.2f);
 
+    typedef LFLLTuple<LFLLTriangle, LFLLTriangle, LFLLTriangle> Input1Types;
+    typedef LFLLTuple<LFLLTriangle, LFLLTriangle> Input2Types;
 
-    const LFLLTerms<NTI1> inputTerms1 = {{
-        &t11, &t12, &t13
-    }};
+    const Input1Types inputTerms1 = makeLFLLTuple(t11, t12, t13);
+    const Input2Types inputTerms2 = makeLFLLTuple(t21, t22);
 
-    const LFLLInputFuzzifier<NTI1> inputFuzzifier1(inputTerms1);
 
-    const LFLLTerms<NTI2> inputTerms2 = {{
-        &t21, &t22
-    }};
+    const LFLLInputFuzzifier<Input1Types> inputFuzzifier1(inputTerms1);
 
-    const LFLLInputFuzzifier<NTI2> inputFuzzifier2(inputTerms2);
+    const LFLLInputFuzzifier<Input2Types> inputFuzzifier2(inputTerms2);
 
 
     LFLLRules<NI, NR, NO> rules = {{
