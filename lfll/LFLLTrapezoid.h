@@ -50,7 +50,7 @@ x:R \rightarrow  f(x) = \left \{
   *
   * http://www.mathworks.com/help/fuzzy/trapmf.html
   */
-class LFLLTrapezoid : public LFLLTermBase
+class LFLLTrapezoid
 {
 public:
     LFLLTrapezoid(scalar a, scalar b, scalar c, scalar d)

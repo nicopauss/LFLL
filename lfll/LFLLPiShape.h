@@ -49,7 +49,7 @@ x:R \rightarrow  f(x) = \left \{
   *
   * http://www.mathworks.com/help/fuzzy/pimf.html
   */
-class LFLLPiShape : public LFLLTermBase
+class LFLLPiShape
 {
 public:
     LFLLPiShape(scalar sMinLim, scalar sMaxLim,
@@ -58,7 +58,7 @@ public:
         , m_zShape(zMinLim, zMaxLim)
     {}
 
-    virtual inline dom membership(scalar val) const
+    inline dom membership(scalar val) const
     {
         if (math::isGreaterThan(val, m_sShape.getMaxLimit())) {
             return m_zShape.membership(val);

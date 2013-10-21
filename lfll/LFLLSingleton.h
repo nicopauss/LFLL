@@ -23,7 +23,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #ifndef LFLLSINGLETON_H
 #define LFLLSINGLETON_H
 
-#include <lfll/LFLLTermBase.h>
+#include <lfll/LFLLDefinitions.h>
 #include <lfll/LFLLMath.h>
 
 LFLL_BEGIN_NAMESPACE
@@ -41,7 +41,7 @@ x:R \rightarrow  f(x) = \left \{
 \right \}
   * @f]
   */
-class LFLLSingleton : public LFLLTermBase
+class LFLLSingleton
 {
 public:
 
@@ -49,7 +49,7 @@ public:
         : m_val(val)
     {}
 
-    virtual inline dom membership(scalar val) const
+    inline dom membership(scalar val) const
     {
         if (math::isEqualTo(val, m_val)) {
             return MAX_DOM;

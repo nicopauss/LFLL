@@ -24,7 +24,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #define LFLLLRAMP_H
 
 #include <lfll/LFLLMath.h>
-#include <lfll/LFLLTermBase.h>
+#include <lfll/LFLLBoundedTerm.h>
 
 LFLL_BEGIN_NAMESPACE
 

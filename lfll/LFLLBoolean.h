@@ -23,7 +23,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #ifndef LFLLBOOLEAN_H
 #define LFLLBOOLEAN_H
 
-#include <lfll/LFLLTermBase.h>
+#include <lfll/LFLLDefinitions.h>
 
 LFLL_BEGIN_NAMESPACE
 
@@ -41,7 +41,7 @@ x:R \rightarrow  f(x) = \left \{
 \right \}
   * @f]
   */
-class LFLLBoolean : public LFLLTermBase
+class LFLLBoolean
 {
 public:
     LFLLBoolean(bool val)

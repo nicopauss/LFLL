@@ -23,7 +23,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #ifndef LFLLRECTANGLE_H
 #define LFLLRECTANGLE_H
 
-#include <lfll/LFLLTermBase.h>
+#include <lfll/LFLLBoundedTerm.h>
 #include <lfll/LFLLMath.h>
 
 LFLL_BEGIN_NAMESPACE
@@ -50,7 +50,7 @@ public:
     {}
 
 
-    virtual inline dom membership(scalar val) const {
+    inline dom membership(scalar val) const {
         if (math::isGreaterOrEqualTo(val, m_minLimit) &&
             math::isLessOrEqualTo(val, m_maxLimit)) {
                 return MAX_DOM;

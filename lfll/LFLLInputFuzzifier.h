@@ -27,7 +27,6 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #include <lfll/LFLLStaticAssert.h>
 #include <lfll/LFLLMembership.h>
-#include <lfll/LFLLTermBase.h>
 
 LFLL_BEGIN_NAMESPACE
 
@@ -88,7 +87,8 @@ private:
 
 
 template <class InputTermsType>
-inline LFLLInputFuzzifier<InputTermsType>::LFLLInputFuzzifier(const InputTermsType& terms)
+inline LFLLInputFuzzifier<InputTermsType>::
+    LFLLInputFuzzifier(const InputTermsType& terms)
     : m_terms(&terms)
 {}
 

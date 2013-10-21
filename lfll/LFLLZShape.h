@@ -24,7 +24,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #define LFLLZSHAPE_H
 
 #include <lfll/LFLLMath.h>
-#include <lfll/LFLLTermBase.h>
+#include <lfll/LFLLBoundedTerm.h>
 
 LFLL_BEGIN_NAMESPACE
 
@@ -54,7 +54,7 @@ public:
         , m_halfRange((minLimit + maxLimit) / TWO_SCALAR)
     {}
 
-    virtual inline dom membership(scalar val) const {
+    inline dom membership(scalar val) const {
         if (val <= m_minLimit) {
             return MAX_DOM;
         } else if (val >= m_maxLimit) {
