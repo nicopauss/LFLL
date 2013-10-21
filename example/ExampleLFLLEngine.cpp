@@ -28,6 +28,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include <lfll/LFLLInputFuzzifier.h>
 #include <lfll/LFLLRulesEngine.h>
 #include <lfll/LFLLSugenoDefuzzifier.h>
+#include <lfll/LFLLTuple.h>
 
 #include "ExampleLFLLEngine.h"
 
@@ -70,13 +71,12 @@ namespace {
         1.0f   // Output O3
     }};
 
-    const LFLLTerms<NbTermsForInput1> inputTerms1 = {{
-        &t1A, &t1B, &t1C
-    }};
 
-    const LFLLTerms<NbTermsForInput2> inputTerms2 = {{
-        &t2X, &t2Y
-    }};
+    typedef LFLLTuple<LFLLTriangle, LFLLTriangle, LFLLPiShape> Input1Types;
+    typedef LFLLTuple<LFLLTriangle, LFLLPiShape> Input2Types;
+
+    const Input1Types inputTerms1 = makeLFLLTuple(t1A, t1B, t1C);
+    const Input2Types inputTerms2 = makeLFLLTuple(t2X, t2Y);
 
     const LFLLInputFuzzifier<NbTermsForInput1> inputFuzzifier1(inputTerms1);
     const LFLLInputFuzzifier<NbTermsForInput2> inputFuzzifier2(inputTerms2);

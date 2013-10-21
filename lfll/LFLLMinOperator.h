@@ -23,14 +23,14 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #ifndef LFLLMINOPERATOR_H
 #define LFLLMINOPERATOR_H
 
-#include <lfll/LFLLBinaryOperator.h>
+#include <lfll/LFLLDefinitions.h>
 
 LFLL_BEGIN_NAMESPACE
 
 /**
   * Standard min operator
   */
-struct LFLLMinOperator : public LFLLBinaryOperator
+struct LFLLMinOperator
 {
     inline dom operator()(dom val1, dom val2) const {
         return (val1 < val2) ? val1 : val2;

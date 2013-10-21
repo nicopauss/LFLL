@@ -45,7 +45,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 /**
  * This tuple hold pointer of given values.
- * If you want a real tuple, you std::tuple (C++11) or boost::tuple
+ * If you want a real tuple, use std::tuple (C++11) or boost::tuple
  */
 template <${defClassAll}>
 class LFLLTuple
@@ -67,8 +67,13 @@ public:
     LFLLTuple($argsPtrWithTypeAndDefault)
         : m_impl($argsPtrAll)
     {}
+	
+    size_t size() const
+    {
+        return tuple_size;
+    }
 
-    template<size_t I>
+    template <size_t I>
     typename detail::LFLLTupleValueTypes<I, $useClassAll>::type*
     get()
     {
@@ -78,7 +83,7 @@ public:
         return static_cast<typename ElementTypes::type&>(m_impl).get();
     }
 
-    template<size_t I>
+    template <size_t I>
     const typename detail::LFLLTupleValueTypes<I, $useClassAll>::type*
     get() const
     {
@@ -86,11 +91,6 @@ public:
             ElementTypes;
 
         return static_cast<const typename ElementTypes::type&>(m_impl).get();
-    }
-
-    size_t size() const
-    {
-        return tuple_size;
     }
 
 private:

@@ -25,6 +25,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #include <lfll/LFLLDefinitions.h>
 
+#include <lfll/LFLLStaticAssert.h>
 #include <lfll/LFLLMembership.h>
 #include <lfll/LFLLTermBase.h>
 
@@ -32,15 +33,11 @@ LFLL_BEGIN_NAMESPACE
 
 /**
 * Represent an input variable.
-*
-* NT define the number of terms.
 */
-template <size_t NT>
+template <size_t NT, class InputTermsType>
 class LFLLInputFuzzifier {
-public:
-    typedef LFLLMembership<NT> InputMembershipDegrees;
-    static const size_t nbTerms = NT;
-
+    LFLL_STATIC_ASSERT(NT == InputTermsType::tuple_size,
+                       tuple_size_is_not_valid);
 public:
     /**
      * @brief Constructor
@@ -48,7 +45,7 @@ public:
      * @warning The variable terms must have the same or greater lifespan than
      *  this object.
      */
-    LFLLInputFuzzifier(const LFLLTerms<NT>& terms);
+    LFLLInputFuzzifier(const InputTermsType& terms);
 
     /**
      * @brief fuzzifyVariable
@@ -56,8 +53,13 @@ public:
      * @return
      */
     LFLLMembership<NT> fuzzifyVariable(scalar input) const;
+
 private:
-    const LFLLTerms<NT>* m_terms;
+    template <size_t I>
+    void fuzzifyVariableIterate(scalar input, LFLLMembership<NT>& result) const;
+
+private:
+    const InputTermsType* m_terms;
 };
 
 /************************************************************************/
@@ -65,22 +67,37 @@ private:
 /************************************************************************/
 
 
-template <size_t NT>
-inline LFLLInputFuzzifier<NT>::LFLLInputFuzzifier(const LFLLTerms<NT>& terms)
+template <size_t NT, class InputTermsType>
+inline LFLLInputFuzzifier<NT, InputTermsType>::LFLLInputFuzzifier(const InputTermsType& terms)
     : m_terms(&terms)
 {}
 
 
-template <size_t NT>
-inline LFLLMembership<NT> LFLLInputFuzzifier<NT>::fuzzifyVariable(
+template <size_t NT, class InputTermsType>
+inline LFLLMembership<NT> LFLLInputFuzzifier<NT, InputTermsType>::fuzzifyVariable(
     scalar input) const
 {
     LFLLMembership<NT> result;
-    for (size_t i = 0 ; i < NT ; ++i) {
-        result.setVal(i, m_terms->terms[i]->membership(input));
-    }
+    fuzzifyVariableIterate<NT>(input, result);
     return result;
 }
+
+template <size_t NT, class InputTermsType>
+template <size_t I>
+inline void LFLLInputFuzzifier<NT, InputTermsType>::
+    fuzzifyVariableIterate(
+        scalar input, LFLLMembership<NT>& result) const
+{
+    result.setVal(I-1, m_terms->get<I-1>()->membership(input));
+    fuzzifyVariableIterate<I-1>(input, result);
+}
+
+template <size_t NT, class InputTermsType>
+template <>
+inline void LFLLInputFuzzifier<NT, InputTermsType>::
+    fuzzifyVariableIterate<0>(
+        scalar, LFLLMembership<NT>&) const
+{}
 
 LFLL_END_NAMESPACE
 

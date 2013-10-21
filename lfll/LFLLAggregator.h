@@ -26,7 +26,6 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include <cassert>
 
 #include <lfll/LFLLDefinitions.h>
-#include <lfll/LFLLBinaryOperator.h>
 #include <lfll/LFLLMembership.h>
 #include <lfll/LFLLConsequence.h>
 #include <lfll/LFLLMaxOperator.h>

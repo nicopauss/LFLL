@@ -31,7 +31,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 /**
  * This tuple hold pointer of given values.
- * If you want a real tuple, you std::tuple (C++11) or boost::tuple
+ * If you want a real tuple, use std::tuple (C++11) or boost::tuple
  */
 template <class T0, class T1, class T2, class T3, class T4, class T5, class T6, class T7, class T8, class T9, class T10, class T11, class T12, class T13, class T14, class T15, class T16, class T17, class T18, class T19, class T20, class T21, class T22, class T23, class T24, class T25, class T26, class T27, class T28, class T29, class T30, class T31, class T32, class T33, class T34, class T35, class T36, class T37, class T38, class T39, class T40, class T41, class T42, class T43, class T44, class T45, class T46, class T47, class T48, class T49>
 class LFLLTuple
@@ -54,6 +54,11 @@ public:
         : m_impl(v0, v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, v12, v13, v14, v15, v16, v17, v18, v19, v20, v21, v22, v23, v24, v25, v26, v27, v28, v29, v30, v31, v32, v33, v34, v35, v36, v37, v38, v39, v40, v41, v42, v43, v44, v45, v46, v47, v48, v49)
     {}
 
+    size_t size() const
+    {
+        return tuple_size;
+    }
+
     template<size_t I>
     typename detail::LFLLTupleValueTypes<I, T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25, T26, T27, T28, T29, T30, T31, T32, T33, T34, T35, T36, T37, T38, T39, T40, T41, T42, T43, T44, T45, T46, T47, T48, T49>::type*
     get()
@@ -72,11 +77,6 @@ public:
             ElementTypes;
 
         return static_cast<const typename ElementTypes::type&>(m_impl).get();
-    }
-
-    size_t size() const
-    {
-        return tuple_size;
     }
 
 private:
