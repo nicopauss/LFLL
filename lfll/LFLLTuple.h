@@ -47,7 +47,7 @@ class LFLLTuple
     getLFLLTuple(const LFLLTuple<T_0, T_1, T_2, T_3, T_4, T_5, T_6, T_7, T_8, T_9, T_10, T_11, T_12, T_13, T_14, T_15, T_16, T_17, T_18, T_19, T_20, T_21, T_22, T_23, T_24, T_25, T_26, T_27, T_28, T_29, T_30, T_31, T_32, T_33, T_34, T_35, T_36, T_37, T_38, T_39, T_40, T_41, T_42, T_43, T_44, T_45, T_46, T_47, T_48, T_49>& tuple);
 
 public:
-    static const size_t tuple_size = detail::LFLLTupleImpl<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25, T26, T27, T28, T29, T30, T31, T32, T33, T34, T35, T36, T37, T38, T39, T40, T41, T42, T43, T44, T45, T46, T47, T48, T49>::tuple_size;
+    static const size_t tupleSize = detail::LFLLTupleImpl<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25, T26, T27, T28, T29, T30, T31, T32, T33, T34, T35, T36, T37, T38, T39, T40, T41, T42, T43, T44, T45, T46, T47, T48, T49>::tupleSize;
 
 public:
     LFLLTuple(T0* v0 = 0, T1* v1 = 0, T2* v2 = 0, T3* v3 = 0, T4* v4 = 0, T5* v5 = 0, T6* v6 = 0, T7* v7 = 0, T8* v8 = 0, T9* v9 = 0, T10* v10 = 0, T11* v11 = 0, T12* v12 = 0, T13* v13 = 0, T14* v14 = 0, T15* v15 = 0, T16* v16 = 0, T17* v17 = 0, T18* v18 = 0, T19* v19 = 0, T20* v20 = 0, T21* v21 = 0, T22* v22 = 0, T23* v23 = 0, T24* v24 = 0, T25* v25 = 0, T26* v26 = 0, T27* v27 = 0, T28* v28 = 0, T29* v29 = 0, T30* v30 = 0, T31* v31 = 0, T32* v32 = 0, T33* v33 = 0, T34* v34 = 0, T35* v35 = 0, T36* v36 = 0, T37* v37 = 0, T38* v38 = 0, T39* v39 = 0, T40* v40 = 0, T41* v41 = 0, T42* v42 = 0, T43* v43 = 0, T44* v44 = 0, T45* v45 = 0, T46* v46 = 0, T47* v47 = 0, T48* v48 = 0, T49* v49 = 0)
@@ -56,7 +56,7 @@ public:
 
     size_t size() const
     {
-        return tuple_size;
+        return tupleSize;
     }
 
     template<size_t I>

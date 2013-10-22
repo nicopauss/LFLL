@@ -64,7 +64,7 @@ LFLLMembership<NT> LFLLAggregator<BinaryOperatorType>::aggregateConsequence(
         bool hasPrevTerm = false;
         for (size_t ruleIndex = 0 ; ruleIndex < NR ; ++ruleIndex) {
             const dom consequenceValue =
-                    consequence.membershipValue(termIndex, ruleIndex);
+                    consequence.getVal(termIndex, ruleIndex);
             if (hasPrevTerm) {
                 termValue = m_binaryOperator(termValue, consequenceValue);
             } else {

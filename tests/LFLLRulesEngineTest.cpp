@@ -22,16 +22,21 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 #include <lfll/LFLLMath.h>
 #include <lfll/LFLLMembership.h>
+#include <lfll/LFLLConsequence.h>
 #include <lfll/LFLLRulesEngine.h>
 #include <lfll/LFLLMinOperator.h>
 #include <lfll/LFLLMaxOperator.h>
 #include <lfll/LFLLComplementOperator.h>
+#include <lfll/LFLLMaxOperator.h>
+#include <lfll/LFLLMinOperator.h>
+#include <lfll/LFLLComplementOperator.h>
+#include <lfll/LFLLTuple.h>
 
 #include "LFLLTests.h"
 
 using namespace math;
 
-TEST(LFLLRulesEngineTest, RulesEngine)
+TEST(LFLLRulesEngineTest, Test)
 {
     const size_t NI = 2;
     const size_t NR = 3;
@@ -39,44 +44,42 @@ TEST(LFLLRulesEngineTest, RulesEngine)
 
     // Initialisation
 
-
-
-    LFLLRules<NI, NR, NO> rules = {
+    const LFLLRules<NI, NR, NO> rules = {{
+        // Rule 1
         {
-            // Rule 1
-            {
-                {1, 2}, {1, 0}, 1.f, false
-            },
+            {1, 2}, {1, 0}, 1.f, false
+        },
 
-            // Rule 2
-            {
-                {-2, 1}, {2, 1}, 1.f, false
-            },
+        // Rule 2
+        {
+            {-2, 1}, {2, 1}, 1.f, false
+        },
 
-            //Rule 3
-            {
-                {3, 2}, {0, -1}, .5f, true
-            }
+        //Rule 3
+        {
+            {3, 2}, {0, -1}, .5f, true
         }
-    };
-
-
-
-    LFLLRulesEngine<NI, NR, NO> rulesEngine(rules);
-
-    // Work time
+    }};
 
     LFLLMembership<3> degrees1;
     LFLLMembership<2> degrees2;
     LFLLConsequence<NR, 2> consequence1;
     LFLLConsequence<NR, 2> consequence2;
 
-    const LFLLMembershipBase* antecedents[NI] = {
-        &degrees1, &degrees2
-    };
-    LFLLConsequenceBase* consequences[NO] = {
-        &consequence1, &consequence2
-    };
+    typedef LFLLTuple<
+            LFLLMembership<3>,
+            LFLLMembership<2> >
+            AntecedentTuple;
+
+    typedef LFLLTuple<
+            LFLLConsequence<NR, 2>,
+            LFLLConsequence<NR, 2> >
+            ConsequenceTuple;
+
+    const AntecedentTuple antecedents =
+            makeLFLLTuple(degrees1, degrees2);
+    ConsequenceTuple consequences =
+            makeLFLLTuple(consequence1, consequence2);
 
     degrees1[0] = scalarToDom(0.48f);
     degrees1[1] = scalarToDom(0.09f);
@@ -85,24 +88,28 @@ TEST(LFLLRulesEngineTest, RulesEngine)
     degrees2[0] = scalarToDom(0.56f);
     degrees2[1] = scalarToDom(0.16f);
 
-    rulesEngine.applyRules(antecedents, consequences);
+    const LFLLRulesEngine<NI, NR, NO,
+        LFLLMinOperator, LFLLMaxOperator, LFLLComplementOperator>
+        fTr(rules);
+
+    fTr.applyRules(antecedents, consequences);
+
 
     dom valPart = DOM_DIFF - (dom)(degrees2[1]/2.f + 0.5f);
 
-    ASSERT_EQ(consequence1.membershipValue(0, 0), scalarToDom(0.16f));
-    ASSERT_EQ(consequence1.membershipValue(0, 1), scalarToDom(0.f));
-    ASSERT_EQ(consequence1.membershipValue(0, 2), scalarToDom(0.f));
+    ASSERT_EQ(scalarToDom(0.16f), consequence1.getVal(0, 0));
+    ASSERT_EQ(scalarToDom(0.f), consequence1.getVal(0, 1));
+    ASSERT_EQ(scalarToDom(0.f), consequence1.getVal(0, 2));
 
-    ASSERT_EQ(consequence1.membershipValue(1, 0), scalarToDom(0.f));
-    ASSERT_EQ(consequence1.membershipValue(1, 1), scalarToDom(0.56f));
-    ASSERT_EQ(consequence1.membershipValue(1, 2), scalarToDom(0.f));
+    ASSERT_EQ(scalarToDom(0.f), consequence1.getVal(1, 0));
+    ASSERT_EQ(scalarToDom(0.56f), consequence1.getVal(1, 1));
+    ASSERT_EQ(scalarToDom(0.f), consequence1.getVal(1, 2));
 
-    ASSERT_EQ(consequence2.membershipValue(0, 0), scalarToDom(0.f));
-    ASSERT_EQ(consequence2.membershipValue(0, 1), scalarToDom(0.56f));
-    ASSERT_EQ(consequence2.membershipValue(0, 2), valPart);
+    ASSERT_EQ(scalarToDom(0.f), consequence2.getVal(0, 0));
+    ASSERT_EQ(scalarToDom(0.56f), consequence2.getVal(0, 1));
+    ASSERT_EQ(valPart, consequence2.getVal(0, 2));
 
-    ASSERT_EQ(consequence2.membershipValue(1, 0), scalarToDom(0.f));
-    ASSERT_EQ(consequence2.membershipValue(1, 1), scalarToDom(0.f));
-    ASSERT_EQ(consequence2.membershipValue(1, 2), scalarToDom(0.f));
-
+    ASSERT_EQ(scalarToDom(0.f), consequence2.getVal(1, 0));
+    ASSERT_EQ(scalarToDom(0.f), consequence2.getVal(1, 1));
+    ASSERT_EQ(scalarToDom(0.f), consequence2.getVal(1, 2));
 }

@@ -24,14 +24,12 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #define LFLLRULESENGINE_H
 
 #include <lfll/LFLLDefinitions.h>
-#include <lfll/LFLLMembership.h>
 #include <lfll/LFLLRule.h>
-#include <lfll/LFLLConsequence.h>
 #include <lfll/LFLLMaxOperator.h>
 #include <lfll/LFLLMinOperator.h>
 #include <lfll/LFLLComplementOperator.h>
+#include <lfll/LFLLStaticAssert.h>
 #include <lfll/detail/LFLLRulesEngineDetail.h>
-
 
 
 LFLL_BEGIN_NAMESPACE
@@ -57,12 +55,13 @@ class LFLLRulesEngine
 public:
     LFLLRulesEngine(const LFLLRules<NI, NR, NO>& rules);
 
+    template <class AntecedentTuple, class ConsequenceTuple>
     void applyRules(
-        const LFLLMembershipBase* antecedents[NI],
-        LFLLConsequenceBase* consequences[NO]) const;
+        const AntecedentTuple& antecedents,
+        ConsequenceTuple& consequences) const;
 
 private:
-    const detail::LFLLRulesEngine<NR, NI, NR, NO,
+    const detail::LFLLRulesEngineImpl<NR, NI, NR, NO,
         AndOperator, OrOperator, NotOperator> m_detailEngine;
 };
 
@@ -85,11 +84,19 @@ inline LFLLRulesEngine<NI, NR, NO,
 
 template<size_t NI, size_t NR, size_t NO,
     class AndOperator, class OrOperator, class NotOperator>
+template <class AntecedentTuple, class ConsequenceTuple>
 inline void LFLLRulesEngine<NI, NR, NO,
     AndOperator, OrOperator, NotOperator>::applyRules(
-    const LFLLMembershipBase* antecedents[NI],
-    LFLLConsequenceBase* consequences[NO]) const
+    const AntecedentTuple& antecedents,
+    ConsequenceTuple& consequences) const
 {
+    LFLL_STATIC_ASSERT(
+        AntecedentTuple::tupleSize == NI,
+        antecedents_size_is_not_valid);
+    LFLL_STATIC_ASSERT(
+        ConsequenceTuple::tupleSize == NO,
+        antecedents_size_is_not_valid);
+
     m_detailEngine.applyRules(antecedents, consequences);
 }
 

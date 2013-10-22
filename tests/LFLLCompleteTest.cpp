@@ -96,18 +96,24 @@ TEST(LFLLCompleteTest, LFLLComplete)
 
     // Work
 
-    LFLLMembership<NTI1> degrees1 = inputFuzzifier1.fuzzifyVariable(.2f);
-    LFLLMembership<NTI2> degrees2 = inputFuzzifier2.fuzzifyVariable(.3f);
+    const LFLLMembership<NTI1> degrees1 = inputFuzzifier1.fuzzifyVariable(.2f);
+    const LFLLMembership<NTI2> degrees2 = inputFuzzifier2.fuzzifyVariable(.3f);
 
     LFLLConsequence<NR, NTO> consequence;
 
-    const LFLLMembershipBase* antecedents[NI] = {
-        &degrees1, &degrees2
-    };
+    typedef LFLLTuple<
+            const LFLLMembership<NTI1>,
+            const LFLLMembership<NTI2> >
+            AntecedentTuple;
 
-    LFLLConsequenceBase* consequences[NO] = {
-        &consequence
-    };
+    typedef LFLLTuple<
+            LFLLConsequence<NR, NTO> >
+            ConsequenceTuple;
+
+    const AntecedentTuple antecedents =
+            makeLFLLTuple(degrees1, degrees2);
+    ConsequenceTuple consequences =
+            makeLFLLTuple(consequence);
 
     rulesEngine.applyRules(antecedents, consequences);
 

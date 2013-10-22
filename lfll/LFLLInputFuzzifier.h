@@ -49,7 +49,7 @@ public:
      * @param input The input variable
      * @return
      */
-    LFLLMembership<InputTermsType::tuple_size>
+    LFLLMembership<InputTermsType::tupleSize>
             fuzzifyVariable(scalar input) const;
 
 private:
@@ -59,7 +59,7 @@ private:
         static void iterate(
             const InputTermsType* terms,
             scalar input,
-            LFLLMembership<InputTermsType::tuple_size>& result)
+            LFLLMembership<InputTermsType::tupleSize>& result)
         {
             result.setVal(I-1, terms->get<I-1>()->membership(input));
             Iterator<I-1>::iterate(terms, input, result);
@@ -72,7 +72,7 @@ private:
         static void iterate(
              const InputTermsType*,
              scalar,
-             LFLLMembership<InputTermsType::tuple_size>&)
+             LFLLMembership<InputTermsType::tupleSize>&)
         {}
     };
 
@@ -94,12 +94,12 @@ inline LFLLInputFuzzifier<InputTermsType>::
 
 
 template <class InputTermsType>
-inline LFLLMembership<InputTermsType::tuple_size>
+inline LFLLMembership<InputTermsType::tupleSize>
     LFLLInputFuzzifier<InputTermsType>::fuzzifyVariable(
         scalar input) const
 {
-    LFLLMembership<InputTermsType::tuple_size> result;
-    Iterator<InputTermsType::tuple_size>::iterate(m_terms, input, result);
+    LFLLMembership<InputTermsType::tupleSize> result;
+    Iterator<InputTermsType::tupleSize>::iterate(m_terms, input, result);
     return result;
 }
 

@@ -80,10 +80,11 @@ inline scalar LFLLSugenoDefuzzifier<NR, NT>::defuzzifyConsequence(
         const scalar termValue = m_crispValues.values[termIndex];
         for (size_t ruleIndex = 0 ; ruleIndex < NR ; ++ruleIndex)
         {
-            const dom ruleValue = consequence.membershipValue(termIndex,
-                ruleIndex);
+            const dom ruleValue = consequence.getVal(
+                        termIndex, ruleIndex);
             if (ruleValue != MIN_DOM) {
-                const scalar ruleValueScalar = math::domToScalar(ruleValue);
+                const scalar ruleValueScalar =
+                        math::domToScalar(ruleValue);
                 numerator += ruleValueScalar * termValue;
                 denominator += ruleValueScalar;
             }

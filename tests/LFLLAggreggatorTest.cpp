@@ -37,13 +37,13 @@ TEST(LFLLAggregatorTest, Agregator)
 
     LFLLConsequence<NR, NT> consequence;
 
-    consequence.membershipValue(0, 0) = scalarToDom(0.25f);
-    consequence.membershipValue(0, 1) = scalarToDom(0.f);
-    consequence.membershipValue(0, 2) = scalarToDom(0.f);
+    consequence.getVal(0, 0) = scalarToDom(0.25f);
+    consequence.getVal(0, 1) = scalarToDom(0.f);
+    consequence.getVal(0, 2) = scalarToDom(0.f);
 
-    consequence.membershipValue(1, 0) = scalarToDom(0.f);
-    consequence.membershipValue(1, 1) = scalarToDom(0.75f);
-    consequence.membershipValue(1, 2) = scalarToDom(0.10f);
+    consequence.getVal(1, 0) = scalarToDom(0.f);
+    consequence.getVal(1, 1) = scalarToDom(0.75f);
+    consequence.getVal(1, 2) = scalarToDom(0.10f);
 
     LFLLMembership<NT> membership = aggregator.aggregateConsequence(consequence);
 

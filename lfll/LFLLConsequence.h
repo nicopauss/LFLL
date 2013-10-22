@@ -23,24 +23,12 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #ifndef LFLLCONSEQUENCE_H
 #define LFLLCONSEQUENCE_H
 
-#include <lfll/LFLLMembership.h>
+#include <cstring>
+#include <cassert>
+
+#include <lfll/LFLLDefinitions.h>
 
 LFLL_BEGIN_NAMESPACE
-
-
-/**
-  * Abstract base of templated consequence.
-  */
-class LFLLConsequenceBase
-{
-public:
-    virtual size_t getNbTerms() const = 0;
-    virtual size_t getNbRules() const = 0;
-    virtual LFLLMembershipBase* termMembership(size_t term) = 0;
-    virtual const LFLLMembershipBase* termMembership(size_t term) const = 0;
-    virtual dom& membershipValue(size_t term, size_t rule) = 0;
-    virtual dom membershipValue(size_t term, size_t rule) const = 0;
-};
 
 
 /**
@@ -48,45 +36,63 @@ public:
   * Destined to be dufuzzified or aggregated.
   */
 template <size_t NR, size_t NT>
-class LFLLConsequence : public LFLLConsequenceBase
+class LFLLConsequence
 {
 public:
     static const size_t nbTerms = NT;
     static const size_t nbRules = NR;
-public:
 
-    virtual inline size_t getNbTerms() const
+public:
+    LFLLConsequence()
+    {
+        memset(m_values, 0, sizeof(m_values));
+    }
+
+    inline size_t getNbTerms() const
     {
         return NT;
     }
 
-    virtual inline size_t getNbRules() const
+    inline size_t getNbRules() const
     {
         return NR;
     }
 
-    virtual inline LFLLMembershipBase* termMembership(size_t term)
+    inline dom* operator[](size_t term)
     {
-        return &(m_memberships[term]);
+        assert(term < NT);
+        return m_values[term];
     }
 
-    virtual inline const LFLLMembershipBase* termMembership(size_t term) const
+    inline const dom* operator[](size_t term) const
     {
-        return &(m_memberships[term]);
+        assert(term < NT);
+        return m_values[term];
     }
 
-    virtual inline dom& membershipValue(size_t term, size_t rule)
+    inline dom& getVal(size_t term, size_t rule)
     {
-        return m_memberships[term][rule];
+        assert(term < NT);
+        assert(rule < NR);
+        return m_values[term][rule];
     }
 
-    virtual inline dom membershipValue(size_t term, size_t rule) const
+    inline dom getVal(size_t term, size_t rule) const
     {
-        return m_memberships[term][rule];
+        assert(term < NT);
+        assert(rule < NR);
+        return m_values[term][rule];
+    }
+
+    inline void setVal(size_t term, size_t rule, dom val)
+    {
+        assert(term < NT);
+        assert(rule < NR);
+        m_values[term][rule] = val;
     }
 
 private:
-    LFLLMembership<NR> m_memberships[NT];
+    dom m_values[NT][NR];
 };
 
 LFLL_END_NAMESPACE

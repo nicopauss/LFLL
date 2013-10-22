@@ -24,21 +24,21 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #define LFLLRULESENGINESPEC_H
 
 #include <lfll/LFLLDefinitions.h>
-#include <lfll/LFLLMembership.h>
 #include <lfll/LFLLRule.h>
-#include <lfll/LFLLConsequence.h>
+#include <lfll/LFLLStaticAssert.h>
+
 
 LFLL_BEGIN_NAMESPACE
 
-// You should not use these structs but use LFLLRulesEngine instead.
+// You should not use these structs but use LFLLRulesEng ine instead.
 
 namespace detail
 {
 
 
- /**
- *  Calculate consequence of rule for the input InputIndex
- */
+/**
+*  Calculate consequence of rule for the input InputIndex
+*/
 template<size_t InputIndex,
          size_t NI,
          size_t NR,
@@ -69,16 +69,17 @@ public:
     {}
 
 
+    template <class AntecedentTuple>
     inline dom calculateAntecedent(
-        const LFLLMembershipBase* antecedents[NI]) const
+        const AntecedentTuple& antecedents) const
     {
         if (m_ignore) {
             return m_prevAntecedent.calculateAntecedent(antecedents);
         }
 
         const dom val = m_useNotOp ?
-            m_notOp(antecedents[InputIndex-1]->getVal(m_membershipIndex)) :
-            antecedents[InputIndex-1]->getVal(m_membershipIndex);
+            m_notOp(antecedents.get<InputIndex-1>()->getVal(m_membershipIndex)) :
+            antecedents.get<InputIndex-1>()->getVal(m_membershipIndex);
 
         if (m_prevAntecedent.hasPrevValue()) {
             if (m_useOrOp) {
@@ -97,8 +98,7 @@ public:
 
     inline bool hasPrevValue() const
     {
-        return m_prevAntecedent.hasPrevValue() ||
-            !m_ignore;
+        return m_prevAntecedent.hasPrevValue() || !m_ignore;
     }
 
 private:
@@ -126,9 +126,9 @@ public:
     LFLLAntecedentEngine(const LFLLRule<NI, NO>&)
     {}
 
-
+    template <class AntecedentTuple>
     inline dom calculateAntecedent(
-        const LFLLMembershipBase* antecedents[NI]) const
+        const AntecedentTuple&) const
     {
         return MIN_DOM;
     }
@@ -170,9 +170,10 @@ public:
     {}
 
 
+    template <class ConsequenceTuple>
     inline void setConsequences(
         const dom val,
-        LFLLConsequenceBase* consequences[NO]) const
+        ConsequenceTuple& consequences) const
     {
         // Apply previous consequence
         m_prevConsequence.setConsequences(val, consequences);
@@ -182,11 +183,11 @@ public:
         }
 
         if (m_useNotOp) {
-            consequences[OutputIndex-1]->membershipValue(
-                m_membershipIndex, RuleIndex-1) = m_notOp(val);
+            consequences.get<OutputIndex-1>()->setVal(
+                m_membershipIndex, RuleIndex-1, m_notOp(val));
         } else {
-            consequences[OutputIndex-1]->membershipValue(
-                m_membershipIndex, RuleIndex-1) = val;
+            consequences.get<OutputIndex-1>()->setVal(
+                m_membershipIndex, RuleIndex-1, val);
         }
     }
 
@@ -213,9 +214,10 @@ public:
     LFLLConsequenceEngine(const LFLLRule<NI, NO>& rule)
     {}
 
+    template <class ConsequenceTuple>
     inline void setConsequences(
-        const dom val,
-        LFLLConsequenceBase* consequences[NO]) const
+        const dom,
+        ConsequenceTuple&) const
     {}
 };
 
@@ -231,19 +233,20 @@ template<size_t RuleIndex,
          class AndOp,
          class OrOp,
          class NotOp>
-class LFLLRulesEngine
+class LFLLRulesEngineImpl
 {
 public:
-    inline LFLLRulesEngine(const LFLLRules<NI, NR, NO>& rules)
+    inline LFLLRulesEngineImpl(const LFLLRules<NI, NR, NO>& rules)
         : m_prevRule(rules)
         , m_ancededents(rules.rules[RuleIndex-1])
         , m_consequences(rules.rules[RuleIndex-1])
         , m_weight(rules.rules[RuleIndex-1].weight)
     {}
 
+    template <class AntecedentTuple, class ConsequenceTuple>
     inline void applyRules(
-        const LFLLMembershipBase* antecedents[NI],
-        LFLLConsequenceBase* consequences[NO]) const
+         const AntecedentTuple& antecedents,
+         ConsequenceTuple& consequences) const
     {
         // Apply previous rule
         m_prevRule.applyRules(antecedents, consequences);
@@ -257,7 +260,7 @@ public:
     }
 
 private:
-    const LFLLRulesEngine<RuleIndex-1, NI, NR, NO, AndOp, OrOp, NotOp>
+    const LFLLRulesEngineImpl<RuleIndex-1, NI, NR, NO, AndOp, OrOp, NotOp>
         m_prevRule;
     const LFLLAntecedentEngine<NI, NI, NR, NO, AndOp, OrOp, NotOp>
         m_ancededents;
@@ -275,15 +278,16 @@ template<size_t NI,
          class AndOp,
          class OrOp,
          class NotOp>
-class LFLLRulesEngine<0, NI, NR, NO, AndOp, OrOp, NotOp>
+class LFLLRulesEngineImpl<0, NI, NR, NO, AndOp, OrOp, NotOp>
 {
 public:
-    inline LFLLRulesEngine(const LFLLRules<NI, NR, NO>&)
+    inline LFLLRulesEngineImpl(const LFLLRules<NI, NR, NO>&)
     {}
 
+    template <class AntecedentTuple, class ConsequenceTuple>
     inline void applyRules(
-        const LFLLMembershipBase* antecedents[NI],
-        LFLLConsequenceBase* consequences[NO]) const
+         const AntecedentTuple&,
+         ConsequenceTuple&) const
     {}
 };
 

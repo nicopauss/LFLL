@@ -61,7 +61,7 @@ class LFLLTuple
     getLFLLTuple(const LFLLTuple<$useClassAlter>& tuple);
 
 public:
-    static const size_t tuple_size = detail::LFLLTupleImpl<$useClassAll>::tuple_size;
+    static const size_t tupleSize = detail::LFLLTupleImpl<$useClassAll>::tupleSize;
 
 public:
     LFLLTuple($argsPtrWithTypeAndDefault)
@@ -70,7 +70,7 @@ public:
 	
     size_t size() const
     {
-        return tuple_size;
+        return tupleSize;
     }
 
     template <size_t I>
@@ -221,7 +221,7 @@ template <size_t I, $defClassAll>
 class LFLLTupleElement : public LFLLTupleElement<I+1, $useClassWithoutFirst, null_type>
 {
 public:
-    static const size_t tuple_size = 1 + LFLLTupleElement<I+1, $useClassWithoutFirst, null_type>::tuple_size;
+    static const size_t tupleSize = 1 + LFLLTupleElement<I+1, $useClassWithoutFirst, null_type>::tupleSize;
 public:
     LFLLTupleElement($argsPtrWithType)
         : LFLLTupleElement<I+1, $useClassWithoutFirst, null_type>(
@@ -247,7 +247,7 @@ template <size_t I, $defClassWithoutFirst>
 class LFLLTupleElement<I, null_type, $useClassWithoutFirst>
 {
 public:
-    static const size_t tuple_size = 0;
+    static const size_t tupleSize = 0;
 public:
     LFLLTupleElement(null_type*, $argsTypeWithoutFirst)
     {}
@@ -279,7 +279,7 @@ template <$defClassAll>
 class LFLLTupleImpl : public LFLLTupleElement<0, $useClassAll>
 {
 public:
-    static const size_t tuple_size = LFLLTupleElement<0, $useClassAll>::tuple_size;
+    static const size_t tupleSize = LFLLTupleElement<0, $useClassAll>::tupleSize;
 
 public:
     LFLLTupleImpl($argsPtrWithType)

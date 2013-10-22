@@ -30,19 +30,6 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 LFLL_BEGIN_NAMESPACE
 
-/**
-  * Abstract class of templated LFLLMembership
-  */
-class LFLLMembershipBase
-{
-public:
-    virtual dom& operator[](size_t index) = 0;
-    virtual dom operator[](size_t index) const = 0;
-    virtual dom getVal(size_t index) const = 0;
-    virtual void setVal(size_t index, dom val) = 0;
-    virtual size_t getNbTerms() const = 0;
-};
-
 
 /**
 * Represent the degrees of membership for each terms for a variable.
@@ -50,32 +37,35 @@ public:
 * NT define the number of terms.
 */
 template <size_t NT>
-class LFLLMembership : public LFLLMembershipBase
+class LFLLMembership
 {
+public:
     static const size_t nbTerms = NT;
 
 public:
     LFLLMembership()
-    {
-        memset(m_array, MIN_DOM, sizeof(dom) * NT);
-    }
+    {}
 
     LFLLMembership(const LFLLMembership<NT>& o)
     {
-        memcpy(m_array, o.m_array, sizeof(dom) * NT);
+        memcpy(m_array, o.m_array, sizeof(m_array));
     }
 
     LFLLMembership(const dom array[NT])
     {
-        memcpy(m_array, array, sizeof(dom) * NT);
+        memcpy(m_array, array, sizeof(m_array));
     }
 
     LFLLMembership& operator=(const LFLLMembership<NT>& o)
     {
-        memcpy(m_array, o.m_array, sizeof(dom) * NT);
+        memcpy(m_array, o.m_array, sizeof(m_array));
         return *this;
     }
 
+    inline size_t getNbTerms() const
+    {
+        return NT;
+    }
 
     inline dom& operator[](size_t index)
     {
@@ -89,18 +79,22 @@ public:
         return m_array[index];
     }
 
-    inline dom getVal(size_t index) const {
+    inline dom& getVal(size_t index)
+    {
         assert(index < NT);
         return m_array[index];
     }
 
-    inline void setVal(size_t index, dom val) {
+    inline dom getVal(size_t index) const
+    {
         assert(index < NT);
-        m_array[index] = val;
+        return m_array[index];
     }
 
-    inline size_t getNbTerms() const {
-        return NT;
+    inline void setVal(size_t index, dom val)
+    {
+        assert(index < NT);
+        m_array[index] = val;
     }
 
 private:

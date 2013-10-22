@@ -96,13 +96,20 @@ scalar ExampleLFLLEngine::process(scalar input1, scalar input2)
     // Initalise consequences
     LFLLConsequence<NbRules, NbTermsForOutput1> consequence;
 
-    const LFLLMembershipBase* antecedents[NbInput] = {
-        &degrees1, &degrees2
-    };
+    // Tuples initialisation
+    typedef LFLLTuple<
+            const LFLLMembership<NbTermsForInput1>,
+            const LFLLMembership<NbTermsForInput2> >
+            AntecedentTuple;
 
-    LFLLConsequenceBase* consequences[NbOutput] = {
-        &consequence
-    };
+    typedef LFLLTuple<
+            LFLLConsequence<NbRules, NbTermsForOutput1> >
+            ConsequenceTuple;
+
+    const AntecedentTuple antecedents =
+            makeLFLLTuple(degrees1, degrees2);
+    ConsequenceTuple consequences =
+            makeLFLLTuple(consequence);
 
 
     // Apply rules
