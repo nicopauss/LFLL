@@ -45,7 +45,7 @@ public:
 public:
     LFLLConsequence()
     {
-        memset(m_values, 0, sizeof(m_values));
+        memset(m_values, MIN_DOM, sizeof(m_values));
     }
 
     inline size_t getNbTerms() const

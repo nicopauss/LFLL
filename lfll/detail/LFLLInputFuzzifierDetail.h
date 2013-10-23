@@ -20,40 +20,68 @@ COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
 IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
-#ifndef LFLLINPUTFUZZIFIER_H
-#define LFLLINPUTFUZZIFIER_H
+#ifndef LFLLINPUTFUZZIFIERDETAIL_H
+#define LFLLINPUTFUZZIFIERDETAIL_H
 
 #include <lfll/LFLLDefinitions.h>
 #include <lfll/LFLLMembership.h>
 
-#include <lfll/detail/LFLLInputFuzzifierDetail.h>
-
 LFLL_BEGIN_NAMESPACE
+
+namespace detail {
+
+template <class InputTermsType, size_t I>
+struct LFLLInputFuzzifierImplIterator
+{
+	static void iterate(
+        const InputTermsType* terms,
+        scalar input,
+        LFLLMembership<InputTermsType::tupleSize>& result)
+    {
+        result.setVal(I-1, terms->get<I-1>()->membership(input));
+        LFLLInputFuzzifierImplIterator<InputTermsType, I-1>::iterate(terms, input, result);
+    }
+};
+
+template <class InputTermsType>
+struct LFLLInputFuzzifierImplIterator<InputTermsType, 0>
+{
+	static void iterate(
+        const InputTermsType*,
+        scalar,
+        LFLLMembership<InputTermsType::tupleSize>&)
+    {}
+};
 
 
 template <class InputTermsType>
-class LFLLInputFuzzifier {
+class LFLLInputFuzzifierImpl
+{
 public:
-    /**
-     * @brief Constructor
-     * @param terms Terms of the input variable.
-     * @warning The variable terms must have the same or greater lifespan than
-     *  this object.
-     */
-    LFLLInputFuzzifier(const InputTermsType& terms)
-		: m_impl(terms)
+
+    LFLLInputFuzzifierImpl(const InputTermsType& terms)
+		: m_terms(&terms)
 	{}
 
+    /**
+     * @brief fuzzifyVariable
+     * @param input The input variable
+     * @return
+     */
     LFLLMembership<InputTermsType::tupleSize>
             fuzzifyVariable(scalar input) const
 	{
-		return m_impl.fuzzifyVariable(input);
+		LFLLMembership<InputTermsType::tupleSize> result;
+		LFLLInputFuzzifierImplIterator<InputTermsType, InputTermsType::tupleSize>::
+			iterate(m_terms, input, result);
+		return result;
 	}
 
 private:
-    const detail::LFLLInputFuzzifierImpl<InputTermsType> m_impl;
+    const InputTermsType* m_terms;
 };
 
+}
 LFLL_END_NAMESPACE
 
-#endif //LFLLINPUTFUZZIFIER_H
+#endif //LFLLINPUTFUZZIFIERDETAIL_H

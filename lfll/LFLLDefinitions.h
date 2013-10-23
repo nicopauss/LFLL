@@ -23,14 +23,13 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #ifndef LFLLDEFINITIONS_H
 #define LFLLDEFINITIONS_H
 
-#include <lfll/LFLLConfig.h>
+#include <stdint.h>
 
 #include <cstring>
 
-#define __STDC_LIMIT_MACROS
-#include <climits>
+#include <limits>
 
-#include <stdint.h>
+#include <lfll/LFLLConfig.h>
 
 /************************************************************************/
 /* Namespace definition */
@@ -114,21 +113,14 @@ LFLL_BEGIN_NAMESPACE
     /* DOM Def */
     /************************************************************************/
 
-#if defined(LFLL_USE_U8_DOM)
-    const dom MAX_DOM = UINT8_MAX;
+#if defined(LFLL_USE_U8_DOM) || defined(LFLL_USE_U16_DOM) || defined(LFLL_USE_U32_DOM)
+    const dom MAX_DOM = static_cast<dom>(-1);
     const dom MIN_DOM = 0;
-#elif defined(LFLL_USE_U16_DOM)
-    const dom MAX_DOM = UINT16_MAX;
-    const dom MIN_DOM = 0;
-#elif defined(LFLL_USE_U32_DOM)
-    const dom MAX_DOM = UINT32_MAX;
-    const dom MIN_DOM = 0;
-#else
-#error Unknown defined dom type
+#else    
+	const dom MAX_DOM = std::numeric_limits<dom>::max();
+    const dom MIN_DOM = std::numeric_limits<dom>::min();
 #endif
-
     const dom DOM_DIFF = MAX_DOM - MIN_DOM;
-
 
 
     /************************************************************************/
