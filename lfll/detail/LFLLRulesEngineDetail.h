@@ -26,11 +26,12 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include <lfll/LFLLDefinitions.h>
 #include <lfll/LFLLRule.h>
 #include <lfll/LFLLStaticAssert.h>
+#include <lfll/LFLLTuple.h>
 
 
 LFLL_BEGIN_NAMESPACE
 
-// You should not use these structs but use LFLLRulesEng ine instead.
+// You should not use these structs but use LFLLRulesEngine instead.
 
 namespace detail
 {
@@ -78,8 +79,9 @@ public:
         }
 
         const dom val = m_useNotOp ?
-            m_notOp(antecedents.get<InputIndex-1>()->getVal(m_membershipIndex)) :
-            antecedents.get<InputIndex-1>()->getVal(m_membershipIndex);
+            m_notOp(getLFLLTuple<InputIndex-1>(antecedents)
+                    ->getVal(m_membershipIndex)) :
+            getLFLLTuple<InputIndex-1>(antecedents)->getVal(m_membershipIndex);
 
         if (m_prevAntecedent.hasPrevValue()) {
             if (m_useOrOp) {
@@ -183,10 +185,10 @@ public:
         }
 
         if (m_useNotOp) {
-            consequences.get<OutputIndex-1>()->setVal(
+            getLFLLTuple<OutputIndex-1>(consequences)->setVal(
                 m_membershipIndex, RuleIndex-1, m_notOp(val));
         } else {
-            consequences.get<OutputIndex-1>()->setVal(
+            getLFLLTuple<OutputIndex-1>(consequences)->setVal(
                 m_membershipIndex, RuleIndex-1, val);
         }
     }

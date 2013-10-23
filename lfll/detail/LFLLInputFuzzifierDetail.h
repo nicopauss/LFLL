@@ -25,6 +25,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #include <lfll/LFLLDefinitions.h>
 #include <lfll/LFLLMembership.h>
+#include <lfll/LFLLTuple.h>
 
 LFLL_BEGIN_NAMESPACE
 
@@ -38,7 +39,7 @@ struct LFLLInputFuzzifierImplIterator
         scalar input,
         LFLLMembership<InputTermsType::tupleSize>& result)
     {
-        result.setVal(I-1, terms->get<I-1>()->membership(input));
+        result.setVal(I-1, getLFLLTuple<I-1>(*terms)->membership(input));
         LFLLInputFuzzifierImplIterator<InputTermsType, I-1>::iterate(terms, input, result);
     }
 };

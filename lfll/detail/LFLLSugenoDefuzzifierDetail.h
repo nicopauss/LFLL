@@ -27,6 +27,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include <lfll/LFLLDefinitions.h>
 #include <lfll/LFLLMath.h>
 #include <lfll/LFLLConsequence.h>
+#include <lfll/LFLLTuple.h>
 
 LFLL_BEGIN_NAMESPACE
 
@@ -48,7 +49,7 @@ struct LFLLSugenoDefuzzifierWeightedAverageIterator
             terms, inputs, consequence,
             numerator, denominator);
         const scalar termValue =
-            terms->get<TermIndex-1>()->computeTermValue(inputs);
+            getLFLLTuple<TermIndex-1>(*terms)->computeTermValue(inputs);
         for (size_t ruleIndex = 0 ; ruleIndex < NR ; ++ruleIndex)
         {
             const dom ruleValue = consequence.getVal(
@@ -103,7 +104,7 @@ public:
                     numerator, denominator);
 
         if (math::isEqualTo(denominator, ZERO_SCALAR)) {
-            return m_terms->get<0>()->computeTermValue(inputs);
+            return getLFLLTuple<0>(*m_terms)->computeTermValue(inputs);
         }
 
         return numerator / denominator;
@@ -130,7 +131,7 @@ struct LFLLSugenoDefuzzifierWeightedSumIterator
         LFLLSugenoDefuzzifierWeightedSumIterator<TermTuple, TermIndex-1>::iterate(
             terms, inputs, consequence, numerator);
         const scalar termValue =
-            terms->get<TermIndex-1>()->computeTermValue(inputs);
+            getLFLLTuple<TermIndex-1>(*terms)->computeTermValue(inputs);
         for (size_t ruleIndex = 0 ; ruleIndex < NR ; ++ruleIndex)
         {
             const dom ruleValue = consequence.getVal(
