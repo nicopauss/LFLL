@@ -28,6 +28,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include <lfll/LFLLInputFuzzifier.h>
 #include <lfll/LFLLRulesEngine.h>
 #include <lfll/LFLLSugenoDefuzzifier.h>
+#include <lfll/LFLLSugenoTerms.h>
 #include <lfll/LFLLTuple.h>
 
 #include "ExampleLFLLEngine.h"
@@ -48,6 +49,10 @@ namespace {
     const LFLLTriangle t2X(-0.4f, 0.0f, 0.6f);
     const LFLLPiShape  t2Y(0.0f, 0.2f, 0.6f, 1.0f);
 
+    const LFLLSugenoZeroOrderTerm o1 = {0.0f};
+    const LFLLSugenoZeroOrderTerm o2 = {0.75f};
+    const LFLLSugenoZeroOrderTerm o3 = {1.0f};
+
     const LFLLRules<NbInput, NbRules, NbOutput> rules = {{
         // If A and X then O1 with 1.0
         {{1, 1}, {1}, 1.f, false},
@@ -65,12 +70,6 @@ namespace {
         {{2, 2}, {2}, .5, false}
     }};
 
-    const LFLLSugenoCrispValues<NbTermsForOutput1> crispValues = {{
-        0.0f,  // Output O1
-        0.75f, // Output O2
-        1.0f   // Output O3
-    }};
-
 
     typedef LFLLTuple<const LFLLTriangle, const LFLLTriangle, const LFLLPiShape> Input1Types;
     typedef LFLLTuple<const LFLLTriangle, const LFLLPiShape> Input2Types;
@@ -78,20 +77,28 @@ namespace {
     const Input1Types inputTerms1 = makeLFLLTuple(t1A, t1B, t1C);
     const Input2Types inputTerms2 = makeLFLLTuple(t2X, t2Y);
 
+    typedef LFLLTuple<
+            const LFLLSugenoZeroOrderTerm,
+            const LFLLSugenoZeroOrderTerm,
+            const LFLLSugenoZeroOrderTerm> OutputTermTuple;
+
+    const OutputTermTuple outputTerms = makeLFLLTuple(o1, o2, o3);
+
+
     const LFLLInputFuzzifier<Input1Types> inputFuzzifier1(inputTerms1);
     const LFLLInputFuzzifier<Input2Types> inputFuzzifier2(inputTerms2);
     const LFLLRulesEngine<NbInput, NbRules, NbOutput> rulesEngine(rules);
-    const LFLLSugenoDefuzzifier<NbRules, NbTermsForOutput1> defuzzifier(crispValues);
+    const LFLLSugenoDefuzzifier<OutputTermTuple> defuzzifier(outputTerms);
 }
 
 
-scalar ExampleLFLLEngine::process(scalar input1, scalar input2)
+scalar ExampleLFLLEngine::process(const scalar inputs[])
 {
     // Fuzzify inputs
     const LFLLMembership<NbTermsForInput1> degrees1 =
-        inputFuzzifier1.fuzzifyVariable(input1);
+            inputFuzzifier1.fuzzifyVariable(inputs[0]);
     const LFLLMembership<NbTermsForInput2> degrees2 =
-        inputFuzzifier2.fuzzifyVariable(input2);
+            inputFuzzifier2.fuzzifyVariable(inputs[1]);
 
     // Initalise consequences
     LFLLConsequence<NbRules, NbTermsForOutput1> consequence;
@@ -116,5 +123,5 @@ scalar ExampleLFLLEngine::process(scalar input1, scalar input2)
     rulesEngine.applyRules(antecedents, consequences);
 
     // Defuzzify consequence
-    return defuzzifier.defuzzifyConsequence(consequence);
+    return defuzzifier.defuzzifyConsequence(inputs, consequence);
 }

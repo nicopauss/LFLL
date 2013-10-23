@@ -74,10 +74,11 @@ int main(int argc, char* argv[])
 scalar processValueWithLoop(scalar val1, scalar val2, int nbProcess)
 {
     scalar result;
+    scalar inputs[2] = {val1, val2};
 
 #pragma omp parallel for shared(result)
     for (int i = 0 ; i < nbProcess ; ++i) {
-        result = ExampleLFLLEngine::process(val1, val2);
+        result = ExampleLFLLEngine::process(inputs);
     }
 
     return result;

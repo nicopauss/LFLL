@@ -21,15 +21,19 @@ IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 #include <lfll/LFLLSugenoDefuzzifier.h>
+#include <lfll/LFLLMath.h>
 
 #include "LFLLTests.h"
 
 using namespace math;
+/*
 
 TEST(LFLLSugenoDefuzzifierTest, Test1)
 {
     const size_t NR = 3;
     const size_t NT = 2;
+
+    scalar inputs[3] = {0.f, 0.4f, 5.f};
 
     const LFLLSugenoCrispValues<NT> crispValues = {{
         0.5f,
@@ -83,3 +87,4 @@ TEST(LFLLSugenoDefuzzifierTest, Test2)
 
     ASSERT_LFLL_EQ(9.38f, ret);
 }
+*/
