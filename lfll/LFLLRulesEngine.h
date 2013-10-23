@@ -62,7 +62,7 @@ public:
 
 private:
     const detail::LFLLRulesEngineImpl<NR, NI, NR, NO,
-        AndOperator, OrOperator, NotOperator> m_detailEngine;
+        AndOperator, OrOperator, NotOperator> m_impl;
 };
 
 
@@ -78,7 +78,7 @@ template<size_t NI, size_t NR, size_t NO,
 inline LFLLRulesEngine<NI, NR, NO,
     AndOperator, OrOperator, NotOperator>::LFLLRulesEngine(
     const LFLLRules<NI, NR, NO>& rules)
-    : m_detailEngine(rules)
+    : m_impl(rules)
 {}
 
 
@@ -97,7 +97,7 @@ inline void LFLLRulesEngine<NI, NR, NO,
         ConsequenceTuple::tupleSize == NO,
         antecedents_size_is_not_valid);
 
-    m_detailEngine.applyRules(antecedents, consequences);
+    m_impl.applyRules(antecedents, consequences);
 }
 
 
