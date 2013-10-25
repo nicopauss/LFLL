@@ -20,17 +20,6 @@ COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
 IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
-#include <lfll/LFLLMinOperator.h>
-#include <lfll/LFLLMaxOperator.h>
-#include <lfll/LFLLComplementOperator.h>
-#include <lfll/LFLLTriangle.h>
-#include <lfll/LFLLPiShape.h>
-#include <lfll/LFLLInputFuzzifier.h>
-#include <lfll/LFLLRulesEngine.h>
-#include <lfll/LFLLSugenoDefuzzifier.h>
-#include <lfll/LFLLSugenoTerms.h>
-#include <lfll/LFLLTuple.h>
-
 #include "ExampleLFLLEngine.h"
 
 // Unnamed namespace

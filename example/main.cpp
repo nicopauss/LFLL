@@ -51,7 +51,7 @@ scalar processValueWithLoop(scalar val1, scalar val2, int nbProcess);
 int main(int argc, char* argv[])
 {
     // Initialse variables
-    int nbProcess = 1000000;
+    int nbProcess = 10000000;
     scalar val1 = 0.2f;
     scalar val2 = 0.3f;
     scalar result;

@@ -20,22 +20,46 @@ COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
 IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
-#ifndef EXAMPLELFLLENGINE_H
-#define EXAMPLELFLLENGINE_H
+#ifndef LFLLRECTANGLE_H
+#define LFLLRECTANGLE_H
 
-#include <lfll/LFLL.h>
+#include <lfll/engine/LFLLDefinitions.h>
+#include <lfll/engine/LFLLMath.h>
+#include <lfll/terms/LFLLBoundedTerm.h>
 
-class ExampleLFLLEngine
+LFLL_BEGIN_NAMESPACE
+
+/**
+  * Rectangle term
+  *
+  * @f[
+\renewcommand{\arraystretch}{2.25}
+x:R \rightarrow  f(x) = \left \{
+   \begin{array}{cc}
+     0, & x \leq minLim \\
+     1, & minLim < x < maxLim \\
+     0, & x \geq maxLim \\
+   \end{array}
+\right \}
+  * @f]
+  */
+class LFLLRectangle : public LFLLBoundedTerm
 {
 public:
-    /**
-     * Process the inputs using the fuzzy engine
-     */
-    static scalar process(const scalar inputs[]);
+    LFLLRectangle(scalar minLimit, scalar maxLimit)
+        : LFLLBoundedTerm(minLimit, maxLimit)
+    {}
 
-private:
-  ExampleLFLLEngine() {}
+
+    inline dom membership(scalar val) const {
+        if (math::isGreaterOrEqualTo(val, m_minLimit) &&
+            math::isLessOrEqualTo(val, m_maxLimit)) {
+                return MAX_DOM;
+        }
+        return MIN_DOM;
+    }
 };
 
+LFLL_END_NAMESPACE
 
-#endif //EXAMPLELFLLENGINE_H
+#endif //LFLLRECTANGLE_H

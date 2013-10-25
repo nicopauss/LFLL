@@ -20,22 +20,53 @@ COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
 IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
-#ifndef EXAMPLELFLLENGINE_H
-#define EXAMPLELFLLENGINE_H
+#ifndef LFLLLRAMP_H
+#define LFLLLRAMP_H
 
-#include <lfll/LFLL.h>
+#include <lfll/engine/LFLLDefinitions.h>
+#include <lfll/engine/LFLLMath.h>
+#include <lfll/terms/LFLLBoundedTerm.h>
 
-class ExampleLFLLEngine
+LFLL_BEGIN_NAMESPACE
+
+/**
+  * L Ramp term
+  *
+  * @f[
+\renewcommand{\arraystretch}{2.25}
+x:R \rightarrow  f(x) = \left \{
+   \begin{array}{cc}
+     1, & x \leq minLim \\
+     \frac{\displaystyle maxLim - x}{\displaystyle maxLim-minLim}, & minLim < x < maxLim \\
+     0, & x \geq maxLim \\
+   \end{array}
+\right \}
+  * @f]
+  */
+class LFLLLRamp : public LFLLBoundedTerm
 {
 public:
-    /**
-     * Process the inputs using the fuzzy engine
-     */
-    static scalar process(const scalar inputs[]);
+    LFLLLRamp(scalar minLimit, scalar maxLimit)
+        : LFLLBoundedTerm(minLimit, maxLimit)
+        , m_invDifference(ONE_SCALAR / (maxLimit - minLimit))
+    {}
 
-private:
-  ExampleLFLLEngine() {}
+    inline dom membership(scalar val) const
+    {
+        if (math::isLessOrEqualTo(val, m_minLimit)) {
+            return MAX_DOM;
+        } else if (math::isGreaterOrEqualTo(val, m_maxLimit)) {
+            return MIN_DOM;
+        }
+
+        return math::scalarToDom((m_maxLimit - val) * m_invDifference);
+    }
+
+protected:
+    scalar m_invDifference;
 };
 
+LFLL_END_NAMESPACE
 
-#endif //EXAMPLELFLLENGINE_H
+
+#endif //LFLLLRAMP_H

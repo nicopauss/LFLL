@@ -20,22 +20,47 @@ COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
 IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
-#ifndef EXAMPLELFLLENGINE_H
-#define EXAMPLELFLLENGINE_H
+#ifndef LFLLSINGLETON_H
+#define LFLLSINGLETON_H
 
-#include <lfll/LFLL.h>
+#include <lfll/engine/LFLLDefinitions.h>
+#include <lfll/engine/LFLLMath.h>
 
-class ExampleLFLLEngine
+LFLL_BEGIN_NAMESPACE
+
+/**
+  * Singleton Term
+  *
+  * @f[
+\renewcommand{\arraystretch}{2.25}
+x:R \rightarrow  f(x) = \left \{
+   \begin{array}{cc}
+     1, & x = val \\
+     0, & x \neq val \\
+   \end{array}
+\right \}
+  * @f]
+  */
+class LFLLSingleton
 {
 public:
-    /**
-     * Process the inputs using the fuzzy engine
-     */
-    static scalar process(const scalar inputs[]);
 
-private:
-  ExampleLFLLEngine() {}
+    LFLLSingleton(scalar val)
+        : m_val(val)
+    {}
+
+    inline dom membership(scalar val) const
+    {
+        if (math::isEqualTo(val, m_val)) {
+            return MAX_DOM;
+        }
+        return MIN_DOM;
+    }
+protected:
+    scalar m_val;
 };
 
+LFLL_END_NAMESPACE
 
-#endif //EXAMPLELFLLENGINE_H
+
+#endif //LFLLSINGLETON_H

@@ -20,22 +20,43 @@ COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
 IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
-#ifndef EXAMPLELFLLENGINE_H
-#define EXAMPLELFLLENGINE_H
+#ifndef LFLLBOOLEAN_H
+#define LFLLBOOLEAN_H
 
-#include <lfll/LFLL.h>
+#include <lfll/engine/LFLLDefinitions.h>
 
-class ExampleLFLLEngine
+LFLL_BEGIN_NAMESPACE
+
+
+/**
+  * Boolean term.
+  *
+  * @f[
+\renewcommand{\arraystretch}{2.25}
+x:R \rightarrow  f(x) = \left \{
+   \begin{array}{cc}
+     0, & x < 0.5 \\
+     1, & x \geq 0.5 \\
+   \end{array}
+\right \}
+  * @f]
+  */
+class LFLLBoolean
 {
 public:
-    /**
-     * Process the inputs using the fuzzy engine
-     */
-    static scalar process(const scalar inputs[]);
+    LFLLBoolean(bool val)
+        : m_boolVal(val)
+    {}
+
+    inline dom membership(scalar val) const
+    {
+        return ((val >= HALF_SCALAR) == m_boolVal) ? MAX_DOM : MIN_DOM;
+    }
 
 private:
-  ExampleLFLLEngine() {}
+    bool m_boolVal;
 };
 
+LFLL_END_NAMESPACE
 
-#endif //EXAMPLELFLLENGINE_H
+#endif //LFLLBOOLEAN_H

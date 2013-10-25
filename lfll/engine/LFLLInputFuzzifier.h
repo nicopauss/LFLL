@@ -20,22 +20,40 @@ COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
 IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
-#ifndef EXAMPLELFLLENGINE_H
-#define EXAMPLELFLLENGINE_H
+#ifndef LFLLINPUTFUZZIFIER_H
+#define LFLLINPUTFUZZIFIER_H
 
-#include <lfll/LFLL.h>
+#include <lfll/engine/LFLLDefinitions.h>
+#include <lfll/engine/LFLLMembership.h>
 
-class ExampleLFLLEngine
-{
+#include <lfll/engine/detail/LFLLInputFuzzifierDetail.h>
+
+LFLL_BEGIN_NAMESPACE
+
+
+template <class InputTermsType>
+class LFLLInputFuzzifier {
 public:
     /**
-     * Process the inputs using the fuzzy engine
+     * @brief Constructor
+     * @param terms Terms of the input variable.
+     * @warning The variable terms must have the same or greater lifespan than
+     *  this object.
      */
-    static scalar process(const scalar inputs[]);
+    LFLLInputFuzzifier(const InputTermsType& terms)
+		: m_impl(terms)
+	{}
+
+    LFLLMembership<InputTermsType::tupleSize>
+            fuzzifyVariable(scalar input) const
+	{
+		return m_impl.fuzzifyVariable(input);
+	}
 
 private:
-  ExampleLFLLEngine() {}
+    const detail::LFLLInputFuzzifierImpl<InputTermsType> m_impl;
 };
 
+LFLL_END_NAMESPACE
 
-#endif //EXAMPLELFLLENGINE_H
+#endif //LFLLINPUTFUZZIFIER_H

@@ -20,10 +20,6 @@ COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
 IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
-#include <lfll/LFLLAggregator.h>
-#include <lfll/LFLLMaxOperator.h>
-#include <lfll/LFLLMath.h>
-
 #include "LFLLTests.h"
 
 using namespace math;
@@ -33,7 +29,7 @@ TEST(LFLLAggregatorTest, Agregator)
     const size_t NR = 3;
     const size_t NT = 2;
 
-    LFLLAggregator<LFLLMaxOperator> aggregator;
+    LFLLAggregator<LFLLMax> aggregator;
 
     LFLLConsequence<NR, NT> consequence;
 

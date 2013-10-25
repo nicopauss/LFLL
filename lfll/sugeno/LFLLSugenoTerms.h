@@ -20,22 +20,44 @@ COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
 IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
-#ifndef EXAMPLELFLLENGINE_H
-#define EXAMPLELFLLENGINE_H
+#ifndef LFLLSUGENOTERMS_H
+#define LFLLSUGENOTERMS_H
 
-#include <lfll/LFLL.h>
+#include <cassert>
 
-class ExampleLFLLEngine
+#include <lfll/engine/LFLLDefinitions.h>
+
+
+LFLL_BEGIN_NAMESPACE
+
+struct LFLLSugenoZeroOrderTerm
 {
-public:
-    /**
-     * Process the inputs using the fuzzy engine
-     */
-    static scalar process(const scalar inputs[]);
+    scalar value;
 
-private:
-  ExampleLFLLEngine() {}
+    scalar computeTermValue(const scalar[]) const
+    {
+        return value;
+    }
 };
 
 
-#endif //EXAMPLELFLLENGINE_H
+template <size_t NI>
+struct LFLLSugenoFirstOrderTerm
+{
+    scalar values[NI+1];
+
+    scalar computeTermValue(const scalar inputs[NI]) const
+    {
+        scalar result = values[NI];
+        for (size_t i = (NI-1) ; i >=0 ; ++i )
+        {
+            result += values[i] * inputs[i];
+        }
+        return result;
+    }
+};
+
+LFLL_END_NAMESPACE
+
+
+#endif //LFLLSUGENOTERMS_H

@@ -20,22 +20,29 @@ COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
 IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
-#ifndef EXAMPLELFLLENGINE_H
-#define EXAMPLELFLLENGINE_H
+#ifndef LFLLCNORM_H
+#define LFLLCNORM_H
 
-#include <lfll/LFLL.h>
+#include <lfll/engine/LFLLDefinitions.h>
 
-class ExampleLFLLEngine
+LFLL_BEGIN_NAMESPACE
+
+/**
+  * Standard complement operator
+  *
+  * @f[
+\renewcommand{\arraystretch}{2.25}
+x:[0,1] \rightarrow  f(x) = 1 - x
+  * @f]
+  */
+struct LFLLNot
 {
-public:
-    /**
-     * Process the inputs using the fuzzy engine
-     */
-    static scalar process(const scalar inputs[]);
-
-private:
-  ExampleLFLLEngine() {}
+    inline dom operator()(dom val) const {
+        return DOM_DIFF - val;
+    }
 };
 
+LFLL_END_NAMESPACE
 
-#endif //EXAMPLELFLLENGINE_H
+
+#endif //LFLLCNORM_H

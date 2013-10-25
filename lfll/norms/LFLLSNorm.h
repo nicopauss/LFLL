@@ -20,22 +20,24 @@ COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
 IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
-#ifndef EXAMPLELFLLENGINE_H
-#define EXAMPLELFLLENGINE_H
+#ifndef LFLLSNORM_H
+#define LFLLSNORM_H
 
-#include <lfll/LFLL.h>
+#include <lfll/engine/LFLLDefinitions.h>
 
-class ExampleLFLLEngine
+LFLL_BEGIN_NAMESPACE
+
+/**
+  * Standard Max
+  */
+struct LFLLMax
 {
-public:
-    /**
-     * Process the inputs using the fuzzy engine
-     */
-    static scalar process(const scalar inputs[]);
-
-private:
-  ExampleLFLLEngine() {}
+    inline dom operator()(dom val1, dom val2) const {
+        return (val1 < val2) ? val2 : val1;
+    }
 };
 
+LFLL_END_NAMESPACE
 
-#endif //EXAMPLELFLLENGINE_H
+
+#endif //LFLLSNORM_H
