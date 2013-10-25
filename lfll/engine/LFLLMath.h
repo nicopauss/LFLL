@@ -89,6 +89,22 @@ namespace math {
         return (a + precision) >= b;
     }
 
+    /**
+      * Max
+      */
+    inline bool max(const scalar a, const scalar b)
+    {
+        return (a < b) ? b : a;
+    }
+
+    /**
+      * Min
+      */
+    inline bool min(const scalar a, const scalar b)
+    {
+        return (a < b) ? a : b;
+    }
+
 }
 
 LFLL_END_NAMESPACE

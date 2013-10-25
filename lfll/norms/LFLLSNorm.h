@@ -24,18 +24,150 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #define LFLLSNORM_H
 
 #include <lfll/engine/LFLLDefinitions.h>
+#include <lfll/engine/LFLLMath.h>
 
 LFLL_BEGIN_NAMESPACE
 
 /**
   * Standard Max
+  * 
+  * @f[
+\renewcommand{\arraystretch}{2.25}
+a:[0,1], b:[0,1] \rightarrow  f(a, b) = max(a, b)
+  * @f]
   */
 struct LFLLMax
 {
-    inline scalar operator()(scalar val1, scalar val2) const {
-        return (val1 < val2) ? val2 : val1;
+    inline scalar operator()(const scalar a, const scalar b) const {
+        return math::max(a, b);
     }
 };
+
+/**
+  * Probabilistic sum
+  * 
+  * @f[
+\renewcommand{\arraystretch}{2.25}
+a:[0,1], b:[0,1] \rightarrow  f(a, b) = a + b - (a * b)
+  * @f]
+  */
+struct LFLLProbabilisticSum
+{
+    inline scalar operator()(const scalar a, const scalar b) const {
+        return a + b - (a * b);
+    }
+};
+
+/**
+  * Bounded sum
+  * 
+  * @f[
+\renewcommand{\arraystretch}{2.25}
+a:[0,1], b:[0,1] \rightarrow  f(a, b) = max(1, a + b)
+  * @f]
+  */
+struct LFLLBoundedSum
+{
+    inline scalar operator()(const scalar a, const scalar b) const {
+    	return math::max(ONE_SCALAR, a + b);
+    }
+};
+
+/**
+  * Normalized sum
+  * 
+  * @f[
+\renewcommand{\arraystretch}{2.25}
+a:[0,1], b:[0,1] \rightarrow  f(a, b) = (a + b) / max(1, max(a, b))
+  * @f]
+  */
+struct LFLLNormalizedSum
+{
+    inline scalar operator()(const scalar a, const scalar b) const {
+    	return (a + b) / math::max(ONE_SCALAR, math::max(a, b));
+    }
+};
+
+/**
+  * Drastic sum
+  * 
+  * @f[
+\renewcommand{\arraystretch}{2.25}
+a:[0,1], b:[0,1] \rightarrow  f(a, b) = \left \{
+   \begin{array}{cc}
+     b, & a = 0 \\
+     a, & b = 0 \\
+     1, & otherwise \\
+   \end{array}
+\right \}
+  * @f]
+  */
+struct LFLLDrasticSum
+{
+    inline scalar operator()(const scalar a, const scalar b) const {
+    	if (math::isEqualTo(math::min(a, b), ZERO_SCALAR)) {
+    		return math::max(a, b);
+    	}
+    	return ONE_SCALAR;
+    }
+};
+
+/**
+  * Nilpotent max
+  * 
+  * @f[
+\renewcommand{\arraystretch}{2.25}
+a:[0,1], b:[0,1] \rightarrow  f(a, b) = \left \{
+   \begin{array}{cc}
+     max(a, b), & a + b < 1 \\
+     1, & otherwise \\
+   \end{array}
+\right \}
+  * @f]
+  */
+struct LFLLNilpotentMax
+{
+    inline scalar operator()(const scalar a, const scalar b) const {
+    	if ((a + b) < ONE_SCALAR) {
+    		return math::max(a, b);
+    	}
+    	return ONE_SCALAR;
+    }
+};
+
+
+/**
+  * Einstein sum
+  * 
+  * @f[
+\renewcommand{\arraystretch}{2.25}
+a:[0,1], b:[0,1] \rightarrow  f(a, b) = (a + b) / (1 + (a * b))
+  * @f]
+  */
+struct LFLLEinsteinSum
+{
+    inline scalar operator()(const scalar a, const scalar b) const {
+    	return (a + b) / (ONE_SCALAR + (a * b));
+    }
+};
+
+/**
+  * Hamacher sum
+  *
+  * @f[
+\renewcommand{\arraystretch}{2.25}
+a:[0,1], b:[0,1] \rightarrow  f(a, b) = (a + b - 2 * a * b) / (1 - a * b)
+  * @f]
+  */
+struct LFLLHamacherSum
+{
+    inline scalar operator()(const scalar a, const scalar b) const {
+    	const scalar prod = a * b;
+    	return (a + b - (TWO_SCALAR * prod)) / (ONE_SCALAR - prod);
+    }
+};
+
+
 
 LFLL_END_NAMESPACE
 

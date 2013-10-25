@@ -37,8 +37,8 @@ x:[0,1] \rightarrow  f(x) = 1 - x
   */
 struct LFLLNot
 {
-    inline scalar operator()(scalar val) const {
-        return ONE_SCALAR - val;
+    inline scalar operator()(scalar x) const {
+        return ONE_SCALAR - x;
     }
 };
 
