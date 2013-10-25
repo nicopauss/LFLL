@@ -31,123 +31,61 @@ LFLL_BEGIN_NAMESPACE
 
 namespace math {
 
-#if defined(LFLL_USE_SCALAR_DOM)
     /**
-      * Get rounded value
-      * @param sVal Scalar value between 0.0 and 1.0
-      * @param minVal Unsigned min value
-      * @param maxVal Unsigned max value
-      * @return round(sVal * (maxVal - minVal)) + minVal
+      * Get relative value between minVal and maxVal
+      * @param val Scalar value between 0.0 and 1.0
+      * @param minVal Min value
+      * @param maxVal Max value
+      * @return (val * (maxVal - minVal)) + minVal
       */
-    template<typename T>
-    inline T sround(const scalar sVal, const T minVal, const T maxVal)
-    {
-        if (sVal >= ONE_SCALAR) {
-            return maxVal;
-        } else if (sVal <= ZERO_SCALAR) {
-            return minVal;
-        } else {
-            const scalar diffVal = scalar(maxVal - minVal);
-            return static_cast<T>(sVal * diffVal) + minVal;
-        }
-    }
-
-
-    /**
-    * Convert a scalar between 0.0 and 1.0 to dom
-    */
-    inline dom scalarToDom(const scalar val)
+    inline scalar srel(const scalar val, const scalar minVal, const scalar maxVal)
     {
         if (val >= ONE_SCALAR) {
-            return MAX_DOM;
-        } else if (val <= ZERO_SCALAR) {
-            return MIN_DOM;
-        }
-        return static_cast<dom>(val);
-    }
-
-    /**
-    * Convert a dom to a scalar between 0.0 and 1.0
-    */
-    inline scalar domToScalar(const dom val)
-    {
-        return static_cast<scalar>(val);
-    }
-
-#else //defined(LFLL_USE_SCALAR_DOM)
-    /**
-      * Get rounded value
-      * @param sVal Scalar value between 0.0 and 1.0
-      * @param minVal Unsigned min value
-      * @param maxVal Unsigned max value
-      * @return round(sVal * (maxVal - minVal))
-      */
-    template<typename T>
-    inline T sround(const scalar sVal, const T minVal, const T maxVal)
-    {
-        if (sVal >= ONE_SCALAR) {
             return maxVal;
-        } else if (sVal <= ZERO_SCALAR) {
+        } else if (val <= ZERO_SCALAR) {
             return minVal;
         } else {
-            const scalar diffVal = scalar(maxVal - minVal);
-            return static_cast<T>((sVal * diffVal)
-                + HALF_SCALAR) + minVal;
+            return val * (maxVal - minVal) + minVal;
         }
     }
-
-
-    /**
-    * Convert a scalar between 0.0 and 1.0 to dom
-    */
-    inline dom scalarToDom(const scalar val)
-    {
-        return sround<dom>(val, MIN_DOM, MAX_DOM);
-    }
-
-    /**
-    * Convert a dom to a scalar between 0.0 and 1.0
-    */
-    inline scalar domToScalar(const dom val)
-    {
-        return scalar(val) / scalar(DOM_DIFF);
-    }
-
-#endif
-
 
     /**
     * Test if scalar a is less than scalar b with given precision
     */
-    inline bool isLessThan(const scalar a, const scalar b, const scalar precision = SCALAR_DIFF_PRECISION) {
+    inline bool isLessThan(const scalar a, const scalar b,
+                           const scalar precision = SCALAR_DIFF_PRECISION) {
         return (a - precision) < b;
     }
 
     /**
     * Test if scalar a is greater than scalar b with given precision
     */
-    inline bool isGreaterThan(const scalar a, const scalar b, const scalar precision = SCALAR_DIFF_PRECISION) {
+    inline bool isGreaterThan(const scalar a, const scalar b,
+                              const scalar precision = SCALAR_DIFF_PRECISION) {
         return (a + precision) > b;
     }
 
     /**
     * Test if scalar a is equal to scalar b with given precision
     */
-    inline bool isEqualTo(const scalar a, const scalar b, const scalar precision = SCALAR_DIFF_PRECISION) {
+    inline bool isEqualTo(const scalar a, const scalar b,
+                          const scalar precision = SCALAR_DIFF_PRECISION) {
         return (a - precision) <= b && (a + precision) >= b;
     }
 
     /**
     * Test if scalar a is less or equal to scalar b with given precision
     */
-    inline bool isLessOrEqualTo(const scalar a, const scalar b, const scalar precision = SCALAR_DIFF_PRECISION) {
+    inline bool isLessOrEqualTo(const scalar a, const scalar b,
+                                const scalar precision = SCALAR_DIFF_PRECISION) {
         return (a - precision) <= b;
     }
 
     /**
     * Test if scalar a is less or equal to scalar b with given precision
     */
-    inline bool isGreaterOrEqualTo(const scalar a, const scalar b, const scalar precision = SCALAR_DIFF_PRECISION) {
+    inline bool isGreaterOrEqualTo(const scalar a, const scalar b,
+                                   const scalar precision = SCALAR_DIFF_PRECISION) {
         return (a + precision) >= b;
     }
 

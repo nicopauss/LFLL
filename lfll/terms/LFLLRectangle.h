@@ -51,12 +51,12 @@ public:
     {}
 
 
-    inline dom membership(scalar val) const {
+    inline scalar membership(scalar val) const {
         if (math::isGreaterOrEqualTo(val, m_minLimit) &&
             math::isLessOrEqualTo(val, m_maxLimit)) {
-                return MAX_DOM;
+                return ONE_SCALAR;
         }
-        return MIN_DOM;
+        return ZERO_SCALAR;
     }
 };
 

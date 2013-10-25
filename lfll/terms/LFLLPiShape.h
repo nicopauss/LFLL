@@ -59,7 +59,7 @@ public:
         , m_zShape(zMinLim, zMaxLim)
     {}
 
-    inline dom membership(scalar val) const
+    inline scalar membership(scalar val) const
     {
         if (math::isGreaterThan(val, m_sShape.getMaxLimit())) {
             return m_zShape.membership(val);

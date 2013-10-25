@@ -26,7 +26,7 @@ TEST(LFLLBooleanTest, Test1)
 {
     LFLLBoolean booleanLFLL(true);
 
-    ASSERT_EQ(MAX_DOM, booleanLFLL.membership(true));
+    ASSERT_EQ(ONE_SCALAR, booleanLFLL.membership(true));
 }
 
 
@@ -34,14 +34,14 @@ TEST(LFLLBooleanTest, Test2)
 {
     LFLLBoolean booleanLFLL(true);
 
-    ASSERT_EQ(MIN_DOM, booleanLFLL.membership(false));
+    ASSERT_EQ(ZERO_SCALAR, booleanLFLL.membership(false));
 }
 
 TEST(LFLLBooleanTest, Test3)
 {
     LFLLBoolean booleanLFLL(false);
 
-    ASSERT_EQ(MIN_DOM, booleanLFLL.membership(true));
+    ASSERT_EQ(ZERO_SCALAR, booleanLFLL.membership(true));
 }
 
 
@@ -49,5 +49,5 @@ TEST(LFLLBooleanTest, Test4)
 {
     LFLLBoolean booleanLFLL(false);
 
-    ASSERT_EQ(MAX_DOM, booleanLFLL.membership(false));
+    ASSERT_EQ(ONE_SCALAR, booleanLFLL.membership(false));
 }

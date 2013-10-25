@@ -60,10 +60,10 @@ LFLLMembership<NT> LFLLAggregator<BinaryOperatorType>::aggregateConsequence(
 {
     LFLLMembership<NT> retValue;
     for (size_t termIndex = 0 ; termIndex < NT ; ++termIndex) {
-        dom termValue;
+        scalar termValue;
         bool hasPrevTerm = false;
         for (size_t ruleIndex = 0 ; ruleIndex < NR ; ++ruleIndex) {
-            const dom consequenceValue =
+            const scalar consequenceValue =
                     consequence.getVal(termIndex, ruleIndex);
             if (hasPrevTerm) {
                 termValue = m_sNorm(termValue, consequenceValue);

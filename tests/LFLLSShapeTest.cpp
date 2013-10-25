@@ -27,8 +27,7 @@ using namespace math;
 TEST(ElectronicHorizonLFLLTests, SShape)
 {
     LFLLSShape sshape(0.0f, 10.f);
-    dom d1, d2, d3, d4, d5, d6, d7, d8, d9;
-    scalar s1, s2, s3, s4, s5, s6, s7, s8, s9;
+    scalar d1, d2, d3, d4, d5, d6, d7, d8, d9;
 
     d1 = sshape.membership(3.5f);
     d2 = sshape.membership(6.4f);
@@ -40,25 +39,15 @@ TEST(ElectronicHorizonLFLLTests, SShape)
     d8 = sshape.membership(5.01f);
     d9 = sshape.membership(5.10f);
 
-    s1 = domToScalar(d1);
-    s2 = domToScalar(d2);
-    s3 = domToScalar(d3);
-    s4 = domToScalar(d4);
-    s5 = domToScalar(d5);
-    s6 = domToScalar(d6);
-    s7 = domToScalar(d7);
-    s8 = domToScalar(d8);
-    s9 = domToScalar(d9);
 
 
-
-    ASSERT_LFLL_EQ(0.245f, s1);
-    ASSERT_LFLL_EQ(0.741f, s2);
-    ASSERT_LFLL_EQ(0.949f, s3);
-    ASSERT_LFLL_EQ(0.0f, s4);
-    ASSERT_LFLL_EQ(1.0f, s5);
-    ASSERT_LFLL_EQ(0.498f, s6);
-    ASSERT_LFLL_EQ(0.5f, s7);
-    ASSERT_LFLL_EQ(0.502f, s8);
-    ASSERT_LFLL_EQ(0.520f, s9);
+    ASSERT_LFLL_EQ(0.245f, d1);
+    ASSERT_LFLL_EQ(0.741f, d2);
+    ASSERT_LFLL_EQ(0.949f, d3);
+    ASSERT_LFLL_EQ(0.0f, d4);
+    ASSERT_LFLL_EQ(1.0f, d5);
+    ASSERT_LFLL_EQ(0.498f, d6);
+    ASSERT_LFLL_EQ(0.5f, d7);
+    ASSERT_LFLL_EQ(0.502f, d8);
+    ASSERT_LFLL_EQ(0.520f, d9);
 }

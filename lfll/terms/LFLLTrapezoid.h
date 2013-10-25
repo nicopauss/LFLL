@@ -60,7 +60,7 @@ public:
         , m_lRamp(c, d)
     {}
 
-    inline dom membership(scalar val) const
+    inline scalar membership(scalar val) const
     {
         if (math::isGreaterThan(val, m_rRamp.getMaxLimit())) {
             return m_lRamp.membership(val);

@@ -48,9 +48,9 @@ public:
         : m_boolVal(val)
     {}
 
-    inline dom membership(scalar val) const
+    inline scalar membership(scalar val) const
     {
-        return ((val >= HALF_SCALAR) == m_boolVal) ? MAX_DOM : MIN_DOM;
+        return ((val >= HALF_SCALAR) == m_boolVal) ? ONE_SCALAR : ZERO_SCALAR;
     }
 
 private:

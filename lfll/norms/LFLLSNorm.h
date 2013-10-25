@@ -32,7 +32,7 @@ LFLL_BEGIN_NAMESPACE
   */
 struct LFLLMax
 {
-    inline dom operator()(dom val1, dom val2) const {
+    inline scalar operator()(scalar val1, scalar val2) const {
         return (val1 < val2) ? val2 : val1;
     }
 };

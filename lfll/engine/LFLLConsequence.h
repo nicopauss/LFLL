@@ -45,7 +45,7 @@ public:
 public:
     LFLLConsequence()
     {
-        memset(m_values, MIN_DOM, sizeof(m_values));
+        memset(m_values, 0, sizeof(m_values));
     }
 
     inline size_t getNbTerms() const
@@ -58,33 +58,33 @@ public:
         return NR;
     }
 
-    inline dom* operator[](size_t term)
+    inline scalar* operator[](size_t term)
     {
         assert(term < NT);
         return m_values[term];
     }
 
-    inline const dom* operator[](size_t term) const
+    inline const scalar* operator[](size_t term) const
     {
         assert(term < NT);
         return m_values[term];
     }
 
-    inline dom& getVal(size_t term, size_t rule)
+    inline scalar& getVal(size_t term, size_t rule)
     {
         assert(term < NT);
         assert(rule < NR);
         return m_values[term][rule];
     }
 
-    inline dom getVal(size_t term, size_t rule) const
+    inline scalar getVal(size_t term, size_t rule) const
     {
         assert(term < NT);
         assert(rule < NR);
         return m_values[term][rule];
     }
 
-    inline void setVal(size_t term, size_t rule, dom val)
+    inline void setVal(size_t term, size_t rule, scalar val)
     {
         assert(term < NT);
         assert(rule < NR);
@@ -92,7 +92,7 @@ public:
     }
 
 private:
-    dom m_values[NT][NR];
+    scalar m_values[NT][NR];
 };
 
 LFLL_END_NAMESPACE

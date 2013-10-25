@@ -44,11 +44,11 @@ TEST(LFLLInputFuzzifierTest, Test1)
     LFLLMembership<5> degrees =
         inputFuzzifier.fuzzifyVariable(1.64f);
 
-    scalar s1 = domToScalar(degrees[0]);
-    scalar s2 = domToScalar(degrees[1]);
-    scalar s3 = domToScalar(degrees[2]);
-    scalar s4 = domToScalar(degrees[3]);
-    scalar s5 = domToScalar(degrees[4]);
+    scalar s1 = degrees[0];
+    scalar s2 = degrees[1];
+    scalar s3 = degrees[2];
+    scalar s4 = degrees[3];
+    scalar s5 = degrees[4];
 
     ASSERT_LFLL_EQ(0.763f, s1);
     ASSERT_LFLL_EQ(0.656f, s2);
@@ -78,11 +78,11 @@ TEST(LFLLInputFuzzifierTest, Test2)
     LFLLMembership<5> degrees =
         inputFuzzifier.fuzzifyVariable(8.47f);
 
-    scalar s1 = domToScalar(degrees[0]);
-    scalar s2 = domToScalar(degrees[1]);
-    scalar s3 = domToScalar(degrees[2]);
-    scalar s4 = domToScalar(degrees[3]);
-    scalar s5 = domToScalar(degrees[4]);
+    scalar s1 = degrees[0];
+    scalar s2 = degrees[1];
+    scalar s3 = degrees[2];
+    scalar s4 = degrees[3];
+    scalar s5 = degrees[4];
 
     ASSERT_LFLL_EQ(0.699f, s1);
     ASSERT_LFLL_EQ(0.612f, s2);

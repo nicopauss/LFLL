@@ -69,12 +69,12 @@ TEST(LFLLRulesEngineTest, Test)
     ConsequenceTuple consequences =
             makeLFLLTuple(consequence1, consequence2);
 
-    degrees1[0] = scalarToDom(0.48f);
-    degrees1[1] = scalarToDom(0.09f);
-    degrees1[2] = scalarToDom(0.f);
+    degrees1[0] = 0.48f;
+    degrees1[1] = 0.09f;
+    degrees1[2] = 0.f;
 
-    degrees2[0] = scalarToDom(0.56f);
-    degrees2[1] = scalarToDom(0.16f);
+    degrees2[0] = 0.56f;
+    degrees2[1] = 0.16f;
 
     const LFLLRulesEngine<NI, NR, NO,
         LFLLMin, LFLLMax, LFLLNot>
@@ -83,21 +83,21 @@ TEST(LFLLRulesEngineTest, Test)
     fTr.applyRules(antecedents, consequences);
 
 
-    dom valPart = scalarToDom(1.f - 0.16f/2.f);
+    scalar valPart = 1.f - 0.16f/2.f;
 
-    ASSERT_EQ(scalarToDom(0.16f), consequence1.getVal(0, 0));
-    ASSERT_EQ(scalarToDom(0.f), consequence1.getVal(0, 1));
-    ASSERT_EQ(scalarToDom(0.f), consequence1.getVal(0, 2));
+    ASSERT_EQ(0.16f, consequence1.getVal(0, 0));
+    ASSERT_EQ(0.f, consequence1.getVal(0, 1));
+    ASSERT_EQ(0.f, consequence1.getVal(0, 2));
 
-    ASSERT_EQ(scalarToDom(0.f), consequence1.getVal(1, 0));
-    ASSERT_EQ(scalarToDom(0.56f), consequence1.getVal(1, 1));
-    ASSERT_EQ(scalarToDom(0.f), consequence1.getVal(1, 2));
+    ASSERT_EQ(0.f, consequence1.getVal(1, 0));
+    ASSERT_EQ(0.56f, consequence1.getVal(1, 1));
+    ASSERT_EQ(0.f, consequence1.getVal(1, 2));
 
-    ASSERT_EQ(scalarToDom(0.f), consequence2.getVal(0, 0));
-    ASSERT_EQ(scalarToDom(0.56f), consequence2.getVal(0, 1));
+    ASSERT_EQ(0.f, consequence2.getVal(0, 0));
+    ASSERT_EQ(0.56f, consequence2.getVal(0, 1));
     ASSERT_EQ(valPart, consequence2.getVal(0, 2));
 
-    ASSERT_EQ(scalarToDom(0.f), consequence2.getVal(1, 0));
-    ASSERT_EQ(scalarToDom(0.f), consequence2.getVal(1, 1));
-    ASSERT_EQ(scalarToDom(0.f), consequence2.getVal(1, 2));
+    ASSERT_EQ(0.f, consequence2.getVal(1, 0));
+    ASSERT_EQ(0.f, consequence2.getVal(1, 1));
+    ASSERT_EQ(0.f, consequence2.getVal(1, 2));
 }

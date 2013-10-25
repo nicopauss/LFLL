@@ -51,7 +51,7 @@ public:
         memcpy(m_array, o.m_array, sizeof(m_array));
     }
 
-    LFLLMembership(const dom array[NT])
+    LFLLMembership(const scalar array[NT])
     {
         memcpy(m_array, array, sizeof(m_array));
     }
@@ -67,38 +67,38 @@ public:
         return NT;
     }
 
-    inline dom& operator[](size_t index)
+    inline scalar& operator[](size_t index)
     {
         assert(index < NT);
         return m_array[index];
     }
 
-    inline dom operator[](size_t index) const
+    inline scalar operator[](size_t index) const
     {
         assert(index < NT);
         return m_array[index];
     }
 
-    inline dom& getVal(size_t index)
+    inline scalar& getVal(size_t index)
     {
         assert(index < NT);
         return m_array[index];
     }
 
-    inline dom getVal(size_t index) const
+    inline scalar getVal(size_t index) const
     {
         assert(index < NT);
         return m_array[index];
     }
 
-    inline void setVal(size_t index, dom val)
+    inline void setVal(size_t index, scalar val)
     {
         assert(index < NT);
         m_array[index] = val;
     }
 
 private:
-    dom m_array[NT];
+    scalar m_array[NT];
 };
 
 LFLL_END_NAMESPACE

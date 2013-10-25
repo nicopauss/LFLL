@@ -60,15 +60,15 @@ public:
         , m_invDifference(ONE_SCALAR / (maxLimit - minLimit))
     {}
 
-    inline dom membership(scalar val) const
+    inline scalar membership(scalar val) const
     {
         if (math::isLessOrEqualTo(val, m_minLimit)) {
-            return MIN_DOM;
+            return ZERO_SCALAR;
         } else if (math::isGreaterOrEqualTo(val, m_maxLimit)) {
-            return MAX_DOM;
+            return ONE_SCALAR;
         }
 
-        return math::scalarToDom((val - m_minLimit) * m_invDifference);
+        return (val - m_minLimit) * m_invDifference;
     }
 
 private:

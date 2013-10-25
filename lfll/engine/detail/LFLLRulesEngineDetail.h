@@ -71,14 +71,14 @@ public:
 
 
     template <class AntecedentTuple>
-    inline dom calculateAntecedent(
+    inline scalar calculateAntecedent(
         const AntecedentTuple& antecedents) const
     {
         if (m_ignore) {
             return m_prevAntecedent.calculateAntecedent(antecedents);
         }
 
-        const dom val = m_useNotOp ?
+        const scalar val = m_useNotOp ?
             m_notOp(getLFLLTuple<InputIndex-1>(antecedents)
                     ->getVal(m_membershipIndex)) :
             getLFLLTuple<InputIndex-1>(antecedents)->getVal(m_membershipIndex);
@@ -129,10 +129,10 @@ public:
     {}
 
     template <class AntecedentTuple>
-    inline dom calculateAntecedent(
+    inline scalar calculateAntecedent(
         const AntecedentTuple&) const
     {
-        return MIN_DOM;
+        return ZERO_SCALAR;
     }
 
 
@@ -174,7 +174,7 @@ public:
 
     template <class ConsequenceTuple>
     inline void setConsequences(
-        const dom val,
+        const scalar val,
         ConsequenceTuple& consequences) const
     {
         // Apply previous consequence
@@ -218,7 +218,7 @@ public:
 
     template <class ConsequenceTuple>
     inline void setConsequences(
-        const dom,
+        const scalar,
         ConsequenceTuple&) const
     {}
 };
@@ -254,9 +254,9 @@ public:
         m_prevRule.applyRules(antecedents, consequences);
 
         // Calculate current rule
-        const dom val = m_ancededents.calculateAntecedent(antecedents);
+        const scalar val = m_ancededents.calculateAntecedent(antecedents);
         // Apply weight to current rule
-        const dom wval = math::sround<dom>(m_weight, MIN_DOM, val);
+        const scalar wval = math::srel(m_weight, ZERO_SCALAR, val);
         // Set computed consequence to array
         m_consequences.setConsequences(wval, consequences);
     }

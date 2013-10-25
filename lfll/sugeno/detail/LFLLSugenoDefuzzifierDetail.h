@@ -52,13 +52,11 @@ struct LFLLSugenoDefuzzifierWeightedAverageIterator
             getLFLLTuple<TermIndex-1>(*terms)->computeTermValue(inputs);
         for (size_t ruleIndex = 0 ; ruleIndex < NR ; ++ruleIndex)
         {
-            const dom ruleValue = consequence.getVal(
+            const scalar ruleValue = consequence.getVal(
                 TermIndex-1, ruleIndex);
-            if (ruleValue != MIN_DOM) {
-                const scalar ruleValueScalar =
-                    math::domToScalar(ruleValue);
-                numerator += ruleValueScalar * termValue;
-                denominator += ruleValueScalar;
+            if (ruleValue != ZERO_SCALAR) {;
+                numerator += ruleValue * termValue;
+                denominator += ruleValue;
             }
         }
     }
@@ -134,12 +132,10 @@ struct LFLLSugenoDefuzzifierWeightedSumIterator
             getLFLLTuple<TermIndex-1>(*terms)->computeTermValue(inputs);
         for (size_t ruleIndex = 0 ; ruleIndex < NR ; ++ruleIndex)
         {
-            const dom ruleValue = consequence.getVal(
+            const scalar ruleValue = consequence.getVal(
                 TermIndex-1, ruleIndex);
-            if (ruleValue != MIN_DOM) {
-                const scalar ruleValueScalar =
-                    math::domToScalar(ruleValue);
-                numerator += ruleValueScalar * termValue;
+            if (ruleValue != ZERO_SCALAR) {
+                numerator += ruleValue * termValue;
             }
         }
     }

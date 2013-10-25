@@ -55,18 +55,18 @@ public:
         , m_halfRange((minLimit + maxLimit) / TWO_SCALAR)
     {}
 
-    inline dom membership(scalar val) const
+    inline scalar membership(scalar val) const
     {
         if (val <= m_minLimit) {
-            return MIN_DOM;
+            return ZERO_SCALAR;
         } else if (val >= m_maxLimit) {
-            return MAX_DOM;
+            return ONE_SCALAR;
         } else if (val <= m_halfRange) {
             val = (val - m_minLimit) * m_invDifference;
-            return math::scalarToDom(TWO_SCALAR * val * val);
+            return TWO_SCALAR * val * val;
         } else {
             val = (val - m_maxLimit) * m_invDifference;
-            return math::scalarToDom(ONE_SCALAR - TWO_SCALAR * val * val);
+            return ONE_SCALAR - TWO_SCALAR * val * val;
         }
     }
 

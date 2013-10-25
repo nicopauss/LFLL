@@ -49,12 +49,12 @@ public:
         : m_val(val)
     {}
 
-    inline dom membership(scalar val) const
+    inline scalar membership(scalar val) const
     {
         if (math::isEqualTo(val, m_val)) {
-            return MAX_DOM;
+            return ONE_SCALAR;
         }
-        return MIN_DOM;
+        return ZERO_SCALAR;
     }
 protected:
     scalar m_val;

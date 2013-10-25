@@ -82,50 +82,6 @@ LFLL_BEGIN_NAMESPACE
 #endif // LFLL_USE_DOUBLE_SCALAR
 
 
-    /************************************************************************/
-    /* dom */
-    /************************************************************************/
-
-#if defined(LFLL_USE_SCALAR_DOM)
-
-#	ifdef LFLL_USE_U8_DOM
-#		undef LFLL_USE_U8_DOM
-#	endif
-#	ifdef LFLL_USE_U16_DOM
-#		undef LFLL_USE_U16_DOM
-#	endif
-#	ifdef LFLL_USE_U32_DOM
-#		undef LFLL_USE_U32_DOM
-#	endif
-    typedef scalar dom;
-
-#elif defined(LFLL_USE_U8_DOM)
-
-#	ifdef LFLL_USE_U16_DOM
-#		undef LFLL_USE_U16_DOM
-#	endif
-#	ifdef LFLL_USE_U32_DOM
-#		undef LFLL_USE_U32_DOM
-#	endif
-
-    typedef uint8_t dom;
-
-#elif defined(LFLL_USE_U16_DOM)
-
-#	ifdef LFLL_USE_U32_DOM
-#		undef LFLL_USE_U32_DOM
-#	endif
-
-    typedef uint16_t dom;
-#else
-#	ifndef LFLL_USE_U32_DOM
-#		define LFLL_USE_U32_DOM
-#	endif
-
-    typedef uint32_t dom;
-#endif
-
-
 /************************************************************************/
 /* Scalar values */
 /************************************************************************/
@@ -134,26 +90,7 @@ const scalar ZERO_SCALAR = scalar(0);
 const scalar ONE_SCALAR = scalar(1);
 const scalar TWO_SCALAR = scalar(2);
 const scalar HALF_SCALAR = ONE_SCALAR / TWO_SCALAR;
-
 const scalar SCALAR_DIFF_PRECISION = ONE_SCALAR / scalar(1e4);
-
-    /************************************************************************/
-    /* DOM Def */
-    /************************************************************************/
-
-#if defined(LFLL_USE_SCALAR_DOM)
-    const dom MAX_DOM = ONE_SCALAR;
-    const dom MIN_DOM = ZERO_SCALAR;
-#elif defined(LFLL_USE_U8_DOM) || defined(LFLL_USE_U16_DOM) || defined(LFLL_USE_U32_DOM)
-    const dom MAX_DOM = static_cast<dom>(-1);
-    const dom MIN_DOM = 0;
-#else    
-	const dom MAX_DOM = std::numeric_limits<dom>::max();
-    const dom MIN_DOM = std::numeric_limits<dom>::min();
-#endif
-    const dom DOM_DIFF = MAX_DOM - MIN_DOM;
-
-
 
 
 LFLL_END_NAMESPACE
