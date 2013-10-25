@@ -83,7 +83,7 @@ TEST(LFLLRulesEngineTest, Test)
     fTr.applyRules(antecedents, consequences);
 
 
-    dom valPart = DOM_DIFF - (dom)(degrees2[1]/2.f + 0.5f);
+    dom valPart = scalarToDom(1.f - 0.16f/2.f);
 
     ASSERT_EQ(scalarToDom(0.16f), consequence1.getVal(0, 0));
     ASSERT_EQ(scalarToDom(0.f), consequence1.getVal(0, 1));

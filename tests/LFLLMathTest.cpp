@@ -32,6 +32,8 @@ TEST(LFLLMathTest, SRound)
     ASSERT_EQ(43, sround<int>(0.425f, 0, 100));
     ASSERT_EQ(MAX_DOM, sround<dom>(1.0f, MIN_DOM, MAX_DOM));
     ASSERT_EQ(MIN_DOM, sround<dom>(0.0f, MIN_DOM, MAX_DOM));
+
+    ASSERT_EQ(75, sround<int>(0.5f, 50, 100));
 }
 
 TEST(LFLLMathTest, ScalarToDom)

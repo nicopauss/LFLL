@@ -31,15 +31,16 @@ LFLL_BEGIN_NAMESPACE
 
 namespace math {
 
+#if defined(LFLL_USE_SCALAR_DOM)
     /**
       * Get rounded value
       * @param sVal Scalar value between 0.0 and 1.0
       * @param minVal Unsigned min value
       * @param maxVal Unsigned max value
-      * @return round(sVal * (maxVal - minVal))
+      * @return round(sVal * (maxVal - minVal)) + minVal
       */
-    template<typename INTT>
-    inline INTT sround(const scalar sVal, const INTT minVal, const INTT maxVal)
+    template<typename T>
+    inline T sround(const scalar sVal, const T minVal, const T maxVal)
     {
         if (sVal >= ONE_SCALAR) {
             return maxVal;
@@ -47,9 +48,51 @@ namespace math {
             return minVal;
         } else {
             const scalar diffVal = scalar(maxVal - minVal);
-            const INTT result = static_cast<INTT>((sVal * diffVal)
-                + HALF_SCALAR) - minVal;
-            return result;
+            return static_cast<T>(sVal * diffVal) + minVal;
+        }
+    }
+
+
+    /**
+    * Convert a scalar between 0.0 and 1.0 to dom
+    */
+    inline dom scalarToDom(const scalar val)
+    {
+        if (val >= ONE_SCALAR) {
+            return MAX_DOM;
+        } else if (val <= ZERO_SCALAR) {
+            return MIN_DOM;
+        }
+        return static_cast<dom>(val);
+    }
+
+    /**
+    * Convert a dom to a scalar between 0.0 and 1.0
+    */
+    inline scalar domToScalar(const dom val)
+    {
+        return static_cast<scalar>(val);
+    }
+
+#else //defined(LFLL_USE_SCALAR_DOM)
+    /**
+      * Get rounded value
+      * @param sVal Scalar value between 0.0 and 1.0
+      * @param minVal Unsigned min value
+      * @param maxVal Unsigned max value
+      * @return round(sVal * (maxVal - minVal))
+      */
+    template<typename T>
+    inline T sround(const scalar sVal, const T minVal, const T maxVal)
+    {
+        if (sVal >= ONE_SCALAR) {
+            return maxVal;
+        } else if (sVal <= ZERO_SCALAR) {
+            return minVal;
+        } else {
+            const scalar diffVal = scalar(maxVal - minVal);
+            return static_cast<T>((sVal * diffVal)
+                + HALF_SCALAR) + minVal;
         }
     }
 
@@ -69,6 +112,8 @@ namespace math {
     {
         return scalar(val) / scalar(DOM_DIFF);
     }
+
+#endif
 
 
     /**

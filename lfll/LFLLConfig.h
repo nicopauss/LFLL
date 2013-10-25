@@ -33,13 +33,15 @@ This file defines some constants used in the fuzzy library.
 // Not really useful and slower.
 // #define LFLL_USE_DOUBLE_SCALAR
 
-// Use custom scalar. You can use fixed precision real type.
+// Use custom scalar. You can use fixed-precision type.
 // #define LFLL_USE_CUSTOM_SCALAR
 // typedef custom_scalar scalar
 
-// Internal memory use, unsigned 8 bits, unsigned 16 bits or unsigned 32 bits.
+// Internal memory use, scalar, unsigned 8 bits, unsigned 16 bits or
+// unsigned 32 bits.
 // Use potentially less memory but increase approximation errors.
 // Default is unsigned 32 bits.
+// #define LFLL_USE_SCALAR_DOM
 // #define LFLL_USE_U8_DOM
 // #define LFLL_USE_U16_DOM
 // #define LFLL_USE_U32_DOM
