@@ -20,61 +20,64 @@ COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
 IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
-#ifndef LFLLRRAMP_H
-#define LFLLRRAMP_H
+#ifndef LFLLGAUSSIANPRODUCT_H
+#define LFLLGAUSSIANPRODUCT_H
 
 #include <lfll/engine/LFLLDefinitions.h>
 #include <lfll/engine/LFLLMath.h>
-#include <lfll/terms/LFLLBoundedTerm.h>
-
 
 LFLL_BEGIN_NAMESPACE
 
 /**
-  * R Ramp term
+  * Gaussian product term
   *
   * @f[
 \renewcommand{\arraystretch}{2.25}
-x:R \rightarrow  f(x) = \left \{
+x:R \rightarrow  f(x, \sigma1, \mu1, \sigma2, \mu2) = \left \{
    \begin{array}{cc}
-     1, & x \leq minLim \\
-     \frac{\displaystyle x - minLim}{\displaystyle maxLim-minLim}, & minLim < x < maxLim \\
-     0, & x \geq maxLim \\
+     e^(\frac{-(x - \mu1)^2}{2 \sigma1^2}), & x < \mu1 \\
+     1, & \mu1 \leq x \leq \mu2 \\
+     e^(\frac{-(x - \mu2)^2}{2 \sigma2^2}), & x > \mu2 \\
    \end{array}
 \right \}
   * @f]
+  * @f[
+\renewcommand{\arraystretch}{2.25}
+x:R,  \rightarrow   = 
+  * @f]
   *
-  @verbatim
-         ---
-        /
-       /
-      /
-   ---
-  @endverbatim
+  * http://www.mathworks.com/help/fuzzy/gauss2mf.html
   */
-class LFLLRRamp : public LFLLBoundedTerm
+class LFLLGaussianProduct
 {
 public:
-    LFLLRRamp(scalar minLimit, scalar maxLimit)
-        : LFLLBoundedTerm(minLimit, maxLimit)
-        , m_invDifference(ONE_SCALAR / (maxLimit - minLimit))
+    LFLLGaussianProduct(scalar sigma1, scalar mean1, scalar sigma2, scalar mean2)
+        : m_invTwiceSigma1Square(ONE_SCALAR / (TWO_SCALAR * sigma1 * sigma1))
+        , m_mean1(mean1)
+        , m_invTwiceSigma2Square(ONE_SCALAR / (TWO_SCALAR * sigma2 * sigma2))
+        , m_mean2(mean2)
     {}
 
-    inline scalar membership(scalar val) const
+    inline scalar membership(const scalar val) const
     {
-        if (math::isLessOrEqualTo(val, m_minLimit)) {
-            return ZERO_SCALAR;
-        } else if (math::isGreaterOrEqualTo(val, m_maxLimit)) {
+        if (val < m_mean1) {
+            const scalar diffValMean1 = val - m_mean1;
+            return std::exp(-(diffValMean1 * diffValMean1) * m_invTwiceSigma1Square);
+        } else if (val > m_mean2) {
+            const scalar diffValMean2 = val - m_mean2;
+            return std::exp(-(diffValMean2 * diffValMean2) * m_invTwiceSigma2Square);
+        } else {
             return ONE_SCALAR;
         }
-
-        return (val - m_minLimit) * m_invDifference;
     }
 
-private:
-    scalar m_invDifference;
+protected:
+    scalar m_invTwiceSigma1Square;
+    scalar m_mean1;
+    scalar m_invTwiceSigma2Square;
+    scalar m_mean2;
 };
 
 LFLL_END_NAMESPACE
 
-#endif //LFLLRRAMP_H
+#endif //LFLLGAUSSIANPRODUCT_H

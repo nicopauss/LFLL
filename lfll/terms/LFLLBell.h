@@ -20,61 +20,47 @@ COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
 IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
-#ifndef LFLLRRAMP_H
-#define LFLLRRAMP_H
+#ifndef LFLLBELL_H
+#define LFLLBELL_H
 
 #include <lfll/engine/LFLLDefinitions.h>
 #include <lfll/engine/LFLLMath.h>
-#include <lfll/terms/LFLLBoundedTerm.h>
-
 
 LFLL_BEGIN_NAMESPACE
 
 /**
-  * R Ramp term
+  * Bell term
   *
   * @f[
 \renewcommand{\arraystretch}{2.25}
-x:R \rightarrow  f(x) = \left \{
-   \begin{array}{cc}
-     1, & x \leq minLim \\
-     \frac{\displaystyle x - minLim}{\displaystyle maxLim-minLim}, & minLim < x < maxLim \\
-     0, & x \geq maxLim \\
-   \end{array}
-\right \}
+x:R,  \rightarrow  f(x; a, b, c) = \frac{1}{1+|\frac{x-c}{a}|^{2b}}
   * @f]
   *
-  @verbatim
-         ---
-        /
-       /
-      /
-   ---
-  @endverbatim
+  * http://www.mathworks.com/help/fuzzy/gbellmf.html
   */
-class LFLLRRamp : public LFLLBoundedTerm
+class LFLLBell
 {
 public:
-    LFLLRRamp(scalar minLimit, scalar maxLimit)
-        : LFLLBoundedTerm(minLimit, maxLimit)
-        , m_invDifference(ONE_SCALAR / (maxLimit - minLimit))
+
+    LFLLBell(scalar a, scalar b, scalar c)
+        : m_invA(ONE_SCALAR / a)
+        , m_twiceB(TWO_SCALAR * b)
+        , m_c(c)
     {}
 
-    inline scalar membership(scalar val) const
+    inline scalar membership(const scalar val) const
     {
-        if (math::isLessOrEqualTo(val, m_minLimit)) {
-            return ZERO_SCALAR;
-        } else if (math::isGreaterOrEqualTo(val, m_maxLimit)) {
-            return ONE_SCALAR;
-        }
-
-        return (val - m_minLimit) * m_invDifference;
+        return ONE_SCALAR / (ONE_SCALAR + 
+          std::pow(std::abs((val - m_c) * m_invA), m_twiceB));
     }
 
-private:
-    scalar m_invDifference;
+protected:
+    scalar m_invA;
+    scalar m_twiceB;
+    scalar m_c;
+
 };
 
 LFLL_END_NAMESPACE
 
-#endif //LFLLRRAMP_H
+#endif //LFLLBELL_H

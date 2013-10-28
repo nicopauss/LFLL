@@ -92,7 +92,7 @@ namespace math {
     /**
       * Max
       */
-    inline bool max(const scalar a, const scalar b)
+    inline scalar max(const scalar a, const scalar b)
     {
         return (a < b) ? b : a;
     }
@@ -100,7 +100,7 @@ namespace math {
     /**
       * Min
       */
-    inline bool min(const scalar a, const scalar b)
+    inline scalar min(const scalar a, const scalar b)
     {
         return (a < b) ? a : b;
     }

@@ -42,6 +42,14 @@ x:R \rightarrow  f(x) = \left \{
    \end{array}
 \right \}
   * @f]
+  *
+  @verbatim
+   ---
+      \
+       \
+        \
+         ---
+  @endverbatim
   */
 class LFLLLRamp : public LFLLBoundedTerm
 {

@@ -50,6 +50,14 @@ x:R \rightarrow  f(x) = \left \{
 \right \}
   * @f]
   *
+  @verbatim
+         ---
+        /   \
+       /     \
+      /       \
+   ---         ---
+  @endverbatim
+  *
   * http://www.mathworks.com/help/fuzzy/trapmf.html
   */
 class LFLLTrapezoid

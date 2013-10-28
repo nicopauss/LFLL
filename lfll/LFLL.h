@@ -73,17 +73,22 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include <lfll/norms/LFLLTNorm.h>
 #include <lfll/sugeno/LFLLSugenoDefuzzifier.h>
 #include <lfll/sugeno/LFLLSugenoTerms.h>
+#include <lfll/terms/LFLLBell.h>
 #include <lfll/terms/LFLLBoolean.h>
 #include <lfll/terms/LFLLBoundedTerm.h>
+#include <lfll/terms/LFLLGaussian.h>
+#include <lfll/terms/LFLLGaussianProduct.h>
 #include <lfll/terms/LFLLLRamp.h>
 #include <lfll/terms/LFLLPiShape.h>
 #include <lfll/terms/LFLLRectangle.h>
 #include <lfll/terms/LFLLRRamp.h>
+#include <lfll/terms/LFLLSigmoid.h>
+#include <lfll/terms/LFLLSigmoidDifference.h>
+#include <lfll/terms/LFLLSigmoidProduct.h>
 #include <lfll/terms/LFLLSingleton.h>
 #include <lfll/terms/LFLLSShape.h>
 #include <lfll/terms/LFLLTrapezoid.h>
 #include <lfll/terms/LFLLTriangle.h>
 #include <lfll/terms/LFLLZShape.h>
-
 
 #endif // LFLL_H

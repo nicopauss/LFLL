@@ -24,7 +24,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #define LFLLTRIANGLE_H
 
 #include <lfll/engine/LFLLDefinitions.h>
-#include <lfll/terms/LFLLTrapezoid.h>
+#include <lfll/terms/LFLLBoundedTerm.h>
 
 LFLL_BEGIN_NAMESPACE
 
@@ -45,15 +45,45 @@ x:R \rightarrow  f(x) = \left \{
    \end{array}
 \right \}
   * @f]
+  * 
+  @verbatim
+         .
+        / \
+       /   \
+      /     \
+   ---       ---
+  @endverbatim
   *
   * http://www.mathworks.com/help/fuzzy/trimf.html
   */
-class LFLLTriangle : public LFLLTrapezoid
+class LFLLTriangle : public LFLLBoundedTerm
 {
 public:
     LFLLTriangle(scalar a, scalar b, scalar c)
-        : LFLLTrapezoid(a, b, b, c)
+        : LFLLBoundedTerm(a, c)
+        , m_b(b)
+        , m_invDiffAB(ONE_SCALAR / (b - a))
+        , m_invDiffBC(ONE_SCALAR / (c - b))
     {}
+
+    inline scalar membership(const scalar val) const
+    {
+        if ((val <= m_minLimit) ||
+            (val >= m_maxLimit)) {
+            return ZERO_SCALAR;
+        } else if (val == m_b) {
+            return ONE_SCALAR;
+        } else if (val > m_b) {
+            return (m_maxLimit - val) * m_invDiffBC;
+        } else {
+            return (val - m_minLimit) * m_invDiffAB;
+        }
+    }
+
+protected:
+    scalar m_b;
+    scalar m_invDiffAB;
+    scalar m_invDiffBC;
 };
 
 LFLL_END_NAMESPACE

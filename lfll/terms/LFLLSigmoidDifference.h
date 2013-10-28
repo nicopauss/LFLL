@@ -20,61 +20,46 @@ COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
 IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
-#ifndef LFLLRRAMP_H
-#define LFLLRRAMP_H
+#ifndef LFLLSIGMOIDDIFFERENCE_H
+#define LFLLSIGMOIDDIFFERENCE_H
 
 #include <lfll/engine/LFLLDefinitions.h>
 #include <lfll/engine/LFLLMath.h>
-#include <lfll/terms/LFLLBoundedTerm.h>
-
+#include <lfll/terms/LFLLSigmoid.h>
 
 LFLL_BEGIN_NAMESPACE
 
 /**
-  * R Ramp term
+  * Sigmoid difference term
   *
   * @f[
 \renewcommand{\arraystretch}{2.25}
-x:R \rightarrow  f(x) = \left \{
-   \begin{array}{cc}
-     1, & x \leq minLim \\
-     \frac{\displaystyle x - minLim}{\displaystyle maxLim-minLim}, & minLim < x < maxLim \\
-     0, & x \geq maxLim \\
-   \end{array}
-\right \}
+x:R,  \rightarrow  f(x; \slope1, \infl1, \slope2, \infl2) = |\frac{1}{1+e^{-\slope1 (x - \infl1)}} - \frac{1}{1+e^{-\slope2 (x - \infl2)}}|
   * @f]
   *
-  @verbatim
-         ---
-        /
-       /
-      /
-   ---
-  @endverbatim
+  * http://www.mathworks.com/help/fuzzy/dsigmf.html
   */
-class LFLLRRamp : public LFLLBoundedTerm
+class LFLLSigmoidDifference
 {
 public:
-    LFLLRRamp(scalar minLimit, scalar maxLimit)
-        : LFLLBoundedTerm(minLimit, maxLimit)
-        , m_invDifference(ONE_SCALAR / (maxLimit - minLimit))
+    LFLLSigmoidDifference(
+        scalar slope1, scalar infl1, 
+        scalar slope2, scalar infl2)
+        : m_sigmoid1(slope1, infl1)
+        , m_sigmoid2(slope2, infl2)
     {}
 
-    inline scalar membership(scalar val) const
+    inline scalar membership(const scalar val) const
     {
-        if (math::isLessOrEqualTo(val, m_minLimit)) {
-            return ZERO_SCALAR;
-        } else if (math::isGreaterOrEqualTo(val, m_maxLimit)) {
-            return ONE_SCALAR;
-        }
-
-        return (val - m_minLimit) * m_invDifference;
+        return std::abs(m_sigmoid1.membership(val) - 
+            m_sigmoid2.membership(val));
     }
 
-private:
-    scalar m_invDifference;
+protected:
+    LFLLSigmoid m_sigmoid1;
+    LFLLSigmoid m_sigmoid2;
 };
 
 LFLL_END_NAMESPACE
 
-#endif //LFLLRRAMP_H
+#endif //LFLLSIGMOIDDIFFERENCE_H

@@ -30,7 +30,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 LFLL_BEGIN_NAMESPACE
 
 /**
-  * S-Shape term
+  * Z-Shape term
   *
   * @f[
 \renewcommand{\arraystretch}{2.25}
