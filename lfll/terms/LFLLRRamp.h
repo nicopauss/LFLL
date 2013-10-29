@@ -60,7 +60,7 @@ public:
         , m_invDifference(ONE_SCALAR / (maxLimit - minLimit))
     {}
 
-    inline scalar membership(scalar val) const
+    inline scalar membership(const scalar val) const
     {
         if (math::isLessOrEqualTo(val, m_minLimit)) {
             return ZERO_SCALAR;

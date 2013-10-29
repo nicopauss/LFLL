@@ -55,18 +55,18 @@ public:
         , m_halfRange((minLimit + maxLimit) / TWO_SCALAR)
     {}
 
-    inline scalar membership(scalar val) const
+    inline scalar membership(const scalar val) const
     {
         if (val <= m_minLimit) {
             return ZERO_SCALAR;
         } else if (val >= m_maxLimit) {
             return ONE_SCALAR;
         } else if (val <= m_halfRange) {
-            val = (val - m_minLimit) * m_invDifference;
-            return TWO_SCALAR * val * val;
+            const scalar midVal = (val - m_minLimit) * m_invDifference;
+            return TWO_SCALAR * midVal * midVal;
         } else {
-            val = (val - m_maxLimit) * m_invDifference;
-            return ONE_SCALAR - TWO_SCALAR * val * val;
+            const scalar midVal = (val - m_maxLimit) * m_invDifference;
+            return ONE_SCALAR - TWO_SCALAR * midVal * midVal;
         }
     }
 

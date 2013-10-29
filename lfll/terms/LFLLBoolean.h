@@ -48,7 +48,7 @@ public:
         : m_boolVal(val)
     {}
 
-    inline scalar membership(scalar val) const
+    inline scalar membership(const scalar val) const
     {
         return ((val >= HALF_SCALAR) == m_boolVal) ? ONE_SCALAR : ZERO_SCALAR;
     }

@@ -20,46 +20,38 @@ COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
 IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
-#ifndef LFLLRECTANGLE_H
-#define LFLLRECTANGLE_H
+#ifndef LFLLACCUMULATED_H
+#define LFLLACCUMULATED_H
 
 #include <lfll/engine/LFLLDefinitions.h>
-#include <lfll/engine/LFLLMath.h>
-#include <lfll/terms/LFLLBoundedTerm.h>
+#include <lfll/norms/LFLLSNorm.h>
+#include <lfll/terms/detail/LFLLAccumulatedDetail.h>
 
 LFLL_BEGIN_NAMESPACE
 
+
 /**
-  * Rectangle term
+  * Accumulated term.
   *
-  * @f[
-\renewcommand{\arraystretch}{2.25}
-x:R \rightarrow  f(x) = \left \{
-   \begin{array}{cc}
-     0, & x \leq minLim \\
-     1, & minLim < x < maxLim \\
-     0, & x \geq maxLim \\
-   \end{array}
-\right \}
-  * @f]
+  * Accumulate multiple term using a tuple of terms and an SNorm operator
   */
-class LFLLRectangle : public LFLLBoundedTerm
+template <class TermTuple, class SNorm = LFLLMax>
+class LFLLAccumulated
 {
 public:
-    LFLLRectangle(scalar minLimit, scalar maxLimit)
-        : LFLLBoundedTerm(minLimit, maxLimit)
+    LFLLAccumulated(const TermTuple& terms)
+        : m_impl(terms)
     {}
 
-
-    inline scalar membership(const scalar val) const {
-        if (math::isGreaterOrEqualTo(val, m_minLimit) &&
-            math::isLessOrEqualTo(val, m_maxLimit)) {
-                return ONE_SCALAR;
-        }
-        return ZERO_SCALAR;
+    inline scalar membership(const scalar val) const
+    {
+        return m_impl.membership(val);
     }
+
+private:
+    const detail::LFLLAccumulatedImpl<TermTuple, SNorm> m_impl;
 };
 
 LFLL_END_NAMESPACE
 
-#endif //LFLLRECTANGLE_H
+#endif //LFLLACCUMULATED_H

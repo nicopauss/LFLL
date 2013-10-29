@@ -49,7 +49,7 @@ public:
         : m_val(val)
     {}
 
-    inline scalar membership(scalar val) const
+    inline scalar membership(const scalar val) const
     {
         if (math::isEqualTo(val, m_val)) {
             return ONE_SCALAR;

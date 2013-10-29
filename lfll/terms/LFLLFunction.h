@@ -20,46 +20,39 @@ COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
 IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
-#ifndef LFLLRECTANGLE_H
-#define LFLLRECTANGLE_H
+#ifndef LFLLFUNCTION_H
+#define LFLLFUNCTION_H
 
 #include <lfll/engine/LFLLDefinitions.h>
-#include <lfll/engine/LFLLMath.h>
-#include <lfll/terms/LFLLBoundedTerm.h>
 
 LFLL_BEGIN_NAMESPACE
 
+
 /**
-  * Rectangle term
+  * Function term.
   *
-  * @f[
-\renewcommand{\arraystretch}{2.25}
-x:R \rightarrow  f(x) = \left \{
-   \begin{array}{cc}
-     0, & x \leq minLim \\
-     1, & minLim < x < maxLim \\
-     0, & x \geq maxLim \\
-   \end{array}
-\right \}
-  * @f]
+  * Apply a function to get membership.
   */
-class LFLLRectangle : public LFLLBoundedTerm
+class LFLLFunction
 {
 public:
-    LFLLRectangle(scalar minLimit, scalar maxLimit)
-        : LFLLBoundedTerm(minLimit, maxLimit)
+    typedef scalar (*FunctionType)(scalar);
+
+public:
+    LFLLFunction(FunctionType fn)
+        : m_fn(fn)
     {}
 
-
-    inline scalar membership(const scalar val) const {
-        if (math::isGreaterOrEqualTo(val, m_minLimit) &&
-            math::isLessOrEqualTo(val, m_maxLimit)) {
-                return ONE_SCALAR;
-        }
-        return ZERO_SCALAR;
+    inline scalar membership(const scalar val) const
+    {
+        return (*m_fn)(val);
     }
+
+private:
+    FunctionType m_fn;
 };
+
 
 LFLL_END_NAMESPACE
 
-#endif //LFLLRECTANGLE_H
+#endif //LFLLFUNCTION_H

@@ -73,9 +73,12 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include <lfll/norms/LFLLTNorm.h>
 #include <lfll/sugeno/LFLLSugenoDefuzzifier.h>
 #include <lfll/sugeno/LFLLSugenoTerms.h>
+#include <lfll/terms/LFLLAccumulated.h>
 #include <lfll/terms/LFLLBell.h>
 #include <lfll/terms/LFLLBoolean.h>
 #include <lfll/terms/LFLLBoundedTerm.h>
+#include <lfll/terms/LFLLFunction.h>
+#include <lfll/terms/LFLLFunctor.h>
 #include <lfll/terms/LFLLGaussian.h>
 #include <lfll/terms/LFLLGaussianProduct.h>
 #include <lfll/terms/LFLLLRamp.h>
