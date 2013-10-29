@@ -54,7 +54,7 @@ namespace math {
     */
     inline bool isLessThan(const scalar a, const scalar b,
                            const scalar precision = SCALAR_DIFF_PRECISION) {
-        return (a - precision) < b;
+        return a < (b - precision);
     }
 
     /**
@@ -62,7 +62,7 @@ namespace math {
     */
     inline bool isGreaterThan(const scalar a, const scalar b,
                               const scalar precision = SCALAR_DIFF_PRECISION) {
-        return (a + precision) > b;
+        return a > (b + precision);
     }
 
     /**
@@ -70,7 +70,7 @@ namespace math {
     */
     inline bool isEqualTo(const scalar a, const scalar b,
                           const scalar precision = SCALAR_DIFF_PRECISION) {
-        return (a - precision) <= b && (a + precision) >= b;
+        return (a >= (b - precision)) && (a <= (b + precision));
     }
 
     /**
@@ -78,7 +78,7 @@ namespace math {
     */
     inline bool isLessOrEqualTo(const scalar a, const scalar b,
                                 const scalar precision = SCALAR_DIFF_PRECISION) {
-        return (a - precision) <= b;
+        return a <= (b + precision);
     }
 
     /**
@@ -86,7 +86,7 @@ namespace math {
     */
     inline bool isGreaterOrEqualTo(const scalar a, const scalar b,
                                    const scalar precision = SCALAR_DIFF_PRECISION) {
-        return (a + precision) >= b;
+        return a >= (b - precision);
     }
 
     /**
