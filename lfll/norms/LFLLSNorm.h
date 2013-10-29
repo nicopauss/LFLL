@@ -69,22 +69,7 @@ a:[0,1], b:[0,1] \rightarrow  f(a, b) = max(1, a + b)
 struct LFLLBoundedSum
 {
     inline scalar operator()(const scalar a, const scalar b) const {
-    	return math::max(ONE_SCALAR, a + b);
-    }
-};
-
-/**
-  * Normalized sum
-  * 
-  * @f[
-\renewcommand{\arraystretch}{2.25}
-a:[0,1], b:[0,1] \rightarrow  f(a, b) = (a + b) / max(1, max(a, b))
-  * @f]
-  */
-struct LFLLNormalizedSum
-{
-    inline scalar operator()(const scalar a, const scalar b) const {
-    	return (a + b) / math::max(ONE_SCALAR, math::max(a, b));
+    	return math::min(ONE_SCALAR, a + b);
     }
 };
 
@@ -128,7 +113,7 @@ a:[0,1], b:[0,1] \rightarrow  f(a, b) = \left \{
 struct LFLLNilpotentMax
 {
     inline scalar operator()(const scalar a, const scalar b) const {
-    	if ((a + b) < ONE_SCALAR) {
+    	if (math::isLessThan(a + b, ONE_SCALAR)) {
     		return math::max(a, b);
     	}
     	return ONE_SCALAR;
@@ -163,6 +148,9 @@ struct LFLLHamacherSum
 {
     inline scalar operator()(const scalar a, const scalar b) const {
     	const scalar prod = a * b;
+        if (math::isEqualTo(prod, ONE_SCALAR)) {
+            return ONE_SCALAR;
+        }
     	return (a + b - (TWO_SCALAR * prod)) / (ONE_SCALAR - prod);
     }
 };

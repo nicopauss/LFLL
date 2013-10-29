@@ -20,29 +20,24 @@ COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
 IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
-#include "LFLLTests.h"
+#include "../LFLLTests.h"
 
 using namespace math;
 
-TEST(LFLLAggregatorTest, Agregator)
+TEST(LFLLRRampTest, RRamp)
 {
-    const size_t NR = 3;
-    const size_t NT = 2;
+    LFLLRRamp rRamp(0.0f, 10.f);
+    scalar d1, d2, d3, d4, d5;
 
-    LFLLAggregator<LFLLMax> aggregator;
+    d1 = rRamp.membership(2.15f);
+    d2 = rRamp.membership(5.61f);
+    d3 = rRamp.membership(7.48f);
+    d4 = rRamp.membership(0.0f);
+    d5 = rRamp.membership(10.2f);
 
-    LFLLConsequence<NR, NT> consequence;
-
-    consequence.getVal(0, 0) = 0.25f;
-    consequence.getVal(0, 1) = 0.f;
-    consequence.getVal(0, 2) = 0.f;
-
-    consequence.getVal(1, 0) = 0.f;
-    consequence.getVal(1, 1) = 0.75f;
-    consequence.getVal(1, 2) = 0.10f;
-
-    LFLLMembership<NT> membership = aggregator.aggregateConsequence(consequence);
-
-    ASSERT_EQ(membership[0], 0.25f);
-    ASSERT_EQ(membership[1], 0.75f);
+    ASSERT_LFLL_EQ(0.215f, d1);
+    ASSERT_LFLL_EQ(0.561f, d2);
+    ASSERT_LFLL_EQ(0.748f, d3);
+    ASSERT_LFLL_EQ(0.0f, d4);
+    ASSERT_LFLL_EQ(1.0f, d5);
 }

@@ -113,7 +113,7 @@ a:[0,1], b:[0,1] \rightarrow  f(a, b) = \left \{
 struct LFLLNilpotentMin
 {
     inline scalar operator()(const scalar a, const scalar b) const {
-        if ((a + b) > ONE_SCALAR) {
+        if (math::isGreaterThan(a + b, ONE_SCALAR)) {
             return math::min(a, b);
         }
         return ZERO_SCALAR;

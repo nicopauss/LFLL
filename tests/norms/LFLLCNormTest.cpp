@@ -20,34 +20,14 @@ COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
 IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
-#include "LFLLTests.h"
+#include "../LFLLTests.h"
 
-TEST(LFLLBooleanTest, Test1)
+TEST(LFLLCNorm, NotTest)
 {
-    LFLLBoolean booleanLFLL(true);
+    LFLLNot notCNorm;
 
-    ASSERT_EQ(ONE_SCALAR, booleanLFLL.membership(true));
-}
-
-
-TEST(LFLLBooleanTest, Test2)
-{
-    LFLLBoolean booleanLFLL(true);
-
-    ASSERT_EQ(ZERO_SCALAR, booleanLFLL.membership(false));
-}
-
-TEST(LFLLBooleanTest, Test3)
-{
-    LFLLBoolean booleanLFLL(false);
-
-    ASSERT_EQ(ZERO_SCALAR, booleanLFLL.membership(true));
-}
-
-
-TEST(LFLLBooleanTest, Test4)
-{
-    LFLLBoolean booleanLFLL(false);
-
-    ASSERT_EQ(ONE_SCALAR, booleanLFLL.membership(false));
+    ASSERT_EQ(ONE_SCALAR, notCNorm(ZERO_SCALAR));
+    ASSERT_EQ(ZERO_SCALAR, notCNorm(ONE_SCALAR));
+    ASSERT_EQ(0.5f, notCNorm(0.5f));
+    ASSERT_EQ(0.25f, notCNorm(0.75f));
 }

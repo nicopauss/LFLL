@@ -20,13 +20,13 @@ COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
 IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
-#include "LFLLTests.h"
+#include "../LFLLTests.h"
 
 using namespace math;
 
-TEST(LFLLRRampTest, RRamp)
+TEST(LFLLLRampTest, LRamp)
 {
-    LFLLRRamp rRamp(0.0f, 10.f);
+    LFLLLRamp rRamp(0.0f, 10.f);
     scalar d1, d2, d3, d4, d5;
 
     d1 = rRamp.membership(2.15f);
@@ -35,9 +35,9 @@ TEST(LFLLRRampTest, RRamp)
     d4 = rRamp.membership(0.0f);
     d5 = rRamp.membership(10.2f);
 
-    ASSERT_LFLL_EQ(0.215f, d1);
-    ASSERT_LFLL_EQ(0.561f, d2);
-    ASSERT_LFLL_EQ(0.748f, d3);
-    ASSERT_LFLL_EQ(0.0f, d4);
-    ASSERT_LFLL_EQ(1.0f, d5);
+    ASSERT_LFLL_EQ(0.785f, d1);
+    ASSERT_LFLL_EQ(0.439f, d2);
+    ASSERT_LFLL_EQ(0.252f, d3);
+    ASSERT_LFLL_EQ(1.0f, d4);
+    ASSERT_LFLL_EQ(0.0f, d5);
 }

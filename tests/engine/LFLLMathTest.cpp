@@ -20,7 +20,7 @@ COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
 IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
-#include "LFLLTests.h"
+#include "../LFLLTests.h"
 
 using namespace math;
 
@@ -32,29 +32,58 @@ TEST(LFLLMathTest, Srel)
 
 TEST(LFLLMathTest, IsLessThan)
 {
-    ASSERT_TRUE(isLessThan(0.4999f, 0.5f));
+    ASSERT_FALSE(isLessThan(0.5f, 0.5f));
+    ASSERT_FALSE(isLessThan(0.501f, 0.5f));
+    ASSERT_FALSE(isLessThan(0.49999999f, 0.5f));
+    ASSERT_TRUE(isLessThan(0.499f, 0.5f));
 }
 
 
 TEST(LFLLMathTest, IsGreaterThan)
 {
-    ASSERT_TRUE(isGreaterThan(0.5001f, 0.5f));
+    ASSERT_FALSE(isGreaterThan(0.5f, 0.5f));
+    ASSERT_FALSE(isGreaterThan(0.499f, 0.5f));
+    ASSERT_FALSE(isGreaterThan(0.50000001f, 0.5f));
+    ASSERT_TRUE(isGreaterThan(0.501f, 0.5f));
 }
 
 
 TEST(LFLLMathTest, IsEqualTo)
 {
     ASSERT_TRUE(isEqualTo(0.50000001f, 0.5f));
+    ASSERT_TRUE(isEqualTo(0.5f, 0.5f));
+    ASSERT_TRUE(isEqualTo(0.49999999f, 0.5f));
+    ASSERT_FALSE(isEqualTo(0.499f, 0.5f));
+    ASSERT_FALSE(isEqualTo(0.501f, 0.5f));
 }
 
 TEST(LFLLMathTest, IsLessOrEqualTo)
 {
-    ASSERT_TRUE(isLessOrEqualTo(0.4999f, 0.5f));
+    ASSERT_TRUE(isLessOrEqualTo(0.5f, 0.5f));
+    ASSERT_TRUE(isLessOrEqualTo(0.499f, 0.5f));
+    ASSERT_TRUE(isLessOrEqualTo(0.49999999f, 0.5f));
     ASSERT_TRUE(isLessOrEqualTo(0.50000001f, 0.5f));
+    ASSERT_FALSE(isLessOrEqualTo(0.501f, 0.5f));
 }
 
 TEST(LFLLMathTest, IsGreaterOrEqualTo)
 {
-    ASSERT_TRUE(isGreaterOrEqualTo(0.5001f, 0.5f));
+    ASSERT_TRUE(isGreaterOrEqualTo(0.5f, 0.5f));
+    ASSERT_TRUE(isGreaterOrEqualTo(0.501f, 0.5f));
+    ASSERT_TRUE(isGreaterOrEqualTo(0.49999999f, 0.5f));
     ASSERT_TRUE(isGreaterOrEqualTo(0.50000001f, 0.5f));
+    ASSERT_FALSE(isGreaterOrEqualTo(0.499f, 0.5f));
 }
+
+TEST(LFLLMathTest, Max)
+{
+    ASSERT_EQ(0.4f, max(0.4f, 0.2f));
+    ASSERT_EQ(0.8f, max(0.8f, 0.1f));
+}
+
+TEST(LFLLMathTest, Min)
+{
+    ASSERT_EQ(0.2f, min(0.4f, 0.2f));
+    ASSERT_EQ(0.1f, min(0.8f, 0.1f));
+}
+

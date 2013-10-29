@@ -20,24 +20,33 @@ COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
 IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
-#include "LFLLTests.h"
+#include "../LFLLTests.h"
 
 using namespace math;
 
-TEST(LFLLLRampTest, LRamp)
+TEST(LFLLZShapeTest, ZShape)
 {
-    LFLLLRamp rRamp(0.0f, 10.f);
-    scalar d1, d2, d3, d4, d5;
+    LFLLZShape zshape(0.0f, 10.f);
+    scalar d1, d2, d3, d4, d5, d6, d7, d8, d9;
 
-    d1 = rRamp.membership(2.15f);
-    d2 = rRamp.membership(5.61f);
-    d3 = rRamp.membership(7.48f);
-    d4 = rRamp.membership(0.0f);
-    d5 = rRamp.membership(10.2f);
+    d1 = zshape.membership(2.15f);
+    d2 = zshape.membership(5.61f);
+    d3 = zshape.membership(7.48f);
+    d4 = zshape.membership(0.0f);
+    d5 = zshape.membership(10.2f);
+    d6 = zshape.membership(4.99f);
+    d7 = zshape.membership(5.f);
+    d8 = zshape.membership(5.01f);
+    d9 = zshape.membership(5.10f);
 
-    ASSERT_LFLL_EQ(0.785f, d1);
-    ASSERT_LFLL_EQ(0.439f, d2);
-    ASSERT_LFLL_EQ(0.252f, d3);
+    ASSERT_LFLL_EQ(0.908f, d1);
+    ASSERT_LFLL_EQ(0.385f, d2);
+    ASSERT_LFLL_EQ(0.127f, d3);
     ASSERT_LFLL_EQ(1.0f, d4);
     ASSERT_LFLL_EQ(0.0f, d5);
+    ASSERT_LFLL_EQ(0.502f, d6);
+    ASSERT_LFLL_EQ(0.5f, d7);
+    ASSERT_LFLL_EQ(0.498f, d8);
+    ASSERT_LFLL_EQ(0.480f, d9);
+
 }

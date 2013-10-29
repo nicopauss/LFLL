@@ -20,33 +20,29 @@ COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
 IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
-#include "LFLLTests.h"
+#include "../LFLLTests.h"
 
 using namespace math;
 
-TEST(LFLLZShapeTest, ZShape)
+TEST(LFLLAggregatorTest, Agregator)
 {
-    LFLLZShape zshape(0.0f, 10.f);
-    scalar d1, d2, d3, d4, d5, d6, d7, d8, d9;
+    const size_t NR = 3;
+    const size_t NT = 2;
 
-    d1 = zshape.membership(2.15f);
-    d2 = zshape.membership(5.61f);
-    d3 = zshape.membership(7.48f);
-    d4 = zshape.membership(0.0f);
-    d5 = zshape.membership(10.2f);
-    d6 = zshape.membership(4.99f);
-    d7 = zshape.membership(5.f);
-    d8 = zshape.membership(5.01f);
-    d9 = zshape.membership(5.10f);
+    LFLLAggregator<LFLLMax> aggregator;
 
-    ASSERT_LFLL_EQ(0.908f, d1);
-    ASSERT_LFLL_EQ(0.385f, d2);
-    ASSERT_LFLL_EQ(0.127f, d3);
-    ASSERT_LFLL_EQ(1.0f, d4);
-    ASSERT_LFLL_EQ(0.0f, d5);
-    ASSERT_LFLL_EQ(0.502f, d6);
-    ASSERT_LFLL_EQ(0.5f, d7);
-    ASSERT_LFLL_EQ(0.498f, d8);
-    ASSERT_LFLL_EQ(0.480f, d9);
+    LFLLConsequence<NR, NT> consequence;
 
+    consequence.getVal(0, 0) = 0.25f;
+    consequence.getVal(0, 1) = 0.f;
+    consequence.getVal(0, 2) = 0.f;
+
+    consequence.getVal(1, 0) = 0.f;
+    consequence.getVal(1, 1) = 0.75f;
+    consequence.getVal(1, 2) = 0.10f;
+
+    LFLLMembership<NT> membership = aggregator.aggregateConsequence(consequence);
+
+    ASSERT_EQ(membership[0], 0.25f);
+    ASSERT_EQ(membership[1], 0.75f);
 }
