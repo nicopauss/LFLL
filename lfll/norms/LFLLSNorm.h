@@ -146,6 +146,8 @@ a:[0,1], b:[0,1] \rightarrow  f(a, b) = (a + b - 2 * a * b) / (1 - a * b)
   */
 struct LFLLHamacherSum
 {
+#pragma warning(push)
+#pragma warning(disable: 4723)
     inline scalar operator()(const scalar a, const scalar b) const {
     	const scalar prod = a * b;
         if (math::isEqualTo(prod, ONE_SCALAR)) {
@@ -153,6 +155,7 @@ struct LFLLHamacherSum
         }
     	return (a + b - (TWO_SCALAR * prod)) / (ONE_SCALAR - prod);
     }
+#pragma warning(pop)
 };
 
 
