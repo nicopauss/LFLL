@@ -160,14 +160,12 @@ public:
         : m_prevConsequence(rule)
         , m_ignore(rule.outputVariables[OutputIndex-1] == 0)
         , m_useNotOp(rule.outputVariables[OutputIndex-1] < 0)
-        // if membershipIndex == 0, then m_membershipIndex = 0
-        // else if membershipIndex < 0, then
-        //    m_membershipIndex = (-membershipIndex -1)
-        // else m_membershipIndex = (membershipIndex -1)
-        , m_membershipIndex(m_ignore ? 0 :
-            ((m_useNotOp ?
+        // if membershipIndex < 0, then
+        //    m_membershipIndex = -membershipIndex
+        // else m_membershipIndex = membershipIndex
+        , m_membershipIndex(m_useNotOp ?
                 -rule.outputVariables[OutputIndex-1] :
-                rule.outputVariables[OutputIndex-1]) - 1))
+                rule.outputVariables[OutputIndex-1])
         , m_notOp()
     {}
 
@@ -184,12 +182,15 @@ public:
             return;
         }
 
+        getLFLLTuple<OutputIndex-1>(consequences)->setTermIndex(
+            RuleIndex-1, m_membershipIndex);
+
         if (m_useNotOp) {
             getLFLLTuple<OutputIndex-1>(consequences)->setVal(
-                m_membershipIndex, RuleIndex-1, m_notOp(val));
+                RuleIndex-1, m_notOp(val));
         } else {
             getLFLLTuple<OutputIndex-1>(consequences)->setVal(
-                m_membershipIndex, RuleIndex-1, val);
+                RuleIndex-1, val);
         }
     }
 

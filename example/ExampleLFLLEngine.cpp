@@ -90,7 +90,7 @@ scalar ExampleLFLLEngine::process(const scalar inputs[])
             inputFuzzifier2.fuzzifyVariable(inputs[1]);
 
     // Initalise consequences
-    LFLLConsequence<NbRules, NbTermsForOutput1> consequence;
+    LFLLConsequence<NbRules> consequence;
 
     // Tuples initialisation
     typedef LFLLTuple<
@@ -99,7 +99,7 @@ scalar ExampleLFLLEngine::process(const scalar inputs[])
             AntecedentTuple;
 
     typedef LFLLTuple<
-            LFLLConsequence<NbRules, NbTermsForOutput1> >
+            LFLLConsequence<NbRules> >
             ConsequenceTuple;
 
     const AntecedentTuple antecedents =

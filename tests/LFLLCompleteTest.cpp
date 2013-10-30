@@ -102,7 +102,7 @@ TEST(LFLLCompleteTest, LFLLComplete)
     const LFLLMembership<NTI2> degrees2 =
             inputFuzzifier2.fuzzifyVariable(inputs[1]);
 
-    LFLLConsequence<NR, NTO> consequence;
+    LFLLConsequence<NR> consequence;
 
     typedef LFLLTuple<
             const LFLLMembership<NTI1>,
@@ -110,7 +110,7 @@ TEST(LFLLCompleteTest, LFLLComplete)
             AntecedentTuple;
 
     typedef LFLLTuple<
-            LFLLConsequence<NR, NTO> >
+            LFLLConsequence<NR> >
             ConsequenceTuple;
 
     const AntecedentTuple antecedents =

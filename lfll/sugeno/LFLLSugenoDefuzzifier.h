@@ -53,18 +53,16 @@ public:
         : m_impl(terms)
     {}
 
-    template <size_t NR, size_t NT>
+    template <size_t NR>
     scalar defuzzifyConsequence(
         const scalar inputs[],
-        const LFLLConsequence<NR, NT>& consequence) const
+        const LFLLConsequence<NR>& consequence) const
     {
-        LFLL_STATIC_ASSERT(NT == TermTuple::tupleSize,
-            number_of_term_and_tuple_size_are_not_equal);
         return m_impl.defuzzifyConsequence(inputs, consequence);
     }
 
 private:
-    typename detail::LFLLSugenoDefuzzifierType<TermTuple, D>::type m_impl;
+    const detail::LFLLSugenoDefuzzifierImpl<TermTuple, D> m_impl;
 };
 
 LFLL_END_NAMESPACE

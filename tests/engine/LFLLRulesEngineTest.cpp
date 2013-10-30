@@ -51,8 +51,8 @@ TEST(LFLLRulesEngineTest, Test)
 
     LFLLMembership<3> degrees1;
     LFLLMembership<2> degrees2;
-    LFLLConsequence<NR, 2> consequence1;
-    LFLLConsequence<NR, 2> consequence2;
+    LFLLConsequence<NR> consequence1;
+    LFLLConsequence<NR> consequence2;
 
     typedef LFLLTuple<
             LFLLMembership<3>,
@@ -60,8 +60,8 @@ TEST(LFLLRulesEngineTest, Test)
             AntecedentTuple;
 
     typedef LFLLTuple<
-            LFLLConsequence<NR, 2>,
-            LFLLConsequence<NR, 2> >
+            LFLLConsequence<NR>,
+            LFLLConsequence<NR> >
             ConsequenceTuple;
 
     const AntecedentTuple antecedents =
@@ -85,19 +85,22 @@ TEST(LFLLRulesEngineTest, Test)
 
     scalar valPart = 1.f - 0.16f/2.f;
 
-    ASSERT_LFLL_REL_EQ(0.16f, consequence1.getVal(0, 0));
-    ASSERT_LFLL_REL_EQ(0.f, consequence1.getVal(0, 1));
-    ASSERT_LFLL_REL_EQ(0.f, consequence1.getVal(0, 2));
+    ASSERT_EQ(1, consequence1.getTermIndex(0));
+    ASSERT_LFLL_REL_EQ(0.16f, consequence1.getVal(0));
 
-    ASSERT_LFLL_REL_EQ(0.f, consequence1.getVal(1, 0));
-    ASSERT_LFLL_REL_EQ(0.56f, consequence1.getVal(1, 1));
-    ASSERT_LFLL_REL_EQ(0.f, consequence1.getVal(1, 2));
+    ASSERT_EQ(2, consequence1.getTermIndex(1));
+    ASSERT_LFLL_REL_EQ(0.56f, consequence1.getVal(1));
 
-    ASSERT_LFLL_REL_EQ(0.f, consequence2.getVal(0, 0));
-    ASSERT_LFLL_REL_EQ(0.56f, consequence2.getVal(0, 1));
-    ASSERT_LFLL_REL_EQ(valPart, consequence2.getVal(0, 2));
+    ASSERT_EQ(0, consequence1.getTermIndex(2));
+    ASSERT_LFLL_REL_EQ(0.0f, consequence1.getVal(2));
 
-    ASSERT_LFLL_REL_EQ(0.f, consequence2.getVal(1, 0));
-    ASSERT_LFLL_REL_EQ(0.f, consequence2.getVal(1, 1));
-    ASSERT_LFLL_REL_EQ(0.f, consequence2.getVal(1, 2));
+
+    ASSERT_EQ(0, consequence2.getTermIndex(0));
+    ASSERT_LFLL_REL_EQ(0.0f, consequence2.getVal(0));
+
+    ASSERT_EQ(1, consequence2.getTermIndex(1));
+    ASSERT_LFLL_REL_EQ(0.56f, consequence2.getVal(1));
+
+    ASSERT_EQ(1, consequence2.getTermIndex(2));
+    ASSERT_LFLL_REL_EQ(1.f - 0.16f/2.f, consequence2.getVal(2));
 }

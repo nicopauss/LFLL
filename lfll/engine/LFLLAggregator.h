@@ -37,7 +37,7 @@ LFLL_BEGIN_NAMESPACE
  * Default is max operator.
  * It is useful if you want to chain up systems.
  */
-template<typename SNorm = LFLLMax>
+template<size_t NT, typename SNorm = LFLLMax>
 class LFLLAggregator
 {
 public:
@@ -45,37 +45,31 @@ public:
         : m_sNorm()
     {}
 
-    template <size_t NR, size_t NT>
+    template <size_t NR>
     LFLLMembership<NT> aggregateConsequence(
-        const LFLLConsequence<NR, NT>& consequence) const;
+        const LFLLConsequence<NR>& consequence) const
+    {
+        LFLLMembership<NT> result;
+        result.reset();
+        for (size_t ruleIndex = 0 ; ruleIndex < NR ; ++ruleIndex) {
+            const scalar consequenceValue =
+                    consequence.getVal(ruleIndex);
+            uint32_t consequenceTermIndex =
+                    consequence.getTermIndex(ruleIndex);
+            if (consequenceTermIndex != 0) {
+                --consequenceTermIndex;
+                result.setVal(consequenceTermIndex, m_sNorm(
+                    result.getVal(consequenceTermIndex), consequenceValue));
+            } 
+
+        }
+
+        return result;
+    }
+    
 private:
     const SNorm m_sNorm;
 };
-
-
-template<typename BinaryOperatorType>
-template <size_t NR, size_t NT>
-LFLLMembership<NT> LFLLAggregator<BinaryOperatorType>::aggregateConsequence(
-    const LFLLConsequence<NR, NT>& consequence) const
-{
-    LFLLMembership<NT> retValue;
-    for (size_t termIndex = 0 ; termIndex < NT ; ++termIndex) {
-        scalar termValue;
-        bool hasPrevTerm = false;
-        for (size_t ruleIndex = 0 ; ruleIndex < NR ; ++ruleIndex) {
-            const scalar consequenceValue =
-                    consequence.getVal(termIndex, ruleIndex);
-            if (hasPrevTerm) {
-                termValue = m_sNorm(termValue, consequenceValue);
-            } else {
-                termValue = consequenceValue;
-                hasPrevTerm = true;
-            }
-        }
-        retValue.setVal(termIndex, termValue);
-    }
-    return retValue;
-}
 
 LFLL_END_NAMESPACE
 

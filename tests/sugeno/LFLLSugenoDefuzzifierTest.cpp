@@ -45,15 +45,16 @@ TEST(LFLLSugenoDefuzzifier, TestZeroOrderAverage)
         defuzzifier(outputTerms);
 
 
-    LFLLConsequence<NR, NT> consequence;
+    LFLLConsequence<NR> consequence;
 
-    consequence.getVal(0, 0) = 0.25f;
-    consequence.getVal(0, 1) = 0.f;
-    consequence.getVal(0, 2) = 0.f;
+    consequence.setTermIndex(0, 1);
+    consequence.setVal(0, 0.25f);
 
-    consequence.getVal(1, 0) = 0.f;
-    consequence.getVal(1, 1) = 0.75f;
-    consequence.getVal(1, 2) = 0.10f;
+    consequence.setTermIndex(1, 2);
+    consequence.setVal(1, 0.75f);
+
+    consequence.setTermIndex(2, 2);
+    consequence.setVal(2, 0.10f);
 
 
     scalar ret = defuzzifier.defuzzifyConsequence(inputs, consequence);
@@ -82,16 +83,16 @@ TEST(LFLLSugenoDefuzzifier, TestZeroOrderSum)
         defuzzifier(outputTerms);
 
 
-    LFLLConsequence<NR, NT> consequence;
+    LFLLConsequence<NR> consequence;
 
-    consequence.getVal(0, 0) = 0.25f;
-    consequence.getVal(0, 1) = 0.f;
-    consequence.getVal(0, 2) = 0.f;
+    consequence.setTermIndex(0, 1);
+    consequence.setVal(0, 0.25f);
 
-    consequence.getVal(1, 0) = 0.f;
-    consequence.getVal(1, 1) = 0.75f;
-    consequence.getVal(1, 2) = 0.10f;
+    consequence.setTermIndex(1, 2);
+    consequence.setVal(1, 0.75f);
 
+    consequence.setTermIndex(2, 2);
+    consequence.setVal(2, 0.10f);
 
     scalar ret = defuzzifier.defuzzifyConsequence(inputs, consequence);
 
@@ -121,16 +122,16 @@ TEST(LFLLSugenoDefuzzifier, TestFirstOrderAverage)
         defuzzifier(outputTerms);
 
 
-    LFLLConsequence<NR, NT> consequence;
+    LFLLConsequence<NR> consequence;
 
-    consequence.getVal(0, 0) = 0.25f;
-    consequence.getVal(0, 1) = 0.f;
-    consequence.getVal(0, 2) = 0.f;
+    consequence.setTermIndex(0, 1);
+    consequence.setVal(0, 0.25f);
 
-    consequence.getVal(1, 0) = 0.f;
-    consequence.getVal(1, 1) = 0.75f;
-    consequence.getVal(1, 2) = 0.10f;
+    consequence.setTermIndex(1, 2);
+    consequence.setVal(1, 0.75f);
 
+    consequence.setTermIndex(2, 2);
+    consequence.setVal(2, 0.10f);
 
     scalar ret = defuzzifier.defuzzifyConsequence(inputs, consequence);
 
@@ -160,16 +161,16 @@ TEST(LFLLSugenoDefuzzifier, TestFirstOrderSum)
         defuzzifier(outputTerms);
 
 
-    LFLLConsequence<NR, NT> consequence;
+    LFLLConsequence<NR> consequence;
 
-    consequence.getVal(0, 0) = 0.25f;
-    consequence.getVal(0, 1) = 0.f;
-    consequence.getVal(0, 2) = 0.f;
+    consequence.setTermIndex(0, 1);
+    consequence.setVal(0, 0.25f);
 
-    consequence.getVal(1, 0) = 0.f;
-    consequence.getVal(1, 1) = 0.75f;
-    consequence.getVal(1, 2) = 0.10f;
+    consequence.setTermIndex(1, 2);
+    consequence.setVal(1, 0.75f);
 
+    consequence.setTermIndex(2, 2);
+    consequence.setVal(2, 0.10f);
 
     scalar ret = defuzzifier.defuzzifyConsequence(inputs, consequence);
 

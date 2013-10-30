@@ -97,6 +97,11 @@ public:
         m_array[index] = val;
     }
 
+    inline void reset()
+    {
+        memset(m_array, 0, sizeof(m_array));
+    }
+
 private:
     scalar m_array[NT];
 };

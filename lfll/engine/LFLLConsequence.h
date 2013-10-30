@@ -35,64 +35,70 @@ LFLL_BEGIN_NAMESPACE
   * Consequences from rules.
   * Destined to be dufuzzified or aggregated.
   */
-template <size_t NR, size_t NT>
+template <size_t NR>
 class LFLLConsequence
 {
 public:
-    static const size_t nbTerms = NT;
     static const size_t nbRules = NR;
+
+private:
+    /**
+      * Consequence from a single rule.
+      */
+    struct RuleConsequence
+    {
+        uint32_t termIndex;
+        scalar value;
+        RuleConsequence() : termIndex(0), value(ZERO_SCALAR) {}
+    };
 
 public:
     LFLLConsequence()
-    {
-        memset(m_values, 0, sizeof(m_values));
-    }
-
-    inline size_t getNbTerms() const
-    {
-        return NT;
-    }
+    {}
 
     inline size_t getNbRules() const
     {
         return NR;
     }
 
-    inline scalar* operator[](size_t term)
+    inline uint32_t& getTermIndex(size_t rule) 
     {
-        assert(term < NT);
-        return m_values[term];
-    }
-
-    inline const scalar* operator[](size_t term) const
-    {
-        assert(term < NT);
-        return m_values[term];
-    }
-
-    inline scalar& getVal(size_t term, size_t rule)
-    {
-        assert(term < NT);
         assert(rule < NR);
-        return m_values[term][rule];
+        return m_values[rule].termIndex;
     }
 
-    inline scalar getVal(size_t term, size_t rule) const
+    inline uint32_t getTermIndex(size_t rule) const
     {
-        assert(term < NT);
         assert(rule < NR);
-        return m_values[term][rule];
+        return m_values[rule].termIndex;
     }
 
-    inline void setVal(size_t term, size_t rule, scalar val)
+    inline scalar& getVal(size_t rule)
     {
-        assert(term < NT);
         assert(rule < NR);
-        m_values[term][rule] = val;
+        return m_values[rule].value;
+    }
+
+    inline scalar getVal(size_t rule) const
+    {
+        assert(rule < NR);
+        return m_values[rule].value;
+    }
+
+    inline void setTermIndex(size_t rule, uint32_t termIndex)
+    {
+        assert(rule < NR);
+        m_values[rule].termIndex = termIndex;
+    }
+
+    inline void setVal(size_t rule, scalar val)
+    {
+        assert(rule < NR);
+        m_values[rule].value = val;
     }
 
 private:
-    scalar m_values[NT][NR];
+    RuleConsequence m_values[NR];
 };
 
 LFLL_END_NAMESPACE

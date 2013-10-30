@@ -34,175 +34,143 @@ LFLL_BEGIN_NAMESPACE
 namespace detail {
 
 
-template <class TermTuple, size_t TermIndex>
-struct LFLLSugenoDefuzzifierWeightedAverageIterator
+template <LFLLSugenoDefuzzifyMethod D>
+struct LFLLSugenoDefuzzifierMethodType;
+
+
+
+template <size_t I, class TermTuple>
+struct LFLLSugenoDefuzzifierImplIterator
 {
-	template <size_t NR, size_t NT>
-    static void iterate(
+    static void computeTermValue(
         const TermTuple* terms,
         const scalar inputs[],
-        const LFLLConsequence<NR, NT>& consequence,
-        scalar& numerator,
-        scalar& denominator)
+        scalar termsValues[])
     {
-        LFLLSugenoDefuzzifierWeightedAverageIterator<TermTuple, TermIndex-1>::iterate(
-            terms, inputs, consequence,
-            numerator, denominator);
-        const scalar termValue =
-            getLFLLTuple<TermIndex-1>(*terms)->computeTermValue(inputs);
-        for (size_t ruleIndex = 0 ; ruleIndex < NR ; ++ruleIndex)
-        {
-            const scalar ruleValue = consequence.getVal(
-                TermIndex-1, ruleIndex);
-            if (ruleValue != ZERO_SCALAR) {
-                numerator += ruleValue * termValue;
-                denominator += ruleValue;
-            }
-        }
+        LFLLSugenoDefuzzifierImplIterator<I-1, TermTuple>::
+            computeTermValue(terms, inputs, termsValues);
+        termsValues[I-1] = 
+            getLFLLTuple<I-1>(*terms)->computeTermValue(inputs);
     }
 };
 
 template <class TermTuple>
-struct LFLLSugenoDefuzzifierWeightedAverageIterator<TermTuple, 0>
+struct LFLLSugenoDefuzzifierImplIterator<0, TermTuple>
 {
-	template <size_t NR, size_t NT>
-    static void iterate(
+    static void computeTermValue(
         const TermTuple*,
         const scalar[],
-        const LFLLConsequence<NR, NT>&,
-        scalar&,
-        scalar&)
+        scalar[])
     {}
 };
 
 
 
-/**
-  * Sugeno defuzzifier with weighted average
-  */
-template <class TermTuple>
-class LFLLSugenoDefuzzifierWeightedAverage
+template <class TermTuple, LFLLSugenoDefuzzifyMethod D>
+class LFLLSugenoDefuzzifierImpl
 {
 public:
-    LFLLSugenoDefuzzifierWeightedAverage(
+    LFLLSugenoDefuzzifierImpl(
         const TermTuple& terms)
         : m_terms(&terms)
     {}
 
-    template <size_t NR, size_t NT>
+    template <size_t NR>
     scalar defuzzifyConsequence(
         const scalar inputs[],
-        const LFLLConsequence<NR, NT>& consequence) const
+        const LFLLConsequence<NR>& consequence) const
+    {
+        typedef typename LFLLSugenoDefuzzifierMethodType<D>::type DefuzzifierMethod;
+
+        scalar termsValues[TermTuple::tupleSize];
+        LFLLSugenoDefuzzifierImplIterator<TermTuple::tupleSize, TermTuple>::
+            computeTermValue(m_terms, inputs, termsValues);
+
+        return DefuzzifierMethod::
+            defuzzifyConsequence(consequence, termsValues);
+    }
+
+private:
+    const TermTuple* m_terms;
+};
+
+
+/******************************************************************
+** Weighted Average
+*******************************************************************/
+
+
+struct LFLLSugenoDefuzzifierWeightedAverage
+{
+    template <size_t NR>
+    static scalar defuzzifyConsequence(
+        const LFLLConsequence<NR>& consequence,
+        const scalar termsValues[])
     {
         scalar numerator = ZERO_SCALAR;
         scalar denominator = ZERO_SCALAR;
 
-        LFLLSugenoDefuzzifierWeightedAverageIterator<TermTuple, NT>::iterate(
-                    m_terms, inputs, consequence,
-                    numerator, denominator);
+        // Iterate through each rules
+        for (size_t i = 0 ; i < NR ; ++i)
+        {
+            const uint32_t termIndex = consequence.getTermIndex(i);
+            if (termIndex != 0) {
+                const scalar ruleValue = consequence.getVal(i);
+                numerator += ruleValue * termsValues[termIndex-1];
+                denominator += ruleValue;
+            }
+        }
 
         if (math::isEqualTo(denominator, ZERO_SCALAR)) {
-            return getLFLLTuple<0>(*m_terms)->computeTermValue(inputs);
+            return termsValues[0];
         }
 
         return numerator / denominator;
     }
+};
 
-private:
-    const TermTuple* m_terms;
+template <>
+struct LFLLSugenoDefuzzifierMethodType<LFLL_SUGENO_WEIGHTED_AVERAGE>
+{
+    typedef LFLLSugenoDefuzzifierWeightedAverage type;
 };
 
 
 
+/******************************************************************
+** Weighted Sum
+*******************************************************************/
 
 
-template <class TermTuple, size_t TermIndex>
-struct LFLLSugenoDefuzzifierWeightedSumIterator
+struct LFLLSugenoDefuzzifierWeightedSum
 {
-	template <size_t NR, size_t NT>
-    static void iterate(
-        const TermTuple* terms,
-        const scalar inputs[],
-        const LFLLConsequence<NR, NT>& consequence,
-        scalar& numerator)
-    {
-        LFLLSugenoDefuzzifierWeightedSumIterator<TermTuple, TermIndex-1>::iterate(
-            terms, inputs, consequence, numerator);
-        const scalar termValue =
-            getLFLLTuple<TermIndex-1>(*terms)->computeTermValue(inputs);
-        for (size_t ruleIndex = 0 ; ruleIndex < NR ; ++ruleIndex)
-        {
-            const scalar ruleValue = consequence.getVal(
-                TermIndex-1, ruleIndex);
-            if (ruleValue != ZERO_SCALAR) {
-                numerator += ruleValue * termValue;
-            }
-        }
-    }
-};
-
-template <class TermTuple>
-struct LFLLSugenoDefuzzifierWeightedSumIterator<TermTuple, 0>
-{
-	template <size_t NR, size_t NT>
-    static void iterate(
-        const TermTuple*,
-        const scalar[],
-        const LFLLConsequence<NR, NT>&,
-        scalar&)
-    {}
-};
-
-
-
-/**
-  * Sugeno defuzzifier with weighted sum
-  */
-template <class TermTuple>
-class LFLLSugenoDefuzzifierWeightedSum
-{
-public:
-    LFLLSugenoDefuzzifierWeightedSum(
-        const TermTuple& terms)
-        : m_terms(&terms)
-    {}
-
-    template <size_t NR, size_t NT>
-    scalar defuzzifyConsequence(
-        const scalar inputs[],
-        const LFLLConsequence<NR, NT>& consequence) const
+    template <size_t NR>
+    static scalar defuzzifyConsequence(
+        const LFLLConsequence<NR>& consequence,
+        const scalar termsValues[])
     {
         scalar numerator = ZERO_SCALAR;
 
-        LFLLSugenoDefuzzifierWeightedSumIterator<TermTuple, NT>::iterate(
-			m_terms, inputs, consequence, numerator);
+        // Iterate through each rules
+        for (size_t i = 0 ; i < NR ; ++i)
+        {
+            const uint32_t termIndex = consequence.getTermIndex(i);
+            if (termIndex != 0) {
+                const scalar ruleValue = consequence.getVal(i);
+                numerator += ruleValue * termsValues[termIndex-1];
+            }
+        }
 
         return numerator;
     }
-
-private:
-    const TermTuple* m_terms;
 };
 
-
-/**
-  * Get the right type of impl
-  */
-
-template <class TermTuple, LFLLSugenoDefuzzifyMethod D>
-struct LFLLSugenoDefuzzifierType;
-
-template <class TermTuple>
-struct LFLLSugenoDefuzzifierType<TermTuple, LFLL_SUGENO_WEIGHTED_AVERAGE>
+template <>
+struct LFLLSugenoDefuzzifierMethodType<LFLL_SUGENO_WEIGHTED_SUM>
 {
-    typedef LFLLSugenoDefuzzifierWeightedAverage<TermTuple> type;
+    typedef LFLLSugenoDefuzzifierWeightedSum type;
 };
 
-template <class TermTuple>
-struct LFLLSugenoDefuzzifierType<TermTuple, LFLL_SUGENO_WEIGHTED_SUM>
-{
-    typedef LFLLSugenoDefuzzifierWeightedSum<TermTuple> type;
-};
 
 }
 
