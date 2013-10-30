@@ -22,16 +22,17 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 #include "../LFLLTests.h"
 
-TEST(LFLLRRamp, Test)
+TEST(LFLLSigmoidProduct, Test)
 {
-    LFLLRRamp term(-1.0f, 1.0f);
+    LFLLSigmoidProduct term(
+        8.14f, -0.336f, -8.82f, 0.421f);
 
-    ASSERT_LFLL_ABS_EQ(0.0f, term.membership(-1.5f));
-    ASSERT_LFLL_ABS_EQ(0.0f, term.membership(-1.0f));
-    ASSERT_LFLL_ABS_EQ(0.3f, term.membership(-0.4f));
-    ASSERT_LFLL_ABS_EQ(0.5f, term.membership(0.0f));
-    ASSERT_LFLL_ABS_EQ(0.6f, term.membership(0.2f));
-    ASSERT_LFLL_ABS_EQ(0.9f, term.membership(0.8f));
-    ASSERT_LFLL_ABS_EQ(1.0f, term.membership(1.0f));
-    ASSERT_LFLL_ABS_EQ(1.0f, term.membership(1.4f));
+    ASSERT_LFLL_ABS_EQ(0.0001f, term.membership(-1.5f));
+    ASSERT_LFLL_ABS_EQ(0.0045f, term.membership(-1.0f));
+    ASSERT_LFLL_ABS_EQ(0.3724f, term.membership(-0.4f));
+    ASSERT_LFLL_ABS_EQ(0.9167f, term.membership(0.0f));
+    ASSERT_LFLL_ABS_EQ(0.8644f, term.membership(0.2f));
+    ASSERT_LFLL_ABS_EQ(0.0341f, term.membership(0.8f));
+    ASSERT_LFLL_ABS_EQ(0.0060f, term.membership(1.0f));
+    ASSERT_LFLL_ABS_EQ(0.0002f, term.membership(1.4f));
 }

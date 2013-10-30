@@ -44,17 +44,11 @@ TEST(LFLLInputFuzzifierTest, Test1)
     LFLLMembership<5> degrees =
         inputFuzzifier.fuzzifyVariable(1.64f);
 
-    scalar s1 = degrees[0];
-    scalar s2 = degrees[1];
-    scalar s3 = degrees[2];
-    scalar s4 = degrees[3];
-    scalar s5 = degrees[4];
-
-    ASSERT_LFLL_EQ(0.763f, s1);
-    ASSERT_LFLL_EQ(0.656f, s2);
-    ASSERT_LFLL_EQ(0.328f, s3);
-    ASSERT_LFLL_EQ(0.0f, s4);
-    ASSERT_LFLL_EQ(1.0f, s5);
+    ASSERT_LFLL_REL_EQ(0.763328f, degrees[0]);
+    ASSERT_LFLL_REL_EQ(0.656f, degrees[1]);
+    ASSERT_LFLL_REL_EQ(0.328f, degrees[2]);
+    ASSERT_LFLL_REL_EQ(0.0f, degrees[3]);
+    ASSERT_LFLL_REL_EQ(1.0f, degrees[4]);
 }
 
 
@@ -78,16 +72,10 @@ TEST(LFLLInputFuzzifierTest, Test2)
     LFLLMembership<5> degrees =
         inputFuzzifier.fuzzifyVariable(8.47f);
 
-    scalar s1 = degrees[0];
-    scalar s2 = degrees[1];
-    scalar s3 = degrees[2];
-    scalar s4 = degrees[3];
-    scalar s5 = degrees[4];
-
-    ASSERT_LFLL_EQ(0.699f, s1);
-    ASSERT_LFLL_EQ(0.612f, s2);
-    ASSERT_LFLL_EQ(0.306f, s3);
-    ASSERT_LFLL_EQ(1.0f, s4);
-    ASSERT_LFLL_EQ(0.0f, s5);
+    ASSERT_LFLL_REL_EQ(0.698912f, degrees[0]);
+    ASSERT_LFLL_REL_EQ(0.612f, degrees[1]);
+    ASSERT_LFLL_REL_EQ(0.306f, degrees[2]);
+    ASSERT_LFLL_REL_EQ(1.0f, degrees[3]);
+    ASSERT_LFLL_REL_EQ(0.0f, degrees[4]);
 }
 

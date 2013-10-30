@@ -23,5 +23,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include <gtest/gtest.h>
 #include <lfll/LFLL.h>
 
-#define ASSERT_LFLL_EQ(val1, val2) \
-    ASSERT_NEAR((val1), (val2), ((val1)*0.01f));
+#define ASSERT_LFLL_REL_EQ(val1, val2) \
+    ASSERT_NEAR((val1), (val2), ((val1)*SCALAR_DIFF_PRECISION));
+
+#define ASSERT_LFLL_ABS_EQ(val1, val2) \
+    ASSERT_NEAR((val1), (val2), (SCALAR_DIFF_PRECISION));

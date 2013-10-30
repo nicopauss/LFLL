@@ -85,19 +85,19 @@ TEST(LFLLRulesEngineTest, Test)
 
     scalar valPart = 1.f - 0.16f/2.f;
 
-    ASSERT_EQ(0.16f, consequence1.getVal(0, 0));
-    ASSERT_EQ(0.f, consequence1.getVal(0, 1));
-    ASSERT_EQ(0.f, consequence1.getVal(0, 2));
+    ASSERT_LFLL_REL_EQ(0.16f, consequence1.getVal(0, 0));
+    ASSERT_LFLL_REL_EQ(0.f, consequence1.getVal(0, 1));
+    ASSERT_LFLL_REL_EQ(0.f, consequence1.getVal(0, 2));
 
-    ASSERT_EQ(0.f, consequence1.getVal(1, 0));
-    ASSERT_EQ(0.56f, consequence1.getVal(1, 1));
-    ASSERT_EQ(0.f, consequence1.getVal(1, 2));
+    ASSERT_LFLL_REL_EQ(0.f, consequence1.getVal(1, 0));
+    ASSERT_LFLL_REL_EQ(0.56f, consequence1.getVal(1, 1));
+    ASSERT_LFLL_REL_EQ(0.f, consequence1.getVal(1, 2));
 
-    ASSERT_EQ(0.f, consequence2.getVal(0, 0));
-    ASSERT_EQ(0.56f, consequence2.getVal(0, 1));
-    ASSERT_EQ(valPart, consequence2.getVal(0, 2));
+    ASSERT_LFLL_REL_EQ(0.f, consequence2.getVal(0, 0));
+    ASSERT_LFLL_REL_EQ(0.56f, consequence2.getVal(0, 1));
+    ASSERT_LFLL_REL_EQ(valPart, consequence2.getVal(0, 2));
 
-    ASSERT_EQ(0.f, consequence2.getVal(1, 0));
-    ASSERT_EQ(0.f, consequence2.getVal(1, 1));
-    ASSERT_EQ(0.f, consequence2.getVal(1, 2));
+    ASSERT_LFLL_REL_EQ(0.f, consequence2.getVal(1, 0));
+    ASSERT_LFLL_REL_EQ(0.f, consequence2.getVal(1, 1));
+    ASSERT_LFLL_REL_EQ(0.f, consequence2.getVal(1, 2));
 }

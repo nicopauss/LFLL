@@ -22,31 +22,16 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 #include "../LFLLTests.h"
 
-using namespace math;
-
-TEST(LFLLZShapeTest, ZShape)
+TEST(LFLLZShape, Test)
 {
-    LFLLZShape zshape(0.0f, 10.f);
-    scalar d1, d2, d3, d4, d5, d6, d7, d8, d9;
+    LFLLZShape term(-1.0f, 1.0f);
 
-    d1 = zshape.membership(2.15f);
-    d2 = zshape.membership(5.61f);
-    d3 = zshape.membership(7.48f);
-    d4 = zshape.membership(0.0f);
-    d5 = zshape.membership(10.2f);
-    d6 = zshape.membership(4.99f);
-    d7 = zshape.membership(5.f);
-    d8 = zshape.membership(5.01f);
-    d9 = zshape.membership(5.10f);
-
-    ASSERT_LFLL_EQ(0.908f, d1);
-    ASSERT_LFLL_EQ(0.385f, d2);
-    ASSERT_LFLL_EQ(0.127f, d3);
-    ASSERT_LFLL_EQ(1.0f, d4);
-    ASSERT_LFLL_EQ(0.0f, d5);
-    ASSERT_LFLL_EQ(0.502f, d6);
-    ASSERT_LFLL_EQ(0.5f, d7);
-    ASSERT_LFLL_EQ(0.498f, d8);
-    ASSERT_LFLL_EQ(0.480f, d9);
-
+    ASSERT_LFLL_ABS_EQ(1.0f, term.membership(-1.5f));
+    ASSERT_LFLL_ABS_EQ(1.0f, term.membership(-1.0f));
+    ASSERT_LFLL_ABS_EQ(0.82f, term.membership(-0.4f));
+    ASSERT_LFLL_ABS_EQ(0.5f, term.membership(0.0f));
+    ASSERT_LFLL_ABS_EQ(0.32f, term.membership(0.2f));
+    ASSERT_LFLL_ABS_EQ(0.02f, term.membership(0.8f));
+    ASSERT_LFLL_ABS_EQ(0.0f, term.membership(1.0f));
+    ASSERT_LFLL_ABS_EQ(0.0f, term.membership(1.4f));
 }

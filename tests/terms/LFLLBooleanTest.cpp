@@ -22,7 +22,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 #include "../LFLLTests.h"
 
-TEST(LFLLBooleanTest, Test1)
+TEST(LFLLBoolean, Test1)
 {
     LFLLBoolean booleanLFLL(true);
 
@@ -30,14 +30,14 @@ TEST(LFLLBooleanTest, Test1)
 }
 
 
-TEST(LFLLBooleanTest, Test2)
+TEST(LFLLBoolean, Test2)
 {
     LFLLBoolean booleanLFLL(true);
 
     ASSERT_EQ(ZERO_SCALAR, booleanLFLL.membership(false));
 }
 
-TEST(LFLLBooleanTest, Test3)
+TEST(LFLLBoolean, Test3)
 {
     LFLLBoolean booleanLFLL(false);
 
@@ -45,7 +45,7 @@ TEST(LFLLBooleanTest, Test3)
 }
 
 
-TEST(LFLLBooleanTest, Test4)
+TEST(LFLLBoolean, Test4)
 {
     LFLLBoolean booleanLFLL(false);
 

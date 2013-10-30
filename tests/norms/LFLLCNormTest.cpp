@@ -26,8 +26,8 @@ TEST(LFLLCNorm, NotTest)
 {
     LFLLNot notCNorm;
 
-    ASSERT_EQ(ONE_SCALAR, notCNorm(ZERO_SCALAR));
-    ASSERT_EQ(ZERO_SCALAR, notCNorm(ONE_SCALAR));
-    ASSERT_EQ(0.5f, notCNorm(0.5f));
-    ASSERT_EQ(0.25f, notCNorm(0.75f));
+    ASSERT_LFLL_REL_EQ(ONE_SCALAR, notCNorm(ZERO_SCALAR));
+    ASSERT_LFLL_REL_EQ(ZERO_SCALAR, notCNorm(ONE_SCALAR));
+    ASSERT_LFLL_REL_EQ(0.5f, notCNorm(0.5f));
+    ASSERT_LFLL_REL_EQ(0.25f, notCNorm(0.75f));
 }

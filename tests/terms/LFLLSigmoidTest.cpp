@@ -22,16 +22,16 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 #include "../LFLLTests.h"
 
-TEST(LFLLRRamp, Test)
+TEST(LFLLSigmoid, Test)
 {
-    LFLLRRamp term(-1.0f, 1.0f);
+    LFLLSigmoid term(5.0f, 0.0f);
 
-    ASSERT_LFLL_ABS_EQ(0.0f, term.membership(-1.5f));
-    ASSERT_LFLL_ABS_EQ(0.0f, term.membership(-1.0f));
-    ASSERT_LFLL_ABS_EQ(0.3f, term.membership(-0.4f));
+    ASSERT_LFLL_ABS_EQ(0.0006f, term.membership(-1.5f));
+    ASSERT_LFLL_ABS_EQ(0.0067f, term.membership(-1.0f));
+    ASSERT_LFLL_ABS_EQ(0.1192f, term.membership(-0.4f));
     ASSERT_LFLL_ABS_EQ(0.5f, term.membership(0.0f));
-    ASSERT_LFLL_ABS_EQ(0.6f, term.membership(0.2f));
-    ASSERT_LFLL_ABS_EQ(0.9f, term.membership(0.8f));
-    ASSERT_LFLL_ABS_EQ(1.0f, term.membership(1.0f));
-    ASSERT_LFLL_ABS_EQ(1.0f, term.membership(1.4f));
+    ASSERT_LFLL_ABS_EQ(0.7311f, term.membership(0.2f));
+    ASSERT_LFLL_ABS_EQ(0.9820f, term.membership(0.8f));
+    ASSERT_LFLL_ABS_EQ(0.9933f, term.membership(1.0f));
+    ASSERT_LFLL_ABS_EQ(0.9991f, term.membership(1.4f));
 }

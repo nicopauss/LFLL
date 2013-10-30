@@ -53,7 +53,7 @@ TEST(LFLLSugenoDefuzzifierTest, Test1)
 
     scalar ret = defuzzifier.defuzzifyConsequence(consequence);
 
-    ASSERT_LFLL_EQ(0.886f, ret);
+    ASSERT_LFLL_REL_EQ(0.886f, ret);
 }
 
 TEST(LFLLSugenoDefuzzifierTest, Test2)
@@ -82,6 +82,6 @@ TEST(LFLLSugenoDefuzzifierTest, Test2)
 
     scalar ret = defuzzifier.defuzzifyConsequence(consequence);
 
-    ASSERT_LFLL_EQ(9.38f, ret);
+    ASSERT_LFLL_REL_EQ(9.38f, ret);
 }
 */

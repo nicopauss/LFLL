@@ -60,10 +60,10 @@ TEST(LFLLCompleteTest, LFLLComplete)
         {{1, 2}, {1}, 1.f, false},
 
         // Rule 5
-        {{2, 2}, {2}, 1.f, false},
+        {{2, 2}, {2}, 1.f, true},
 
         // Rule 6
-        {{3, 2}, {3}, 1.f, false}
+        {{3, 2}, {3}, 0.7f, true}
     }};
 
 
@@ -123,5 +123,5 @@ TEST(LFLLCompleteTest, LFLLComplete)
     scalar ret = defuzzifier.defuzzifyConsequence(inputs, consequence);
 
     // Test
-    ASSERT_LFLL_EQ(0.234f, ret);
+    ASSERT_LFLL_REL_EQ(0.350281350482315f, ret);
 }
