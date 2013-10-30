@@ -23,21 +23,26 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include "../LFLLTests.h"
 
 using namespace math;
-/*
 
-TEST(LFLLSugenoDefuzzifierTest, Test1)
+
+TEST(LFLLSugenoDefuzzifier, TestZeroOrderAverage)
 {
     const size_t NR = 3;
     const size_t NT = 2;
 
     scalar inputs[3] = {0.f, 0.4f, 5.f};
 
-    const LFLLSugenoCrispValues<NT> crispValues = {{
-        0.5f,
-        1.0f
-    }};
+    LFLLSugenoZeroOrderTerm o1 = {0.5f};
+    LFLLSugenoZeroOrderTerm o2 = {1.0f};
 
-    LFLLSugenoDefuzzifier<NR, NT> defuzzifier(crispValues);
+
+    typedef LFLLTuple<LFLLSugenoZeroOrderTerm, LFLLSugenoZeroOrderTerm>
+        OutputTermTuple;
+    OutputTermTuple outputTerms = makeLFLLTuple(o1, o2);
+
+
+    LFLLSugenoDefuzzifier<OutputTermTuple, LFLL_SUGENO_WEIGHTED_AVERAGE> 
+        defuzzifier(outputTerms);
 
 
     LFLLConsequence<NR, NT> consequence;
@@ -51,37 +56,122 @@ TEST(LFLLSugenoDefuzzifierTest, Test1)
     consequence.getVal(1, 2) = 0.10f;
 
 
-    scalar ret = defuzzifier.defuzzifyConsequence(consequence);
+    scalar ret = defuzzifier.defuzzifyConsequence(inputs, consequence);
 
-    ASSERT_LFLL_REL_EQ(0.886f, ret);
+    ASSERT_LFLL_REL_EQ(0.8863636363636362f, ret);
 }
 
-TEST(LFLLSugenoDefuzzifierTest, Test2)
+
+TEST(LFLLSugenoDefuzzifier, TestZeroOrderSum)
 {
     const size_t NR = 3;
     const size_t NT = 2;
 
-    const LFLLSugenoCrispValues<NT> crispValues = {{
-        0.1f,
-        40.0f
-    }};
+    scalar inputs[3] = {0.f, 0.4f, 5.f};
 
-    LFLLSugenoDefuzzifier<NR, NT> defuzzifier(crispValues);
+    LFLLSugenoZeroOrderTerm o1 = {0.5f};
+    LFLLSugenoZeroOrderTerm o2 = {1.0f};
+
+
+    typedef LFLLTuple<LFLLSugenoZeroOrderTerm, LFLLSugenoZeroOrderTerm>
+        OutputTermTuple;
+    OutputTermTuple outputTerms = makeLFLLTuple(o1, o2);
+
+
+    LFLLSugenoDefuzzifier<OutputTermTuple, LFLL_SUGENO_WEIGHTED_SUM> 
+        defuzzifier(outputTerms);
 
 
     LFLLConsequence<NR, NT> consequence;
 
-    consequence.getVal(0, 0) = 0.60f;
-    consequence.getVal(0, 1) = 0.50f;
+    consequence.getVal(0, 0) = 0.25f;
+    consequence.getVal(0, 1) = 0.f;
     consequence.getVal(0, 2) = 0.f;
 
     consequence.getVal(1, 0) = 0.f;
-    consequence.getVal(1, 1) = 0.f;
-    consequence.getVal(1, 2) = 1.f/3.f;
+    consequence.getVal(1, 1) = 0.75f;
+    consequence.getVal(1, 2) = 0.10f;
 
 
-    scalar ret = defuzzifier.defuzzifyConsequence(consequence);
+    scalar ret = defuzzifier.defuzzifyConsequence(inputs, consequence);
 
-    ASSERT_LFLL_REL_EQ(9.38f, ret);
+    ASSERT_LFLL_REL_EQ(0.975f, ret);
 }
-*/
+
+
+TEST(LFLLSugenoDefuzzifier, TestFirstOrderAverage)
+{
+    const size_t NR = 3;
+    const size_t NT = 2;
+
+    scalar inputs[3] = {0.f, 0.4f, 5.f};
+
+    LFLLSugenoFirstOrderTerm<3> o1 = {1.0f, 0.75f, 2.0f, 0.5f};
+    LFLLSugenoFirstOrderTerm<3> o2 = {7.0f, 5.0f, 0.25f, 1.0f};
+
+
+    typedef LFLLTuple<
+        LFLLSugenoFirstOrderTerm<3>, 
+        LFLLSugenoFirstOrderTerm<3> >
+        OutputTermTuple;
+    OutputTermTuple outputTerms = makeLFLLTuple(o1, o2);
+
+
+    LFLLSugenoDefuzzifier<OutputTermTuple, LFLL_SUGENO_WEIGHTED_AVERAGE> 
+        defuzzifier(outputTerms);
+
+
+    LFLLConsequence<NR, NT> consequence;
+
+    consequence.getVal(0, 0) = 0.25f;
+    consequence.getVal(0, 1) = 0.f;
+    consequence.getVal(0, 2) = 0.f;
+
+    consequence.getVal(1, 0) = 0.f;
+    consequence.getVal(1, 1) = 0.75f;
+    consequence.getVal(1, 2) = 0.10f;
+
+
+    scalar ret = defuzzifier.defuzzifyConsequence(inputs, consequence);
+
+    ASSERT_LFLL_REL_EQ(5.738636363636363f, ret);
+}
+
+
+TEST(LFLLSugenoDefuzzifier, TestFirstOrderSum)
+{
+    const size_t NR = 3;
+    const size_t NT = 2;
+
+    scalar inputs[3] = {0.f, 0.4f, 5.f};
+
+    LFLLSugenoFirstOrderTerm<3> o1 = {1.0f, 0.75f, 2.0f, 0.5f};
+    LFLLSugenoFirstOrderTerm<3> o2 = {7.0f, 5.0f, 0.25f, 1.0f};
+
+
+    typedef LFLLTuple<
+        LFLLSugenoFirstOrderTerm<3>, 
+        LFLLSugenoFirstOrderTerm<3> >
+        OutputTermTuple;
+    OutputTermTuple outputTerms = makeLFLLTuple(o1, o2);
+
+
+    LFLLSugenoDefuzzifier<OutputTermTuple, LFLL_SUGENO_WEIGHTED_SUM> 
+        defuzzifier(outputTerms);
+
+
+    LFLLConsequence<NR, NT> consequence;
+
+    consequence.getVal(0, 0) = 0.25f;
+    consequence.getVal(0, 1) = 0.f;
+    consequence.getVal(0, 2) = 0.f;
+
+    consequence.getVal(1, 0) = 0.f;
+    consequence.getVal(1, 1) = 0.75f;
+    consequence.getVal(1, 2) = 0.10f;
+
+
+    scalar ret = defuzzifier.defuzzifyConsequence(inputs, consequence);
+
+    ASSERT_LFLL_REL_EQ(6.3125f, ret);
+}

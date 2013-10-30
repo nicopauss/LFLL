@@ -54,7 +54,7 @@ struct LFLLSugenoDefuzzifierWeightedAverageIterator
         {
             const scalar ruleValue = consequence.getVal(
                 TermIndex-1, ruleIndex);
-            if (ruleValue != ZERO_SCALAR) {;
+            if (ruleValue != ZERO_SCALAR) {
                 numerator += ruleValue * termValue;
                 denominator += ruleValue;
             }

@@ -49,8 +49,9 @@ struct LFLLSugenoFirstOrderTerm
     scalar computeTermValue(const scalar inputs[NI]) const
     {
         scalar result = values[NI];
-        for (size_t i = (NI-1) ; i >=0 ; ++i )
+        for (size_t i = NI ; i > 0 ; )
         {
+            --i;
             result += values[i] * inputs[i];
         }
         return result;
