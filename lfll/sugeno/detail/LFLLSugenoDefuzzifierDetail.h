@@ -42,13 +42,13 @@ struct LFLLSugenoDefuzzifierMethodType;
 template <size_t I, class TermTuple>
 struct LFLLSugenoDefuzzifierImplIterator
 {
-    static void computeTermValue(
+    static void computeTermsValues(
         const TermTuple* terms,
         const scalar inputs[],
         scalar termsValues[])
     {
         LFLLSugenoDefuzzifierImplIterator<I-1, TermTuple>::
-            computeTermValue(terms, inputs, termsValues);
+            computeTermsValues(terms, inputs, termsValues);
         termsValues[I-1] = 
             getLFLLTuple<I-1>(*terms)->computeTermValue(inputs);
     }
@@ -57,7 +57,7 @@ struct LFLLSugenoDefuzzifierImplIterator
 template <class TermTuple>
 struct LFLLSugenoDefuzzifierImplIterator<0, TermTuple>
 {
-    static void computeTermValue(
+    static void computeTermsValues(
         const TermTuple*,
         const scalar[],
         scalar[])
@@ -84,7 +84,7 @@ public:
 
         scalar termsValues[TermTuple::tupleSize];
         LFLLSugenoDefuzzifierImplIterator<TermTuple::tupleSize, TermTuple>::
-            computeTermValue(m_terms, inputs, termsValues);
+            computeTermsValues(m_terms, inputs, termsValues);
 
         return DefuzzifierMethod::
             defuzzifyConsequence(consequence, termsValues);

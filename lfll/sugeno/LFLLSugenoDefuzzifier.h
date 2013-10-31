@@ -26,7 +26,6 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #include <lfll/engine/LFLLDefinitions.h>
 #include <lfll/engine/LFLLConsequence.h>
-#include <lfll/engine/LFLLStaticAssert.h>
 
 LFLL_BEGIN_NAMESPACE
 
