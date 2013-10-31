@@ -37,7 +37,7 @@ template <class FunctorType>
 class LFLLFunctor
 {
 public:
-    LFLLFunctor(const FunctorType& fn = FunctorType())
+    LFLLFunctor(FunctorType fn = FunctorType())
         : m_fn(fn)
     {}
 

@@ -64,33 +64,35 @@ public:
             ((m_useNotOp ?
                 -rule.inputVariables[InputIndex-1] :
                 rule.inputVariables[InputIndex-1]) - 1))
-        , m_andOp()
-        , m_orOp()
-        , m_notOp()
     {}
 
 
     template <class AntecedentTuple>
     inline scalar calculateAntecedent(
-        const AntecedentTuple& antecedents) const
+        const AntecedentTuple& antecedents,
+        AndOp andOp,
+        OrOp orOp,
+        NotOp notOp) const
     {
         if (m_ignore) {
-            return m_prevAntecedent.calculateAntecedent(antecedents);
+            return m_prevAntecedent.calculateAntecedent(
+                antecedents, andOp, orOp, notOp);
         }
 
         const scalar val = m_useNotOp ?
-            m_notOp(getLFLLTuple<InputIndex-1>(antecedents)
-                    ->getVal(m_membershipIndex)) :
+            notOp(getLFLLTuple<InputIndex-1>(antecedents)->getVal(m_membershipIndex)) :
             getLFLLTuple<InputIndex-1>(antecedents)->getVal(m_membershipIndex);
 
         if (m_prevAntecedent.hasPrevValue()) {
             if (m_useOrOp) {
-                return m_orOp(
-                    m_prevAntecedent.calculateAntecedent(antecedents),
+                return orOp(
+                    m_prevAntecedent.calculateAntecedent(
+                        antecedents, andOp, orOp, notOp),
                     val);
             } else {
-                return m_andOp(
-                    m_prevAntecedent.calculateAntecedent(antecedents),
+                return andOp(
+                    m_prevAntecedent.calculateAntecedent(
+                        antecedents, andOp, orOp, notOp),
                     val);
             }
         }
@@ -110,9 +112,6 @@ private:
     const bool m_useNotOp;
     const bool m_useOrOp;
     const lfll_uint m_membershipIndex;
-    const AndOp m_andOp;
-    const OrOp m_orOp;
-    const NotOp m_notOp;
 };
 
 
@@ -130,7 +129,10 @@ public:
 
     template <class AntecedentTuple>
     inline scalar calculateAntecedent(
-        const AntecedentTuple&) const
+        const AntecedentTuple&,
+        AndOp,
+        OrOp,
+        NotOp) const
     {
         return ZERO_SCALAR;
     }
@@ -166,17 +168,17 @@ public:
         , m_membershipIndex(m_useNotOp ?
                 -rule.outputVariables[OutputIndex-1] :
                 rule.outputVariables[OutputIndex-1])
-        , m_notOp()
     {}
 
 
     template <class ConsequenceTuple>
     inline void setConsequences(
         const scalar val,
-        ConsequenceTuple& consequences) const
+        ConsequenceTuple& consequences,
+        NotOp notOp) const
     {
         // Apply previous consequence
-        m_prevConsequence.setConsequences(val, consequences);
+        m_prevConsequence.setConsequences(val, consequences, notOp);
 
         if (m_ignore) {
             return;
@@ -187,7 +189,7 @@ public:
 
         if (m_useNotOp) {
             getLFLLTuple<OutputIndex-1>(consequences)->setVal(
-                RuleIndex-1, m_notOp(val));
+                RuleIndex-1, notOp(val));
         } else {
             getLFLLTuple<OutputIndex-1>(consequences)->setVal(
                 RuleIndex-1, val);
@@ -201,7 +203,6 @@ private:
     const bool m_ignore;
     const bool m_useNotOp;
     const lfll_uint m_membershipIndex;
-    const NotOp m_notOp;
 };
 
 template<size_t RuleIndex,
@@ -220,7 +221,8 @@ public:
     template <class ConsequenceTuple>
     inline void setConsequences(
         const scalar,
-        ConsequenceTuple&) const
+        ConsequenceTuple&,
+        NotOp) const
     {}
 };
 
@@ -239,7 +241,8 @@ template<size_t RuleIndex,
 class LFLLRulesEngineImpl
 {
 public:
-    inline LFLLRulesEngineImpl(const LFLLRules<NI, NR, NO>& rules)
+    inline LFLLRulesEngineImpl(
+        const LFLLRules<NI, NR, NO>& rules)
         : m_prevRule(rules)
         , m_ancededents(rules.rules[RuleIndex-1])
         , m_consequences(rules.rules[RuleIndex-1])
@@ -248,18 +251,21 @@ public:
 
     template <class AntecedentTuple, class ConsequenceTuple>
     inline void applyRules(
-         const AntecedentTuple& antecedents,
-         ConsequenceTuple& consequences) const
+        const AntecedentTuple& antecedents,
+        ConsequenceTuple& consequences,
+        AndOp andOp,
+        OrOp orOp,
+        NotOp notOp) const
     {
         // Apply previous rule
-        m_prevRule.applyRules(antecedents, consequences);
+        m_prevRule.applyRules(antecedents, consequences, andOp, orOp, notOp);
 
         // Calculate current rule
-        const scalar val = m_ancededents.calculateAntecedent(antecedents);
+        const scalar val = m_ancededents.calculateAntecedent(antecedents, andOp, orOp, notOp);
         // Apply weight to current rule
         const scalar wval = lfll_math::srel(m_weight, ZERO_SCALAR, val);
         // Set computed consequence to array
-        m_consequences.setConsequences(wval, consequences);
+        m_consequences.setConsequences(wval, consequences, notOp);
     }
 
 private:
@@ -289,8 +295,11 @@ public:
 
     template <class AntecedentTuple, class ConsequenceTuple>
     inline void applyRules(
-         const AntecedentTuple&,
-         ConsequenceTuple&) const
+        const AntecedentTuple&,
+        ConsequenceTuple&,
+        AndOp,
+        OrOp,
+        NotOp) const
     {}
 };
 

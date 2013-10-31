@@ -53,52 +53,39 @@ template<size_t NI,
 class LFLLRulesEngine
 {
 public:
-    LFLLRulesEngine(const LFLLRules<NI, NR, NO>& rules);
+    LFLLRulesEngine(
+        const LFLLRules<NI, NR, NO>& rules,
+        AndOperator andOp = AndOperator(),
+        OrOperator orOp = OrOperator(),
+        NotOperator notOp = NotOperator())
+        : m_impl(rules)
+        , m_andOp(andOp)
+        , m_orOp(orOp)
+        , m_notOp(notOp)
+    {}
 
     template <class AntecedentTuple, class ConsequenceTuple>
     void applyRules(
         const AntecedentTuple& antecedents,
-        ConsequenceTuple& consequences) const;
+        ConsequenceTuple& consequences) const
+    {
+        LFLL_STATIC_ASSERT(
+            AntecedentTuple::tupleSize == NI,
+            antecedents_size_is_not_valid);
+        LFLL_STATIC_ASSERT(
+            ConsequenceTuple::tupleSize == NO,
+            antecedents_size_is_not_valid);
+
+        m_impl.applyRules(antecedents, consequences, m_andOp, m_orOp, m_notOp);
+    }
 
 private:
     const detail::LFLLRulesEngineImpl<NR, NI, NR, NO,
         AndOperator, OrOperator, NotOperator> m_impl;
+    const AndOperator m_andOp;
+    const OrOperator m_orOp;
+    const NotOperator m_notOp;
 };
-
-
-
-
-
-/*************************************************************************/
-/* Template methods */
-/*************************************************************************/
-
-template<size_t NI, size_t NR, size_t NO,
-    class AndOperator, class OrOperator, class NotOperator>
-inline LFLLRulesEngine<NI, NR, NO,
-    AndOperator, OrOperator, NotOperator>::LFLLRulesEngine(
-    const LFLLRules<NI, NR, NO>& rules)
-    : m_impl(rules)
-{}
-
-
-template<size_t NI, size_t NR, size_t NO,
-    class AndOperator, class OrOperator, class NotOperator>
-template <class AntecedentTuple, class ConsequenceTuple>
-inline void LFLLRulesEngine<NI, NR, NO,
-    AndOperator, OrOperator, NotOperator>::applyRules(
-    const AntecedentTuple& antecedents,
-    ConsequenceTuple& consequences) const
-{
-    LFLL_STATIC_ASSERT(
-        AntecedentTuple::tupleSize == NI,
-        antecedents_size_is_not_valid);
-    LFLL_STATIC_ASSERT(
-        ConsequenceTuple::tupleSize == NO,
-        antecedents_size_is_not_valid);
-
-    m_impl.applyRules(antecedents, consequences);
-}
 
 
 LFLL_END_NAMESPACE
