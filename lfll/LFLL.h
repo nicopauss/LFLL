@@ -68,6 +68,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include <lfll/engine/LFLLRulesEngine.h>
 #include <lfll/engine/LFLLStaticAssert.h>
 #include <lfll/engine/LFLLTuple.h>
+#include <lfll/mamdani/LFLLMamdaniDefuzzifier.h>
 #include <lfll/norms/LFLLCNorm.h>
 #include <lfll/norms/LFLLSNorm.h>
 #include <lfll/norms/LFLLTNorm.h>
