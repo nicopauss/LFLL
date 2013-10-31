@@ -102,6 +102,7 @@ const scalar SCALAR_DIFF_PRECISION = ONE_SCALAR / scalar(1e4);
 /* Unisgned int */
 /************************************************************************/
 
+typedef int lfll_int;
 typedef unsigned int lfll_uint;
 
 LFLL_END_NAMESPACE

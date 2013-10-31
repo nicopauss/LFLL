@@ -20,8 +20,8 @@ COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
 IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
-#ifndef LFLLMAMDANICENTROIDDEFUZZIFIER_H
-#define LFLLMAMDANICENTROIDDEFUZZIFIER_H
+#ifndef LFLLMAMDANIBISECTORDEFUZZIFIER_H
+#define LFLLMAMDANIBISECTORDEFUZZIFIER_H
 
 
 #include <lfll/engine/LFLLDefinitions.h>
@@ -36,10 +36,10 @@ LFLL_BEGIN_NAMESPACE
 namespace detail {
 
 template <class TermTuple, class ImpMethod, class AggMethod>
-class LFLLMamdaniCentroidDefuzzifier
+class LFLLMamdaniBisectorDefuzzifier
 {
 public:
-    LFLLMamdaniCentroidDefuzzifier(
+    LFLLMamdaniBisectorDefuzzifier(
         const TermTuple& terms, 
         scalar minRange, scalar maxRange, 
         lfll_uint divisions,
@@ -57,17 +57,25 @@ public:
     scalar defuzzifyConsequence(
         const LFLLConsequence<NR>& consequence) const
     {
-        scalar x = m_minRange + HALF_SCALAR * m_dx;
-        scalar xcentroid = ZERO_SCALAR;
-        scalar area = ZERO_SCALAR;
-        for (lfll_uint i = 0 ; i < m_divisions ; ++i, x += m_dx) {
-            const scalar y = 
-                m_termsValuesDefuzzifier.computeTermValue(
-                    x, consequence);
-            xcentroid += x * y;
-            area += y;
+        const scalar halfDx = HALF_SCALAR * m_dx;
+        scalar xLeft = m_minRange + halfDx;
+        scalar xRight = m_maxRange - halfDx;
+        scalar leftArea = ZERO_SCALAR, rightArea = ZERO_SCALAR;
+        for (lfll_uint i = 0 ; i < m_divisions ; ++i) {
+            if (leftArea <= rightArea) {
+                leftArea +=
+                    m_termsValuesDefuzzifier.computeTermValue(
+                        xLeft, consequence);
+                xLeft += m_dx;
+            } else {
+                rightArea +=
+                    m_termsValuesDefuzzifier.computeTermValue(
+                        xRight, consequence);
+                xRight -= m_dx;
+            }
         }
-        return xcentroid / area;
+        return (leftArea * xRight + rightArea * xLeft)
+            / (leftArea + rightArea);
     }
 
 
@@ -85,9 +93,9 @@ private:
 
 template <class TermTuple, class ImpMethod, class AggMethod>
 struct LFLLMamdaniDefuzzifierMethodType
-    <LFLLMamdaniCentroid, TermTuple, ImpMethod, AggMethod>
+    <LFLLMamdaniBisector, TermTuple, ImpMethod, AggMethod>
 {
-    typedef LFLLMamdaniCentroidDefuzzifier
+    typedef LFLLMamdaniBisectorDefuzzifier
         <TermTuple, ImpMethod, AggMethod> type;
 };
 
@@ -98,4 +106,4 @@ struct LFLLMamdaniDefuzzifierMethodType
 LFLL_END_NAMESPACE
 
 
-#endif //LFLLMAMDANICENTROIDDEFUZZIFIER_H
+#endif //LFLLMAMDANIBISECTORDEFUZZIFIER_H

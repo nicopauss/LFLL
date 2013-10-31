@@ -20,8 +20,8 @@ COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
 IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
-#ifndef LFLLMAMDANICENTROIDDEFUZZIFIER_H
-#define LFLLMAMDANICENTROIDDEFUZZIFIER_H
+#ifndef LFLLMAMDANISMALLESTOFMAXIMUMDEFUZZIFIER_H
+#define LFLLMAMDANISMALLESTOFMAXIMUMDEFUZZIFIER_H
 
 
 #include <lfll/engine/LFLLDefinitions.h>
@@ -36,10 +36,10 @@ LFLL_BEGIN_NAMESPACE
 namespace detail {
 
 template <class TermTuple, class ImpMethod, class AggMethod>
-class LFLLMamdaniCentroidDefuzzifier
+class LFLLMamdaniSmallestOfMaximumDefuzzifier
 {
 public:
-    LFLLMamdaniCentroidDefuzzifier(
+    LFLLMamdaniSmallestOfMaximumDefuzzifier(
         const TermTuple& terms, 
         scalar minRange, scalar maxRange, 
         lfll_uint divisions,
@@ -58,16 +58,19 @@ public:
         const LFLLConsequence<NR>& consequence) const
     {
         scalar x = m_minRange + HALF_SCALAR * m_dx;
-        scalar xcentroid = ZERO_SCALAR;
-        scalar area = ZERO_SCALAR;
+        scalar yMax = ZERO_SCALAR;
+        scalar xLeft = m_minRange;
+        
         for (lfll_uint i = 0 ; i < m_divisions ; ++i, x += m_dx) {
             const scalar y = 
                 m_termsValuesDefuzzifier.computeTermValue(
                     x, consequence);
-            xcentroid += x * y;
-            area += y;
+            if (lfll_math::isGreaterThan(y, yMax)) {
+                yMax = y;
+                xLeft = x;
+            }
         }
-        return xcentroid / area;
+        return xLeft;
     }
 
 
@@ -85,9 +88,9 @@ private:
 
 template <class TermTuple, class ImpMethod, class AggMethod>
 struct LFLLMamdaniDefuzzifierMethodType
-    <LFLLMamdaniCentroid, TermTuple, ImpMethod, AggMethod>
+    <LFLLMamdaniSmallestOfMaximum, TermTuple, ImpMethod, AggMethod>
 {
-    typedef LFLLMamdaniCentroidDefuzzifier
+    typedef LFLLMamdaniSmallestOfMaximumDefuzzifier
         <TermTuple, ImpMethod, AggMethod> type;
 };
 
@@ -98,4 +101,4 @@ struct LFLLMamdaniDefuzzifierMethodType
 LFLL_END_NAMESPACE
 
 
-#endif //LFLLMAMDANICENTROIDDEFUZZIFIER_H
+#endif //LFLLMAMDANISMALLESTOFMAXIMUMDEFUZZIFIER_H

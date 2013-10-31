@@ -42,8 +42,8 @@ LFLL_BEGIN_NAMESPACE
 template <size_t NI, size_t NO>
 struct LFLLRule
 {
-    int32_t inputVariables[NI]; //< Input variables.
-    int32_t outputVariables[NO]; //< Output variables.
+    lfll_int inputVariables[NI]; //< Input variables.
+    lfll_int outputVariables[NO]; //< Output variables.
     scalar weight; //< Weight of the rule, value between 0.0 and 1.0.
     bool orOperator; //< Use the OR operator instead of AND.
 };

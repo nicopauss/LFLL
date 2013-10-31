@@ -42,6 +42,10 @@ enum LFLLMamdaniDefuzzifyMethod {
 LFLL_END_NAMESPACE
 
 #include <lfll/mamdani/detail/LFLLMamdaniCentroidDefuzzifier.h>
+#include <lfll/mamdani/detail/LFLLMamdaniBisectorDefuzzifier.h>
+#include <lfll/mamdani/detail/LFLLMamdaniMeanOfMaximumDefuzzifier.h>
+#include <lfll/mamdani/detail/LFLLMamdaniSmallestOfMaximumDefuzzifier.h>
+#include <lfll/mamdani/detail/LFLLMamdaniLargestOfMaximumDefuzzifier.h>
 
 LFLL_BEGIN_NAMESPACE
 
@@ -55,7 +59,7 @@ template <class TermTuple,
 class LFLLMamdaniDefuzzifier
 {
 public:
-    static const lfll_uint DefaultDivisions = 200;
+    static const lfll_uint DefaultDivisions = 500;
 
 public:
     LFLLMamdaniDefuzzifier(
