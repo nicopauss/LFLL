@@ -46,15 +46,18 @@ double omp_get_wtime()
 
 
 
-scalar processValueWithLoop(scalar val1, scalar val2, int nbProcess);
+LFLL_NAMESPACE_NAME::scalar processValueWithLoop(
+    LFLL_NAMESPACE_NAME::scalar val1, 
+    LFLL_NAMESPACE_NAME::scalar val2, 
+    int nbProcess);
 
 int main(int argc, char* argv[])
 {
     // Initialse variables
     int nbProcess = 10000000;
-    scalar val1 = 0.2f;
-    scalar val2 = 0.3f;
-    scalar result;
+    LFLL_NAMESPACE_NAME::scalar val1 = 0.2f;
+    LFLL_NAMESPACE_NAME::scalar val2 = 0.3f;
+    LFLL_NAMESPACE_NAME::scalar result;
 
     // Measure process
     double start = omp_get_wtime();
@@ -71,10 +74,14 @@ int main(int argc, char* argv[])
     return 0;
 }
 
-scalar processValueWithLoop(scalar val1, scalar val2, int nbProcess)
+LFLL_NAMESPACE_NAME::scalar 
+    processValueWithLoop(
+        LFLL_NAMESPACE_NAME::scalar val1, 
+        LFLL_NAMESPACE_NAME::scalar val2, 
+        int nbProcess)
 {
-    scalar result;
-    scalar inputs[2] = {val1, val2};
+    LFLL_NAMESPACE_NAME::scalar result;
+    LFLL_NAMESPACE_NAME::scalar inputs[2] = {val1, val2};
 
 #pragma omp parallel for shared(result)
     for (int i = 0 ; i < nbProcess ; ++i) {

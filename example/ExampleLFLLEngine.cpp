@@ -24,6 +24,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 // Unnamed namespace
 namespace {
+    LFLL_USING_NAMESPACE
+
+
     const size_t NbInput = 2;
     const size_t NbTermsForInput1 = 3;
     const size_t NbTermsForInput2 = 2;

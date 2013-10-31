@@ -56,6 +56,17 @@ public:
     LFLLConsequence()
     {}
 
+    LFLLConsequence(const LFLLMembership<NT>& o)
+    {
+        std::copy(o.m_values, o.m_values+NR, m_values);
+    }
+
+    LFLLConsequence& operator=(const LFLLConsequence<NT>& o)
+    {
+        std::copy(o.m_values, o.m_values+NR, m_values);
+        return *this;
+    }
+
     inline size_t getNbRules() const
     {
         return NR;

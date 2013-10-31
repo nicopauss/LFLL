@@ -31,7 +31,7 @@ public:
     /**
      * Process the inputs using the fuzzy engine
      */
-    static scalar process(const scalar inputs[]);
+    static LFLL_NAMESPACE_NAME::scalar process(const LFLL_NAMESPACE_NAME::scalar inputs[]);
 
 private:
   ExampleLFLLEngine() {}

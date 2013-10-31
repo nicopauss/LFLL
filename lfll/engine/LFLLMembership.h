@@ -48,17 +48,17 @@ public:
 
     LFLLMembership(const LFLLMembership<NT>& o)
     {
-        memcpy(m_array, o.m_array, sizeof(m_array));
+        std::copy(o.m_array, o.m_array+NT, m_array);
     }
 
     LFLLMembership(const scalar array[NT])
     {
-        memcpy(m_array, array, sizeof(m_array));
+        std::copy(array, array+NT, m_array);
     }
 
     LFLLMembership& operator=(const LFLLMembership<NT>& o)
     {
-        memcpy(m_array, o.m_array, sizeof(m_array));
+        std::copy(o.m_array, o.m_array+NT, m_array);
         return *this;
     }
 

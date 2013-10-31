@@ -38,7 +38,7 @@ This file defines some constants used in the fuzzy library.
 // typedef custom_scalar scalar
 
 // Use namespace
-// #define LFLL_USE_NAMESPACE
+ #define LFLL_USE_NAMESPACE
 
 // Namespace name if activated
 // Default is lfll
