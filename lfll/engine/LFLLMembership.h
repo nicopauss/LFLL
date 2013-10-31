@@ -56,7 +56,7 @@ public:
         std::copy(array, array+NT, m_array);
     }
 
-    LFLLMembership& operator=(const LFLLMembership<NT>& o)
+    LFLLMembership<NT>& operator=(const LFLLMembership<NT>& o)
     {
         std::copy(o.m_array, o.m_array+NT, m_array);
         return *this;

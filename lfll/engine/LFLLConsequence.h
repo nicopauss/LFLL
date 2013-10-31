@@ -47,7 +47,7 @@ private:
       */
     struct RuleConsequence
     {
-        uint32_t termIndex;
+        lfll_uint termIndex;
         scalar value;
         RuleConsequence() : termIndex(0), value(ZERO_SCALAR) {}
     };
@@ -56,12 +56,12 @@ public:
     LFLLConsequence()
     {}
 
-    LFLLConsequence(const LFLLMembership<NT>& o)
+    LFLLConsequence(const LFLLConsequence<NR>& o)
     {
         std::copy(o.m_values, o.m_values+NR, m_values);
     }
 
-    LFLLConsequence& operator=(const LFLLConsequence<NT>& o)
+    LFLLConsequence<NR>& operator=(const LFLLConsequence<NR>& o)
     {
         std::copy(o.m_values, o.m_values+NR, m_values);
         return *this;
@@ -72,13 +72,13 @@ public:
         return NR;
     }
 
-    inline uint32_t& getTermIndex(size_t rule) 
+    inline lfll_uint& getTermIndex(size_t rule) 
     {
         assert(rule < NR);
         return m_values[rule].termIndex;
     }
 
-    inline uint32_t getTermIndex(size_t rule) const
+    inline lfll_uint getTermIndex(size_t rule) const
     {
         assert(rule < NR);
         return m_values[rule].termIndex;
@@ -96,7 +96,7 @@ public:
         return m_values[rule].value;
     }
 
-    inline void setTermIndex(size_t rule, uint32_t termIndex)
+    inline void setTermIndex(size_t rule, lfll_uint termIndex)
     {
         assert(rule < NR);
         m_values[rule].termIndex = termIndex;

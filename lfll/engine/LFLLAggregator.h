@@ -54,7 +54,7 @@ public:
         for (size_t ruleIndex = 0 ; ruleIndex < NR ; ++ruleIndex) {
             const scalar consequenceValue =
                     consequence.getVal(ruleIndex);
-            uint32_t consequenceTermIndex =
+            lfll_uint consequenceTermIndex =
                     consequence.getTermIndex(ruleIndex);
             if (consequenceTermIndex != 0) {
                 --consequenceTermIndex;

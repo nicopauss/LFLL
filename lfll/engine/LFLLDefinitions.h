@@ -95,6 +95,11 @@ const scalar TWO_SCALAR = scalar(2);
 const scalar HALF_SCALAR = ONE_SCALAR / TWO_SCALAR;
 const scalar SCALAR_DIFF_PRECISION = ONE_SCALAR / scalar(1e4);
 
+/************************************************************************/
+/* Unisgned int */
+/************************************************************************/
+
+typedef unsigned int lfll_uint;
 
 LFLL_END_NAMESPACE
 

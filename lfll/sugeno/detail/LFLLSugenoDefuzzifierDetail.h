@@ -113,7 +113,7 @@ struct LFLLSugenoDefuzzifierWeightedAverage
         // Iterate through each rules
         for (size_t i = 0 ; i < NR ; ++i)
         {
-            const uint32_t termIndex = consequence.getTermIndex(i);
+            const lfll_uint termIndex = consequence.getTermIndex(i);
             if (termIndex != 0) {
                 const scalar ruleValue = consequence.getVal(i);
                 numerator += ruleValue * termsValues[termIndex-1];
@@ -154,7 +154,7 @@ struct LFLLSugenoDefuzzifierWeightedSum
         // Iterate through each rules
         for (size_t i = 0 ; i < NR ; ++i)
         {
-            const uint32_t termIndex = consequence.getTermIndex(i);
+            const lfll_uint termIndex = consequence.getTermIndex(i);
             if (termIndex != 0) {
                 const scalar ruleValue = consequence.getVal(i);
                 numerator += ruleValue * termsValues[termIndex-1];

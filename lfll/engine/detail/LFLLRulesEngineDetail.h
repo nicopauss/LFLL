@@ -109,7 +109,7 @@ private:
     const bool m_ignore;
     const bool m_useNotOp;
     const bool m_useOrOp;
-    const uint32_t m_membershipIndex;
+    const lfll_uint m_membershipIndex;
     const AndOp m_andOp;
     const OrOp m_orOp;
     const NotOp m_notOp;
@@ -200,7 +200,7 @@ private:
         m_prevConsequence;
     const bool m_ignore;
     const bool m_useNotOp;
-    const uint32_t m_membershipIndex;
+    const lfll_uint m_membershipIndex;
     const NotOp m_notOp;
 };
 

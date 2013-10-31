@@ -25,7 +25,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 /************************************************************************/
 /*
-This file defines some constants used in the fuzzy library.
+  This file defines some constants used in the fuzzy library.
 */
 /************************************************************************/
 
