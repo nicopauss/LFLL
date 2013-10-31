@@ -39,7 +39,7 @@ a:[0,1], b:[0,1] \rightarrow  f(a, b) = min(a, b)
 struct LFLLMin
 {
     inline scalar operator()(const scalar a, const scalar b) const {
-        return math::min(a, b);
+        return lfll_math::min(a, b);
     }
 };
 
@@ -69,7 +69,7 @@ a:[0,1], b:[0,1] \rightarrow  f(a, b) = max(0, a + b - 1)
 struct LFLLBoundedDifference
 {
     inline scalar operator()(const scalar a, const scalar b) const {
-        return math::max(ZERO_SCALAR, a + b - ONE_SCALAR);
+        return lfll_math::max(ZERO_SCALAR, a + b - ONE_SCALAR);
     }
 };
 
@@ -90,8 +90,8 @@ a:[0,1], b:[0,1] \rightarrow  f(a, b) = \left \{
 struct LFLLDrasticProduct
 {
     inline scalar operator()(const scalar a, const scalar b) const {
-        if (math::isEqualTo(math::max(a, b), ONE_SCALAR)) {
-            return math::min(a, b);
+        if (lfll_math::isEqualTo(lfll_math::max(a, b), ONE_SCALAR)) {
+            return lfll_math::min(a, b);
         }
         return ZERO_SCALAR;
     }
@@ -113,8 +113,8 @@ a:[0,1], b:[0,1] \rightarrow  f(a, b) = \left \{
 struct LFLLNilpotentMin
 {
     inline scalar operator()(const scalar a, const scalar b) const {
-        if (math::isGreaterThan(a + b, ONE_SCALAR)) {
-            return math::min(a, b);
+        if (lfll_math::isGreaterThan(a + b, ONE_SCALAR)) {
+            return lfll_math::min(a, b);
         }
         return ZERO_SCALAR;
     }
@@ -152,8 +152,8 @@ a:[0,1], b:[0,1] \rightarrow  f(a, b) = \left \{
 struct LFLLHamacherProduct
 {
     inline scalar operator()(const scalar a, const scalar b) const {
-        if (math::isEqualTo(a, ZERO_SCALAR) &&
-        	math::isEqualTo(b, ZERO_SCALAR))
+        if (lfll_math::isEqualTo(a, ZERO_SCALAR) &&
+        	lfll_math::isEqualTo(b, ZERO_SCALAR))
         {
         	return ZERO_SCALAR;
         }

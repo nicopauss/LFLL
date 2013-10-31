@@ -70,7 +70,7 @@ public:
 
     inline scalar membership(const scalar val) const
     {
-        if (math::isGreaterThan(val, m_rRamp.getMaxLimit())) {
+        if (lfll_math::isGreaterThan(val, m_rRamp.getMaxLimit())) {
             return m_lRamp.membership(val);
         }
         return m_rRamp.membership(val);

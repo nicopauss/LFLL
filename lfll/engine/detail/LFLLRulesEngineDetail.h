@@ -257,7 +257,7 @@ public:
         // Calculate current rule
         const scalar val = m_ancededents.calculateAntecedent(antecedents);
         // Apply weight to current rule
-        const scalar wval = math::srel(m_weight, ZERO_SCALAR, val);
+        const scalar wval = lfll_math::srel(m_weight, ZERO_SCALAR, val);
         // Set computed consequence to array
         m_consequences.setConsequences(wval, consequences);
     }

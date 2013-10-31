@@ -29,7 +29,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 LFLL_BEGIN_NAMESPACE
 
-namespace math {
+namespace lfll_math {
 
     /**
       * Get relative value between minVal and maxVal

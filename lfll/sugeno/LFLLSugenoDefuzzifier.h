@@ -31,8 +31,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 LFLL_BEGIN_NAMESPACE
 
 enum LFLLSugenoDefuzzifyMethod {
-    LFLL_SUGENO_WEIGHTED_AVERAGE,
-    LFLL_SUGENO_WEIGHTED_SUM
+    LFLLSugenoWeightedAverage,
+    LFLLSugenoWeightedSum
 };
 
 LFLL_END_NAMESPACE
@@ -45,7 +45,7 @@ LFLL_BEGIN_NAMESPACE
   * Sugeno defuzzifier
   */
 template <class TermTuple,
-    LFLLSugenoDefuzzifyMethod D = LFLL_SUGENO_WEIGHTED_AVERAGE>
+    LFLLSugenoDefuzzifyMethod D = LFLLSugenoWeightedAverage>
 class LFLLSugenoDefuzzifier
 {
 public:

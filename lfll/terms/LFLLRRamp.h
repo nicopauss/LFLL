@@ -62,9 +62,9 @@ public:
 
     inline scalar membership(const scalar val) const
     {
-        if (math::isLessOrEqualTo(val, m_minLimit)) {
+        if (lfll_math::isLessOrEqualTo(val, m_minLimit)) {
             return ZERO_SCALAR;
-        } else if (math::isGreaterOrEqualTo(val, m_maxLimit)) {
+        } else if (lfll_math::isGreaterOrEqualTo(val, m_maxLimit)) {
             return ONE_SCALAR;
         }
 

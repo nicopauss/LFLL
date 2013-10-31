@@ -121,7 +121,7 @@ struct LFLLSugenoDefuzzifierWeightedAverage
             }
         }
 
-        if (math::isEqualTo(denominator, ZERO_SCALAR)) {
+        if (lfll_math::isEqualTo(denominator, ZERO_SCALAR)) {
             return termsValues[0];
         }
 
@@ -130,7 +130,7 @@ struct LFLLSugenoDefuzzifierWeightedAverage
 };
 
 template <>
-struct LFLLSugenoDefuzzifierMethodType<LFLL_SUGENO_WEIGHTED_AVERAGE>
+struct LFLLSugenoDefuzzifierMethodType<LFLLSugenoWeightedAverage>
 {
     typedef LFLLSugenoDefuzzifierWeightedAverage type;
 };
@@ -166,7 +166,7 @@ struct LFLLSugenoDefuzzifierWeightedSum
 };
 
 template <>
-struct LFLLSugenoDefuzzifierMethodType<LFLL_SUGENO_WEIGHTED_SUM>
+struct LFLLSugenoDefuzzifierMethodType<LFLLSugenoWeightedSum>
 {
     typedef LFLLSugenoDefuzzifierWeightedSum type;
 };

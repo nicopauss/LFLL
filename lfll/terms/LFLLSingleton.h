@@ -51,7 +51,7 @@ public:
 
     inline scalar membership(const scalar val) const
     {
-        if (math::isEqualTo(val, m_val)) {
+        if (lfll_math::isEqualTo(val, m_val)) {
             return ONE_SCALAR;
         }
         return ZERO_SCALAR;

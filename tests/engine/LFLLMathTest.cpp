@@ -22,7 +22,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 #include "../LFLLTests.h"
 
-using namespace math;
+using namespace lfll_math;
 
 TEST(LFLLMathTest, Srel)
 {

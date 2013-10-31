@@ -61,7 +61,7 @@ public:
 
     inline scalar membership(const scalar val) const
     {
-        if (math::isGreaterThan(val, m_sShape.getMaxLimit())) {
+        if (lfll_math::isGreaterThan(val, m_sShape.getMaxLimit())) {
             return m_zShape.membership(val);
         }
         return m_sShape.membership(val);

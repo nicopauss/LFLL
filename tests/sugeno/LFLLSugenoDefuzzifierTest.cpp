@@ -22,8 +22,6 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 #include "../LFLLTests.h"
 
-using namespace math;
-
 
 TEST(LFLLSugenoDefuzzifier, TestZeroOrderAverage)
 {
@@ -41,7 +39,7 @@ TEST(LFLLSugenoDefuzzifier, TestZeroOrderAverage)
     OutputTermTuple outputTerms = makeLFLLTuple(o1, o2);
 
 
-    LFLLSugenoDefuzzifier<OutputTermTuple, LFLL_SUGENO_WEIGHTED_AVERAGE> 
+    LFLLSugenoDefuzzifier<OutputTermTuple, LFLLSugenoWeightedAverage> 
         defuzzifier(outputTerms);
 
 
@@ -79,7 +77,7 @@ TEST(LFLLSugenoDefuzzifier, TestZeroOrderSum)
     OutputTermTuple outputTerms = makeLFLLTuple(o1, o2);
 
 
-    LFLLSugenoDefuzzifier<OutputTermTuple, LFLL_SUGENO_WEIGHTED_SUM> 
+    LFLLSugenoDefuzzifier<OutputTermTuple, LFLLSugenoWeightedSum> 
         defuzzifier(outputTerms);
 
 
@@ -118,7 +116,7 @@ TEST(LFLLSugenoDefuzzifier, TestFirstOrderAverage)
     OutputTermTuple outputTerms = makeLFLLTuple(o1, o2);
 
 
-    LFLLSugenoDefuzzifier<OutputTermTuple, LFLL_SUGENO_WEIGHTED_AVERAGE> 
+    LFLLSugenoDefuzzifier<OutputTermTuple, LFLLSugenoWeightedAverage> 
         defuzzifier(outputTerms);
 
 
@@ -157,7 +155,7 @@ TEST(LFLLSugenoDefuzzifier, TestFirstOrderSum)
     OutputTermTuple outputTerms = makeLFLLTuple(o1, o2);
 
 
-    LFLLSugenoDefuzzifier<OutputTermTuple, LFLL_SUGENO_WEIGHTED_SUM> 
+    LFLLSugenoDefuzzifier<OutputTermTuple, LFLLSugenoWeightedSum> 
         defuzzifier(outputTerms);
 
 

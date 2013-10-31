@@ -22,8 +22,6 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 #include "../LFLLTests.h"
 
-using namespace math;
-
 TEST(LFLLInputFuzzifierTest, Test1)
 {
     LFLLPiShape piShape(0.f, 2.5f, 7.5f, 10.f);

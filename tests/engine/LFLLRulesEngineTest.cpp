@@ -22,8 +22,6 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 #include "../LFLLTests.h"
 
-using namespace math;
-
 TEST(LFLLRulesEngineTest, Test)
 {
     const size_t NI = 2;
