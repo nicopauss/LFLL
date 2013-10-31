@@ -38,7 +38,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // typedef custom_scalar scalar
 
 // Use namespace
- #define LFLL_USE_NAMESPACE
+// #define LFLL_USE_NAMESPACE
 
 // Namespace name if activated
 // Default is lfll
