@@ -27,6 +27,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include <lfll/engine/LFLLDefinitions.h>
 #include <lfll/engine/LFLLMath.h>
 #include <lfll/engine/LFLLConsequence.h>
+#include <lfll/engine/LFLLArray.h>
 #include <lfll/engine/LFLLTuple.h>
 
 LFLL_BEGIN_NAMESPACE
@@ -42,10 +43,11 @@ struct LFLLSugenoDefuzzifierMethodType;
 template <size_t I, class TermTuple>
 struct LFLLSugenoDefuzzifierImplIterator
 {
+	template <size_t NI>
     static void computeTermsValues(
         const TermTuple* terms,
-        const scalar inputs[],
-        scalar termsValues[])
+        const LFLLArray<NI>& inputs,
+        LFLLArray<TermTuple::tupleSize>& termsValues)
     {
         LFLLSugenoDefuzzifierImplIterator<I-1, TermTuple>::
             computeTermsValues(terms, inputs, termsValues);
@@ -57,10 +59,11 @@ struct LFLLSugenoDefuzzifierImplIterator
 template <class TermTuple>
 struct LFLLSugenoDefuzzifierImplIterator<0, TermTuple>
 {
+	template <size_t NI>
     static void computeTermsValues(
         const TermTuple*,
-        const scalar[],
-        scalar[])
+        const LFLLArray<NI>&,
+        LFLLArray<TermTuple::tupleSize>&)
     {}
 };
 
@@ -75,14 +78,15 @@ public:
         : m_terms(&terms)
     {}
 
-    template <size_t NR>
+    template <size_t NI, size_t NR>
     scalar defuzzifyConsequence(
-        const scalar inputs[],
+        const LFLLArray<NI>& inputs,
         const LFLLConsequence<NR>& consequence) const
     {
         typedef typename LFLLSugenoDefuzzifierMethodType<D>::type DefuzzifierMethod;
 
-        scalar termsValues[TermTuple::tupleSize];
+        LFLLArray<TermTuple::tupleSize> termsValues;
+        
         LFLLSugenoDefuzzifierImplIterator<TermTuple::tupleSize, TermTuple>::
             computeTermsValues(m_terms, inputs, termsValues);
 
@@ -102,10 +106,10 @@ private:
 
 struct LFLLSugenoDefuzzifierWeightedAverage
 {
-    template <size_t NR>
+    template <size_t NR, size_t NT>
     static scalar defuzzifyConsequence(
         const LFLLConsequence<NR>& consequence,
-        const scalar termsValues[])
+        const LFLLArray<NT>& termsValues)
     {
         scalar numerator = ZERO_SCALAR;
         scalar denominator = ZERO_SCALAR;
@@ -144,10 +148,10 @@ struct LFLLSugenoDefuzzifierMethodType<LFLLSugenoWeightedAverage>
 
 struct LFLLSugenoDefuzzifierWeightedSum
 {
-    template <size_t NR>
+    template <size_t NR, size_t NT>
     static scalar defuzzifyConsequence(
         const LFLLConsequence<NR>& consequence,
-        const scalar termsValues[])
+        const LFLLArray<NT>& termsValues)
     {
         scalar numerator = ZERO_SCALAR;
 

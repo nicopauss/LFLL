@@ -91,7 +91,7 @@ TEST(LFLLCompleteTest, LFLLComplete)
 
     LFLLRulesEngine<NI, NR, NO> rulesEngine(rules);
 
-    scalar inputs[] = {.2f, .3f};
+    LFLLArray<2> inputs = {.2f, .3f};
 
     // Work
 

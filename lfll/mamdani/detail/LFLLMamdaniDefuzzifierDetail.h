@@ -26,6 +26,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #include <lfll/engine/LFLLDefinitions.h>
 #include <lfll/engine/LFLLConsequence.h>
+#include <lfll/engine/LFLLArray.h>
 #include <lfll/engine/LFLLTuple.h>
 
 LFLL_BEGIN_NAMESPACE
@@ -45,7 +46,7 @@ struct LFLLMamdaniDefuzzifierTermsValuesIterator
     static void computeTermsValues(
         const TermTuple* terms,
         scalar x,
-        scalar termsValues[])
+        LFLLArray<TermTuple::tupleSize>& termsValues)
     {
         LFLLMamdaniDefuzzifierTermsValuesIterator<I-1, TermTuple>::
             computeTermsValues(terms, x, termsValues);
@@ -60,7 +61,7 @@ struct LFLLMamdaniDefuzzifierTermsValuesIterator<0, TermTuple>
     static void computeTermsValues(
         const TermTuple*,
         scalar x,
-        scalar[])
+        LFLLArray<TermTuple::tupleSize>&)
     {}
 };
 
@@ -84,7 +85,7 @@ public:
         scalar x,
         const LFLLConsequence<NR>& consequence) const
     {
-        scalar termsValues[TermTuple::tupleSize];
+        LFLLArray<TermTuple::tupleSize> termsValues;
 
         LFLLMamdaniDefuzzifierTermsValuesIterator
             <TermTuple::tupleSize, TermTuple>::

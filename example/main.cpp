@@ -46,48 +46,41 @@ double omp_get_wtime()
 
 
 
-LFLL_NAMESPACE_NAME::scalar processValueWithLoop(
-    LFLL_NAMESPACE_NAME::scalar val1, 
-    LFLL_NAMESPACE_NAME::scalar val2, 
+void processValueWithLoop(
+    const LFLL_NAMESPACE_NAME::LFLLArray<2>& inputs, 
+    LFLL_NAMESPACE_NAME::LFLLArray<1>& outputs, 
     int nbProcess);
 
 int main(int argc, char* argv[])
 {
     // Initialse variables
     int nbProcess = 10000000;
-    LFLL_NAMESPACE_NAME::scalar val1 = 0.2f;
-    LFLL_NAMESPACE_NAME::scalar val2 = 0.3f;
-    LFLL_NAMESPACE_NAME::scalar result;
+    LFLL_NAMESPACE_NAME::LFLLArray<2> inputs = {0.2f, 0.3f};
+    LFLL_NAMESPACE_NAME::LFLLArray<1> outputs;
 
     // Measure process
     double start = omp_get_wtime();
-    result = processValueWithLoop(val1, val2, nbProcess);
+    processValueWithLoop(inputs, outputs, nbProcess);
     double end = omp_get_wtime();
     double elapsed_secs = end - start;
 
     // Output result
     std::cout << "LFLLEngine: Processed " << nbProcess <<
-        " times (" << val1 << ", " << val2 <<
-        ") = " << result << " in " << elapsed_secs <<
+        " times (" << inputs[0] << ", " << inputs[1] <<
+        ") = " << outputs[0] << " in " << elapsed_secs <<
         " s" << std::endl;
 
     return 0;
 }
 
-LFLL_NAMESPACE_NAME::scalar 
-    processValueWithLoop(
-        LFLL_NAMESPACE_NAME::scalar val1, 
-        LFLL_NAMESPACE_NAME::scalar val2, 
-        int nbProcess)
+void processValueWithLoop(
+    const LFLL_NAMESPACE_NAME::LFLLArray<2>& inputs, 
+    LFLL_NAMESPACE_NAME::LFLLArray<1>& outputs, 
+    int nbProcess)
 {
-    LFLL_NAMESPACE_NAME::scalar result;
-    LFLL_NAMESPACE_NAME::scalar inputs[2] = {val1, val2};
-
-#pragma omp parallel for shared(result)
+	#pragma omp parallel for
     for (int i = 0 ; i < nbProcess ; ++i) {
-        result = ExampleLFLLEngine::process(inputs);
+        ExampleLFLLEngine::process(inputs, outputs);
     }
-
-    return result;
 }
 

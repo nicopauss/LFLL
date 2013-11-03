@@ -506,8 +506,10 @@ class HeaderWriter:
 			f.write("class {}\n".format(args.className))
 			f.write("{\npublic:\n")
 			f.write("\tstatic void process(\n")
-			f.write("\t\tconst LFLLExportVariable<{}>& inputs,\n".format(nbInputs))
-			f.write("\t\tLFLLExportVariable<{}>& outputs);\n\n".format(nbOutputs))
+			f.write("\t\tconst LFLL_NAMESPACE_NAME::LFLLArray<{}>& inputs,\n"\
+				.format(nbInputs))
+			f.write("\t\tLFLL_NAMESPACE_NAME::LFLLArray<{}>& outputs);\n\n"\
+				.format(nbOutputs))
 			f.write("private:\n")
 			f.write("\t{}() ".format(args.className))
 			f.write("{}\n};\n\n")
@@ -650,9 +652,9 @@ class ImplWriter:
 				
 			f.write('}\n\n\n')
 			
-			f.write('void {0}::process(\n\t\tconst LFLLExportVariable&<{1}>& inputs,\n'\
+			f.write('void {0}::process(\n\t\tconst LFLLArray&<{1}>& inputs,\n'\
 				.format(args.className, nbInputs))
-			f.write('\t\tLFLLExportVariable&<{0}>& outputs)\n'.format(nbOutputs))
+			f.write('\t\tLFLLArray&<{0}>& outputs)\n'.format(nbOutputs))
 			f.write('{\n')
 			
 			for i in _range(nbInputs):

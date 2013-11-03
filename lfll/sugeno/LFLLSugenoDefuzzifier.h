@@ -26,6 +26,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #include <lfll/engine/LFLLDefinitions.h>
 #include <lfll/engine/LFLLConsequence.h>
+#include <lfll/engine/LFLLArray.h>
 
 LFLL_BEGIN_NAMESPACE
 
@@ -52,9 +53,9 @@ public:
         : m_impl(terms)
     {}
 
-    template <size_t NR>
+    template <size_t NI, size_t NR>
     scalar defuzzifyConsequence(
-        const scalar inputs[],
+        const LFLLArray<NI>& inputs,
         const LFLLConsequence<NR>& consequence) const
     {
         return m_impl.defuzzifyConsequence(inputs, consequence);

@@ -31,10 +31,12 @@ public:
     /**
      * Process the inputs using the fuzzy engine
      */
-    static LFLL_NAMESPACE_NAME::scalar process(const LFLL_NAMESPACE_NAME::scalar inputs[]);
+    static void process(
+    	const LFLL_NAMESPACE_NAME::LFLLArray<2>& inputs,
+    	LFLL_NAMESPACE_NAME::LFLLArray<1>& outputs);
 
 private:
-  ExampleLFLLEngine() {}
+  	ExampleLFLLEngine() {}
 };
 
 

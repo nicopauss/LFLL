@@ -23,9 +23,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #ifndef LFLLSUGENOTERMS_H
 #define LFLLSUGENOTERMS_H
 
-#include <cassert>
-
 #include <lfll/engine/LFLLDefinitions.h>
+#include <lfll/engine/LFLLArray.h>
 
 
 LFLL_BEGIN_NAMESPACE
@@ -34,7 +33,8 @@ struct LFLLSugenoZeroOrderTerm
 {
     scalar value;
 
-    scalar computeTermValue(const scalar[]) const
+	template <size_t N>
+    scalar computeTermValue(const LFLLArray<N>&) const
     {
         return value;
     }
@@ -46,7 +46,7 @@ struct LFLLSugenoFirstOrderTerm
 {
     scalar values[NI+1];
 
-    scalar computeTermValue(const scalar inputs[NI]) const
+    scalar computeTermValue(const LFLLArray<NI>& inputs) const
     {
         scalar result = values[NI];
         for (size_t i = NI ; i > 0 ; )

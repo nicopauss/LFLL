@@ -1,5 +1,6 @@
 *.user
 /build*
+/doc
 
 ## generic files to ignore
 *~

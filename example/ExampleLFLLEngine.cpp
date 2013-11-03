@@ -84,7 +84,9 @@ namespace {
 }
 
 
-scalar ExampleLFLLEngine::process(const scalar inputs[])
+void ExampleLFLLEngine::process(
+	const LFLL_NAMESPACE_NAME::LFLLArray<2>& inputs,
+    LFLL_NAMESPACE_NAME::LFLLArray<1>& outputs)
 {
     // Fuzzify inputs
     const LFLLMembership<NbTermsForInput1> degrees1 =
@@ -115,5 +117,5 @@ scalar ExampleLFLLEngine::process(const scalar inputs[])
     rulesEngine.applyRules(antecedents, consequences);
 
     // Defuzzify consequence
-    return defuzzifier.defuzzifyConsequence(inputs, consequence);
+    outputs[0] = defuzzifier.defuzzifyConsequence(inputs, consequence);
 }
