@@ -327,7 +327,7 @@ class FisReader:
 			result.outputs[outputIndex] = self.outputResult
 	
 		def readKeyValue(self, key, value):
-			if (key == 'NumMFs'):
+			if (key == 'NumMFs' or key == 'Default'):
 				return
 			
 			if (key == 'Name'):
@@ -637,12 +637,12 @@ class ImplWriter:
 				f.write(');\n')
 				
 				if isSugeno:
-					f.write('\tconst {1}<Ouput{0}Tuple, {2}>\n\t\toutput{0}Defuzzifier'\
+					f.write('\tconst {1}<Output{0}Tuple, {2}>\n\t\toutput{0}Defuzzifier'\
 						.format(i+1, fuzzyValues.system.type, \
 							fuzzyValues.system.defuzzMethod))
 					f.write('(output{0}Tuple);\n\n'.format(i+1))
 				else:
-					f.write('\tconst {1}<Ouput{0}Tuple, {2}, {3}, {4}>\n\t\toutput{0}Defuzzifier'\
+					f.write('\tconst {1}<Output{0}Tuple, {2}, {3}, {4}>\n\t\toutput{0}Defuzzifier'\
 						.format(i+1, fuzzyValues.system.type, \
 							fuzzyValues.system.defuzzMethod, \
 							fuzzyValues.system.impMethod,
@@ -652,9 +652,9 @@ class ImplWriter:
 				
 			f.write('}\n\n\n')
 			
-			f.write('void {0}::process(\n\t\tconst LFLLArray&<{1}>& inputs,\n'\
+			f.write('void {0}::process(\n\t\tconst LFLLArray<{1}>& inputs,\n'\
 				.format(args.className, nbInputs))
-			f.write('\t\tLFLLArray&<{0}>& outputs)\n'.format(nbOutputs))
+			f.write('\t\tLFLLArray<{0}>& outputs)\n'.format(nbOutputs))
 			f.write('{\n')
 			
 			for i in _range(nbInputs):
@@ -675,7 +675,7 @@ class ImplWriter:
 					f.write(',\n')
 				else:
 					notFirstInput = True
-				f.write('\t\tconst LFLLMembership<NbTermsForInput{}>'.format(i+1))
+				f.write('\t\tconst LFLLMembership<NbMfsForInput{}>'.format(i+1))
 			f.write('\n\t> AntecedentTuple;\n\n')
 			
 			f.write('\ttypedef LFLLTuple<\n')
@@ -718,10 +718,10 @@ class ImplWriter:
 			for i in _range(nbOutputs):
 				f.write('\toutputs[{}] = '.format(i))
 				if isSugeno:
-					f.write('output{0}Defuzzifier(inputs, consequence{0});\n'\
+					f.write('output{0}Defuzzifier.defuzzifyConsequence(inputs, consequence{0});\n'\
 						.format(i+1))
 				else:
-					f.write('output{0}Defuzzifier(consequence{0});\n'\
+					f.write('output{0}Defuzzifier.defuzzifyConsequence(consequence{0});\n'\
 						.format(i+1))
 				
 			f.write('}\n')
@@ -751,8 +751,8 @@ if __name__ == '__main__':
 	fuzzyValues = FisReader().readFile(args)
 	
 	if (args.className is None):
-		args.className = ''.join(x for x in fuzzyValues.system.name.title() \
-			if not x.isspace())
+		args.className = ''.join(x[0].upper() + x[1:] for x in \
+			fuzzyValues.system.name.split(' '))
 			
 	HeaderWriter().writeFile(args, fuzzyValues)
 	ImplWriter().writeFile(args, fuzzyValues)
