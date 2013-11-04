@@ -20,24 +20,23 @@ COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
 IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
-#ifndef EXAMPLELFLLENGINE_H
-#define EXAMPLELFLLENGINE_H
+/************************************************************************
+  Here is an example of how to use LFLL. \n
+*************************************************************************/
 
-#include <lfll/LFLL.h>
+#include <iostream>
+#include "SugenoAllTerms.h"
 
-class ExampleLFLLEngine
+int main(int argc, char* argv[])
 {
-public:
-    /**
-     * Process the inputs using the fuzzy engine
-     */
-    static void process(
-    	const LFLL_NAMESPACE_NAME::LFLLArray<2>& inputs,
-    	LFLL_NAMESPACE_NAME::LFLLArray<1>& outputs);
+    LFLL_NAMESPACE_NAME::LFLLArray<1> inputs = {0.2};
+    LFLL_NAMESPACE_NAME::LFLLArray<1> outputs;
+	
+	SugenoAllTerms::process(inputs, outputs);
 
-private:
-  	ExampleLFLLEngine() {}
-};
+    std::cout << "SugenoAllTerms(" << inputs[0] <<
+        ") = " << outputs[0] << std::endl;
 
+    return 0;
+}
 
-#endif //EXAMPLELFLLENGINE_H

@@ -28,7 +28,7 @@ add_custom_target(lfll SOURCES ${HEADERS_FILES})
 
 
 add_subdirectory(tests)
-add_subdirectory(example)
+add_subdirectory(examples)
 
 export(PACKAGE LFLL)
 

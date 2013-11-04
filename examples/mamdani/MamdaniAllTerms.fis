@@ -1,0 +1,72 @@
+[System]
+Name='MamdaniAllTerms'
+Type='mamdani'
+Version=1.0
+NumInputs=1
+NumOutputs=1
+NumRules=16
+AndMethod='min'
+OrMethod='max'
+ImpMethod='min'
+AggMethod='max'
+DefuzzMethod='centroid'
+
+[Input1]
+Name='AllInputTerms'
+Range=[-1 1]
+NumMFs=16
+MF1='A':'gbellmf',[0.4 3.0 0.0]
+MF2='B':'boolmf',[1]
+MF3='C':'gaussmf',[0.3 0.0]
+MF4='D':'gauss2mf',[0.239  -0.197 0.28 0.0645]
+MF5='E':'lrampmf',[-1.0 1.0]
+MF6='F':'pimf',[-1.0 -0.05 0.1 1.0]
+MF7='G':'rectmf',[-0.75 0.4]
+MF8='H':'rrampmf',[-1.0 1.0]
+MF9='I':'sigmf',[5.0 0.0]
+MF10='J':'dsigmf',[8.77 -0.442 12.5 0.468]
+MF11='K':'psigmf',[8.14 -0.336 -8.82 0.421]
+MF12='L':'singmf',[0.2]
+MF13='M':'smf',[-1.0 1.0]
+MF14='N':'trapmf',[-1.0 0.01 0.15 1.0]
+MF15='O':'trimf',[-1.0 0.01 1.0]
+MF16='P':'zmf',[-1.0 1.0]
+
+[Output1]
+Name='AllOutputTerms'
+Range=[-1 1]
+NumMFs=16
+MF1='A':'gbellmf',[0.4 3.0 0.0]
+MF2='B':'boolmf',[1]
+MF3='C':'gaussmf',[0.3 0.0]
+MF4='D':'gauss2mf',[0.239  -0.197 0.28 0.0645]
+MF5='E':'lrampmf',[-1.0 1.0]
+MF6='F':'pimf',[-1.0 -0.05 0.1 1.0]
+MF7='G':'rectmf',[-0.75 0.4]
+MF8='H':'rrampmf',[-1.0 1.0]
+MF9='I':'sigmf',[5.0 0.0]
+MF10='J':'dsigmf',[8.77 -0.442 12.5 0.468]
+MF11='K':'psigmf',[8.14 -0.336 -8.82 0.421]
+MF12='L':'singmf',[0.2]
+MF13='M':'smf',[-1.0 1.0]
+MF14='N':'trapmf',[-1.0 0.01 0.15 1.0]
+MF15='O':'trimf',[-1.0 0.01 1.0]
+MF16='P':'zmf',[-1.0 1.0]
+
+[Rules]
+1 , 16 (1) : 1
+2 , 15 (0.9) : 1
+3 , 14 (0.8) : 1
+4 , 13 (0.7) : 1
+5 , 12 (0.6) : 1
+6 , 11 (0.5) : 1
+7 , 10 (0.4) : 1
+8 , 9 (0.3) : 1
+9 , 8 (0.3) : 1
+10 , 7 (0.4) : 1
+11 , 6 (0.5) : 1
+12 , 5 (0.6) : 1
+13 , 4 (0.7) : 1
+14 , 3 (0.8) : 1
+15 , 2 (0.9) : 1
+16 , 1 (1) : 1

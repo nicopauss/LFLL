@@ -31,56 +31,41 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 /************************************************************************/
 
 #include <iostream>
-#include "ExampleLFLLEngine.h"
-
-#ifdef _OPENMP
 #include <omp.h>
-#else
-#include <ctime>
-double omp_get_wtime()
-{
-    return (double)clock() / ((double)CLOCKS_PER_SEC);
-}
 
-#endif
-
-
+#include "OpenMpAllTerms.h"
 
 void processValueWithLoop(
-    const LFLL_NAMESPACE_NAME::LFLLArray<2>& inputs, 
+    const LFLL_NAMESPACE_NAME::LFLLArray<1>& inputs, 
     LFLL_NAMESPACE_NAME::LFLLArray<1>& outputs, 
     int nbProcess);
 
 int main(int argc, char* argv[])
 {
-    // Initialse variables
     int nbProcess = 10000000;
-    LFLL_NAMESPACE_NAME::LFLLArray<2> inputs = {0.2f, 0.3f};
+    LFLL_NAMESPACE_NAME::LFLLArray<1> inputs = {0.2f};
     LFLL_NAMESPACE_NAME::LFLLArray<1> outputs;
 
-    // Measure process
     double start = omp_get_wtime();
     processValueWithLoop(inputs, outputs, nbProcess);
     double end = omp_get_wtime();
     double elapsed_secs = end - start;
 
-    // Output result
-    std::cout << "LFLLEngine: Processed " << nbProcess <<
-        " times (" << inputs[0] << ", " << inputs[1] <<
-        ") = " << outputs[0] << " in " << elapsed_secs <<
-        " s" << std::endl;
+    std::cout << "OpenMpAllTerms: Processed " << nbProcess <<
+        " times (" << inputs[0] << ") = " << outputs[0] << 
+        " in " << elapsed_secs << " s" << std::endl;
 
     return 0;
 }
 
 void processValueWithLoop(
-    const LFLL_NAMESPACE_NAME::LFLLArray<2>& inputs, 
+    const LFLL_NAMESPACE_NAME::LFLLArray<1>& inputs, 
     LFLL_NAMESPACE_NAME::LFLLArray<1>& outputs, 
     int nbProcess)
 {
 	#pragma omp parallel for
     for (int i = 0 ; i < nbProcess ; ++i) {
-        ExampleLFLLEngine::process(inputs, outputs);
+        OpenMpAllTerms::process(inputs, outputs);
     }
 }
 
