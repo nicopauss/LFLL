@@ -234,8 +234,7 @@ class FisReader:
 				self.systemResult.defuzzMethod = \
 					FisReader.FUZZY_VALUES_DICT.get(value, value)
 			else:
-				print('Error: Parse error, system unknown key "{}"'.format(key))
-				exit(-1)
+				print('Error: Parse warning, ignored unknown key "{}"'.format(key))
 				
 				
 		def end(self):
@@ -291,8 +290,12 @@ class FisReader:
 				self.inputResult.name = value[1:-1]
 				return
 			
-			if (key[:2] != 'MF' or len(key) == 2):
-				print('Error: Parse error, input unknown key "{}"'.format(key))
+			if (key[:2] != 'MF'):
+				print('Error: Parse warning, ignored unknown key "{}"'.format(key))
+				return
+				
+			if (len(key) == 2):
+				print('Error: Parse error, input mf key non valid')
 				exit(-1)
 			
 			mfIndex = int(key[2:])
@@ -345,11 +348,14 @@ class FisReader:
 				if len(self.outputResult.range) != 2:
 					print('Error: Parse error, output non valid range "{}"'.format(value))
 					exit(-1)
-				return	
+				return
 			
-			
-			if (key[:2] != 'MF' or len(key) == 2):
-				print('Error: Parse error, input unknown key "{}"'.format(key))
+			if (key[:2] != 'MF'):
+				print('Error: Parse warning, ignored unknown key "{}"'.format(key))
+				return
+				
+			if (len(key) == 2):
+				print('Error: Parse error, output mf key non valid')
 				exit(-1)
 			
 			mfIndex = int(key[2:])
@@ -555,12 +561,14 @@ class ImplWriter:
 			for i, x in enumerate(outputs):
 				for j, y in enumerate(mfsOutputs[i]):
 					joinedParameters = ', '.join(y.parameters)
-					f.write('\tconst {0} o{1}'\
+					f.write('\tconst {0}'\
 						.format(y.type, i+1))
 					if isSugeno:
-						f.write('t{0} = {{{1}}};\n'.format(j+1, joinedParameters))
+						if (y.type == FuzzyValues.TERM_SUGENO_LINEAR):
+							f.write('<{}>'.format(len(y.parameters)-1))
+						f.write(' o{0}t{1} = {{{2}}};\n'.format(i+1, j+1, joinedParameters))
 					else:
-						f.write('mf{0}({1});\n'.format(j+1,joinedParameters))
+						f.write(' o{0}mf{1}({2});\n'.format(i+1, j+1, joinedParameters))
 				f.write('\n')
 			
 			f.write('\tconst LFLLRules<NbInputs, NbRules, NbOutputs> rules = {{\n')
@@ -618,6 +626,9 @@ class ImplWriter:
 					else:
 						notFirstTuple = True
 					f.write('\t\tconst {}'.format(y.type))
+					if (y.type == FuzzyValues.TERM_SUGENO_LINEAR):
+						f.write('<{}>'.format(len(y.parameters)-1))
+						
 				f.write('\n\t> Output{}Tuple;\n'.format(i+1))
 				
 				f.write('\tconst Output{0}Tuple output{0}Tuple = makeLFLLTuple('\
