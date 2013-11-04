@@ -59,17 +59,19 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 LFLL_BEGIN_NAMESPACE
 
-    /************************************************************************/
-    /* Scalar */
-    /************************************************************************/
-#ifdef LFLL_USE_CUSTOM_SCALAR
+/************************************************************************/
+/* Scalar */
+/************************************************************************/
+#ifdef LFLL_CUSTOM_SCALAR
 #	ifdef LFLL_USE_FLOAT_SCALAR
 #		undef LFLL_USE_FLOAT_SCALAR
 #	endif
 #	ifdef LFLL_USE_DOUBLE_SCALAR
 #		undef LFLL_USE_FLOAT_SCALAR
 #	endif
-
+	
+	typedef LFLL_CUSTOM_SCALAR scalar;
+	
 #elif defined(LFLL_USE_DOUBLE_SCALAR)
 
 #	ifdef LFLL_USE_FLOAT_SCALAR
@@ -86,7 +88,6 @@ LFLL_BEGIN_NAMESPACE
 
     typedef float scalar;
 #endif // LFLL_USE_DOUBLE_SCALAR
-
 
 /************************************************************************/
 /* Scalar values */

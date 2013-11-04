@@ -62,10 +62,10 @@ public:
     {
         if (val < m_mean1) {
             const scalar diffValMean1 = val - m_mean1;
-            return std::exp(diffValMean1 * diffValMean1 * m_negInvTwiceSigma1Square);
+            return lfll_math::exp(diffValMean1 * diffValMean1 * m_negInvTwiceSigma1Square);
         } else if (val > m_mean2) {
             const scalar diffValMean2 = val - m_mean2;
-            return std::exp(diffValMean2 * diffValMean2 * m_negInvTwiceSigma2Square);
+            return lfll_math::exp(diffValMean2 * diffValMean2 * m_negInvTwiceSigma2Square);
         } else {
             return ONE_SCALAR;
         }

@@ -20,43 +20,23 @@ COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
 IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
-#ifndef LFLLGAUSSIAN_H
-#define LFLLGAUSSIAN_H
+/************************************************************************
+  Here is an example of how to use LFLL. \n
+*************************************************************************/
 
-#include <lfll/engine/LFLLDefinitions.h>
-#include <lfll/engine/LFLLMath.h>
+#include <iostream>
+#include "FixedPtAllTerms.h"
 
-LFLL_BEGIN_NAMESPACE
-
-/**
-  * Gaussian term
-  *
-  * @f[
-\renewcommand{\arraystretch}{2.25}
-x:R,  \rightarrow  f(x, \sigma, \mu) = e^(\frac{-(x - \mu)^2}{2 \sigma^2})
-  * @f]
-  *
-  * http://www.mathworks.com/help/fuzzy/gaussmf.html
-  */
-class LFLLGaussian
+int main(int argc, char* argv[])
 {
-public:
-    LFLLGaussian(scalar sigma, scalar mean)
-        : m_negInvTwiceSigmaSquare(-ONE_SCALAR / (TWO_SCALAR * sigma * sigma))
-        , m_mean(mean)
-    {}
+    LFLL_NAMESPACE_NAME::LFLLArray<1> inputs = {0.2};
+    LFLL_NAMESPACE_NAME::LFLLArray<1> outputs;
+	
+	FixedPtAllTerms::process(inputs, outputs);
 
-    inline scalar membership(const scalar val) const
-    {
-        const scalar diffValMean = val - m_mean;
-        return lfll_math::exp(diffValMean * diffValMean * m_negInvTwiceSigmaSquare);
-    }
+    std::cout << "FixedPtAllTerms(" << inputs[0] <<
+        ") = " << outputs[0] << std::endl;
 
-protected:
-    scalar m_negInvTwiceSigmaSquare;
-    scalar m_mean;
-};
+    return 0;
+}
 
-LFLL_END_NAMESPACE
-
-#endif //LFLLGAUSSIAN_H

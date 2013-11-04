@@ -20,12 +20,17 @@ COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
 IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
-#ifndef OPENMPTERMS_H
-#define OPENMPTERMS_H
+#ifndef FIXEDPTALLTERMS_H
+#define FIXEDPTALLTERMS_H
+
+#include "FixedPt32.h"
+
+#define LFLL_CUSTOM_SCALAR FixedPt32
+#define LFLL_CUSTOM_SCALAR_NAMESPACE fixedpt_math
 
 #include <lfll/LFLL.h>
 
-class OpenMpAllTerms
+class FixedPtAllTerms
 {
 public:
 	static void process(
@@ -33,7 +38,7 @@ public:
 		LFLL_NAMESPACE_NAME::LFLLArray<1>& outputs);
 
 private:
-	OpenMpAllTerms() {}
+	FixedPtAllTerms() {}
 };
 
-#endif // OPENMPTERMS_H
+#endif // FIXEDPTALLTERMS_H

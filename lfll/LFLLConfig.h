@@ -33,9 +33,28 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // Not really useful and slower.
 // #define LFLL_USE_DOUBLE_SCALAR
 
-// Use custom scalar. You can use fixed-precision type.
-// #define LFLL_USE_CUSTOM_SCALAR
-// typedef custom_scalar scalar
+// Define custom scalar. You can use a fixed-precision type.
+// Custom scalar must define at least the followings methods:
+// * custom_scalar(literal_integer)
+// * custom_scalar(const custom_scalar&)
+// * bool operator<(custom_scalar, custom_scalar)
+// * bool operator>(custom_scalar, custom_scalar)
+// * bool operator<=(custom_scalar, custom_scalar)
+// * bool operator>=(custom_scalar, custom_scalar)
+// * custom_scalar operator-(custom_scalar)
+// * custom_scalar operator+(custom_scalar, custom_scalar)
+// * custom_scalar operator-(custom_scalar, custom_scalar)
+// * custom_scalar operator/(custom_scalar, custom_scalar)
+// * custom_scalar operator*(custom_scalar, custom_scalar)
+// * custom_scalar operator+=(custom_scalar, custom_scalar)
+// * custom_scalar operator-=(custom_scalar, custom_scalar)
+// Custom scalar namespace must define at least the following functions:
+// * custom_scalar custom_scalar_namespace::abs(custom_scalar)
+// * custom_scalar custom_scalar_namespace::pow(custom_scalar,custom_scalar)
+// * custom_scalar custom_scalar_namespace::exp(custom_scalar)
+// If custom_scalar_namespace is not specified, the root namespace is used (::) 
+// #define LFLL_CUSTOM_SCALAR custom_scalar
+// #define LFLL_CUSTOM_SCALAR_NAMESPACE custom_scalar_namespace
 
 // Use namespace
 // #define LFLL_USE_NAMESPACE

@@ -104,6 +104,17 @@ namespace lfll_math {
     {
         return (a < b) ? a : b;
     }
+    
+#ifdef LFLL_CUSTOM_SCALAR_NAMESPACE
+	using LFLL_CUSTOM_SCALAR_NAMESPACE::abs;
+	using LFLL_CUSTOM_SCALAR_NAMESPACE::pow;
+	using LFLL_CUSTOM_SCALAR_NAMESPACE::exp;
+#else
+	using std::abs;
+	using std::pow;
+	using std::exp;
+#endif    
+
 
 }
 

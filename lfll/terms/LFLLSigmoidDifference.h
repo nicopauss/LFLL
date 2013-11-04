@@ -51,7 +51,7 @@ public:
 
     inline scalar membership(const scalar val) const
     {
-        return std::abs(m_sigmoid1.membership(val) - 
+        return lfll_math::abs(m_sigmoid1.membership(val) - 
             m_sigmoid2.membership(val));
     }
 

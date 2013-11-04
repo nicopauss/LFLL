@@ -20,7 +20,7 @@ COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
 IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
-#include "OpenMpAllTerms.h"
+#include "FixedPtAllTerms.h"
 
 namespace
 {
@@ -111,7 +111,7 @@ namespace
 }
 
 
-void OpenMpAllTerms::process(
+void FixedPtAllTerms::process(
 		const LFLLArray<1>& inputs,
 		LFLLArray<1>& outputs)
 {

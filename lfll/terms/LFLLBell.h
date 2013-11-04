@@ -51,7 +51,7 @@ public:
     inline scalar membership(const scalar val) const
     {
         return ONE_SCALAR / (ONE_SCALAR + 
-          std::pow(std::abs((val - m_c) * m_invA), m_twiceB));
+          lfll_math::pow(lfll_math::abs((val - m_c) * m_invA), m_twiceB));
     }
 
 protected:

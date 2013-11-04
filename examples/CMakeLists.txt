@@ -6,4 +6,5 @@ message(STATUS "LFLL_INCLUDE_DIR = ${LFLL_INCLUDE_DIR}")
 add_subdirectory(mamdani)
 add_subdirectory(sugeno)
 add_subdirectory(openmp)
+add_subdirectory(fixedpt)
 

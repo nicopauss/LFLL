@@ -48,7 +48,7 @@ public:
 
     inline scalar membership(const scalar val) const
     {
-        return ONE_SCALAR / (ONE_SCALAR + std::exp(m_negSlope * (val - m_infl)));
+        return ONE_SCALAR / (ONE_SCALAR + lfll_math::exp(m_negSlope * (val - m_infl)));
     }
 
 protected:
