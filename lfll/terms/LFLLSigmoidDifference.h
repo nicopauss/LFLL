@@ -34,7 +34,7 @@ LFLL_BEGIN_NAMESPACE
   *
   * @f[
 \renewcommand{\arraystretch}{2.25}
-x:R,  \rightarrow  f(x; \slope1, \infl1, \slope2, \infl2) = |\frac{1}{1+e^{-\slope1 (x - \infl1)}} - \frac{1}{1+e^{-\slope2 (x - \infl2)}}|
+x:R,  \rightarrow  f(x; slope1, infl1, slope2, infl2) = |\frac{1}{1+e^{-slope1 (x - infl1)}} - \frac{1}{1+e^{-slope2 (x - infl2)}}|
   * @f]
   *
   * http://www.mathworks.com/help/fuzzy/dsigmf.html

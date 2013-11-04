@@ -52,9 +52,9 @@ class LFLLGaussianProduct
 {
 public:
     LFLLGaussianProduct(scalar sigma1, scalar mean1, scalar sigma2, scalar mean2)
-        : m_invTwiceSigma1Square(ONE_SCALAR / (TWO_SCALAR * sigma1 * sigma1))
+        : m_negInvTwiceSigma1Square(-ONE_SCALAR / (TWO_SCALAR * sigma1 * sigma1))
         , m_mean1(mean1)
-        , m_invTwiceSigma2Square(ONE_SCALAR / (TWO_SCALAR * sigma2 * sigma2))
+        , m_negInvTwiceSigma2Square(-ONE_SCALAR / (TWO_SCALAR * sigma2 * sigma2))
         , m_mean2(mean2)
     {}
 
@@ -62,19 +62,19 @@ public:
     {
         if (val < m_mean1) {
             const scalar diffValMean1 = val - m_mean1;
-            return std::exp(-(diffValMean1 * diffValMean1) * m_invTwiceSigma1Square);
+            return std::exp(diffValMean1 * diffValMean1 * m_negInvTwiceSigma1Square);
         } else if (val > m_mean2) {
             const scalar diffValMean2 = val - m_mean2;
-            return std::exp(-(diffValMean2 * diffValMean2) * m_invTwiceSigma2Square);
+            return std::exp(diffValMean2 * diffValMean2 * m_negInvTwiceSigma2Square);
         } else {
             return ONE_SCALAR;
         }
     }
 
 protected:
-    scalar m_invTwiceSigma1Square;
+    scalar m_negInvTwiceSigma1Square;
     scalar m_mean1;
-    scalar m_invTwiceSigma2Square;
+    scalar m_negInvTwiceSigma2Square;
     scalar m_mean2;
 };
 

@@ -42,18 +42,18 @@ class LFLLGaussian
 {
 public:
     LFLLGaussian(scalar sigma, scalar mean)
-        : m_invTwiceSigmaSquare(ONE_SCALAR / (TWO_SCALAR * sigma * sigma))
+        : m_negInvTwiceSigmaSquare(-ONE_SCALAR / (TWO_SCALAR * sigma * sigma))
         , m_mean(mean)
     {}
 
     inline scalar membership(const scalar val) const
     {
         const scalar diffValMean = val - m_mean;
-        return std::exp(-(diffValMean * diffValMean) * m_invTwiceSigmaSquare);
+        return std::exp(diffValMean * diffValMean * m_negInvTwiceSigmaSquare);
     }
 
 protected:
-    scalar m_invTwiceSigmaSquare;
+    scalar m_negInvTwiceSigmaSquare;
     scalar m_mean;
 };
 

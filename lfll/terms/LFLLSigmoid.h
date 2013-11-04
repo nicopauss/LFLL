@@ -33,7 +33,7 @@ LFLL_BEGIN_NAMESPACE
   *
   * @f[
 \renewcommand{\arraystretch}{2.25}
-x:R,  \rightarrow  f(x; \slope, \infl) = \frac{1}{1+e^{-\slope (x - \infl)}}
+x:R,  \rightarrow  f(x; slope, infl) = \frac{1}{1+e^{-slope (x - infl)}}
   * @f]
   *
   * http://www.mathworks.com/help/fuzzy/sigmf.html
