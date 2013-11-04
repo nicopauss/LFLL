@@ -49,27 +49,40 @@ namespace
 	const LFLLTriangle i1mf15(-1.0, 0.01, 1.0);
 	const LFLLZShape i1mf16(-1.0, 1.0);
 
-	const LFLLSugenoZeroOrderTerm o1t1 = {0.250};
-	const LFLLSugenoZeroOrderTerm o1t2 = {0.500};
-	const LFLLSugenoZeroOrderTerm o1t3 = {0.750};
+	const LFLLSugenoZeroOrderTerm o1t1 = {0.4};
+	const LFLLSugenoFirstOrderTerm<1> o1t2 = {0.2, -0.8};
+	const LFLLSugenoZeroOrderTerm o1t3 = {0.3};
+	const LFLLSugenoFirstOrderTerm<1> o1t4 = {0.239, 0.0645};
+	const LFLLSugenoZeroOrderTerm o1t5 = {-1.0};
+	const LFLLSugenoFirstOrderTerm<1> o1t6 = {-1.0, -0.05};
+	const LFLLSugenoZeroOrderTerm o1t7 = {-0.75};
+	const LFLLSugenoFirstOrderTerm<1> o1t8 = {-1.0, 1.0};
+	const LFLLSugenoZeroOrderTerm o1t9 = {0.15};
+	const LFLLSugenoFirstOrderTerm<1> o1t10 = {0.77, -0.442};
+	const LFLLSugenoZeroOrderTerm o1t11 = {0.14};
+	const LFLLSugenoFirstOrderTerm<1> o1t12 = {0.2, -0.8};
+	const LFLLSugenoZeroOrderTerm o1t13 = {1.0};
+	const LFLLSugenoFirstOrderTerm<1> o1t14 = {-1.0, 0.01};
+	const LFLLSugenoZeroOrderTerm o1t15 = {-0.25};
+	const LFLLSugenoFirstOrderTerm<1> o1t16 = {-1.0, 1.0};
 
 	const LFLLRules<NbInputs, NbRules, NbOutputs> rules = {{
-		{{1}, {1}, 1, false},
-		{{2}, {2}, 0.9, false},
-		{{3}, {3}, 0.8, false},
-		{{4}, {3}, 0.7, false},
-		{{5}, {2}, 0.6, false},
-		{{6}, {1}, 0.5, false},
-		{{7}, {1}, 0.4, false},
-		{{8}, {2}, 0.3, false},
-		{{9}, {3}, 0.3, false},
-		{{10}, {3}, 0.4, false},
-		{{11}, {2}, 0.5, false},
-		{{12}, {1}, 0.6, false},
-		{{13}, {1}, 0.7, false},
-		{{14}, {2}, 0.8, false},
-		{{15}, {3}, 0.9, false},
-		{{16}, {3}, 1, false}
+		{{1}, {16}, 1, false},
+		{{2}, {15}, 0.9, false},
+		{{3}, {14}, 0.8, false},
+		{{4}, {13}, 0.7, false},
+		{{5}, {12}, 0.6, false},
+		{{6}, {11}, 0.5, false},
+		{{7}, {10}, 0.4, false},
+		{{8}, {9}, 0.3, false},
+		{{9}, {8}, 0.3, false},
+		{{10}, {7}, 0.4, false},
+		{{11}, {6}, 0.5, false},
+		{{12}, {5}, 0.6, false},
+		{{13}, {4}, 0.7, false},
+		{{14}, {3}, 0.8, false},
+		{{15}, {2}, 0.9, false},
+		{{16}, {1}, 1, false}
 	}};
 	const LFLLRulesEngine<NbInputs, NbRules, NbOutputs> rulesEngine(rules);
 
@@ -100,11 +113,25 @@ namespace
 
 	typedef LFLLTuple<
 		const LFLLSugenoZeroOrderTerm,
+		const LFLLSugenoFirstOrderTerm<1>,
 		const LFLLSugenoZeroOrderTerm,
-		const LFLLSugenoZeroOrderTerm
+		const LFLLSugenoFirstOrderTerm<1>,
+		const LFLLSugenoZeroOrderTerm,
+		const LFLLSugenoFirstOrderTerm<1>,
+		const LFLLSugenoZeroOrderTerm,
+		const LFLLSugenoFirstOrderTerm<1>,
+		const LFLLSugenoZeroOrderTerm,
+		const LFLLSugenoFirstOrderTerm<1>,
+		const LFLLSugenoZeroOrderTerm,
+		const LFLLSugenoFirstOrderTerm<1>,
+		const LFLLSugenoZeroOrderTerm,
+		const LFLLSugenoFirstOrderTerm<1>,
+		const LFLLSugenoZeroOrderTerm,
+		const LFLLSugenoFirstOrderTerm<1>
 	> Output1Tuple;
 	const Output1Tuple output1Tuple = makeLFLLTuple(
-		o1t1, o1t2, o1t3);
+		o1t1, o1t2, o1t3, o1t4, o1t5, o1t6, o1t7, o1t8, 
+		o1t9, o1t10, o1t11, o1t12, o1t13, o1t14, o1t15, o1t16);
 	const LFLLSugenoDefuzzifier<Output1Tuple, LFLLSugenoWeightedAverage>
 		output1Defuzzifier(output1Tuple);
 
