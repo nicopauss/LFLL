@@ -55,6 +55,7 @@ public:
 	FixedPt32(const float val) : m_val(fixedpt_rconst(val)) {}
 	FixedPt32(const double val) : m_val(fixedpt_rconst(val)) {}
 	FixedPt32(const int32_t val) : m_val(fixedpt_fromint(val)) {}
+	FixedPt32(const uint32_t val) : m_val(fixedpt_fromint(val)) {}
 
 	FixedPt32& operator=(const FixedPt32 &o) { m_val = o.m_val; return *this; }
 	

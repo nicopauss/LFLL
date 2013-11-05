@@ -13,6 +13,13 @@ if(${HAYAI_INCLUDE_DIR} STREQUAL "HAYAI_INCLUDE_DIR-NOTFOUND")
 	message(STATUS "Hayai not found, benchmark has been deactivated. "
 		"You should run 'git submodule init && git submodule update' before running cmake")
 else()
+
+	# Hayai warning ignore
+	if (("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang") OR
+		("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU"))
+		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-delete-non-virtual-dtor")
+	endif()
+	
 	include_directories(${HAYAI_INCLUDE_DIR})
 	file(GLOB SOURCES_FILES *.h *cpp)
 	add_executable(benchmark ${SOURCES_FILES})	
