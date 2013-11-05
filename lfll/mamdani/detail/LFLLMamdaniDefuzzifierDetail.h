@@ -45,7 +45,7 @@ struct LFLLMamdaniDefuzzifierTermsValuesIterator
 {
     static void computeTermsValues(
         const TermTuple* terms,
-        scalar x,
+        const scalar x,
         LFLLArray<TermTuple::tupleSize>& termsValues)
     {
         LFLLMamdaniDefuzzifierTermsValuesIterator<I-1, TermTuple>::
@@ -60,7 +60,7 @@ struct LFLLMamdaniDefuzzifierTermsValuesIterator<0, TermTuple>
 {
     static void computeTermsValues(
         const TermTuple*,
-        scalar x,
+        const scalar,
         LFLLArray<TermTuple::tupleSize>&)
     {}
 };

@@ -215,7 +215,7 @@ template<size_t RuleIndex,
 class LFLLConsequenceEngine<0, RuleIndex, NI, NR, NO, AndOp, OrOp, NotOp>
 {
 public:
-    LFLLConsequenceEngine(const LFLLRule<NI, NO>& rule)
+    LFLLConsequenceEngine(const LFLLRule<NI, NO>&)
     {}
 
     template <class ConsequenceTuple>

@@ -26,9 +26,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 TEST(LFLLSugenoDefuzzifier, TestZeroOrderAverage)
 {
     const size_t NR = 3;
-    const size_t NT = 2;
 
-    LFLLArray<3> inputs = {0.f, 0.4f, 5.f};
+    LFLLArray<3> inputs = {{0.f, 0.4f, 5.f}};
 
     LFLLSugenoZeroOrderTerm o1 = {0.5f};
     LFLLSugenoZeroOrderTerm o2 = {1.0f};
@@ -64,9 +63,8 @@ TEST(LFLLSugenoDefuzzifier, TestZeroOrderAverage)
 TEST(LFLLSugenoDefuzzifier, TestZeroOrderSum)
 {
     const size_t NR = 3;
-    const size_t NT = 2;
 
-    LFLLArray<3> inputs = {0.f, 0.4f, 5.f};
+    LFLLArray<3> inputs = {{0.f, 0.4f, 5.f}};
 
     LFLLSugenoZeroOrderTerm o1 = {0.5f};
     LFLLSugenoZeroOrderTerm o2 = {1.0f};
@@ -101,9 +99,8 @@ TEST(LFLLSugenoDefuzzifier, TestZeroOrderSum)
 TEST(LFLLSugenoDefuzzifier, TestFirstOrderAverage)
 {
     const size_t NR = 3;
-    const size_t NT = 2;
 
-    LFLLArray<3> inputs = {0.f, 0.4f, 5.f};
+    LFLLArray<3> inputs = {{0.f, 0.4f, 5.f}};
 
     LFLLSugenoFirstOrderTerm<3> o1 = {1.0f, 0.75f, 2.0f, 0.5f};
     LFLLSugenoFirstOrderTerm<3> o2 = {7.0f, 5.0f, 0.25f, 1.0f};
@@ -140,9 +137,8 @@ TEST(LFLLSugenoDefuzzifier, TestFirstOrderAverage)
 TEST(LFLLSugenoDefuzzifier, TestFirstOrderSum)
 {
     const size_t NR = 3;
-    const size_t NT = 2;
 
-    LFLLArray<3> inputs = {0.f, 0.4f, 5.f};
+    LFLLArray<3> inputs = {{0.f, 0.4f, 5.f}};
 
     LFLLSugenoFirstOrderTerm<3> o1 = {1.0f, 0.75f, 2.0f, 0.5f};
     LFLLSugenoFirstOrderTerm<3> o2 = {7.0f, 5.0f, 0.25f, 1.0f};

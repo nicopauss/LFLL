@@ -80,25 +80,22 @@ TEST(LFLLRulesEngineTest, Test)
 
     fTr.applyRules(antecedents, consequences);
 
-
-    scalar valPart = 1.f - 0.16f/2.f;
-
-    ASSERT_EQ(1, consequence1.getTermIndex(0));
+    ASSERT_EQ(1u, consequence1.getTermIndex(0));
     ASSERT_LFLL_REL_EQ(0.16f, consequence1.getVal(0));
 
-    ASSERT_EQ(2, consequence1.getTermIndex(1));
+    ASSERT_EQ(2u, consequence1.getTermIndex(1));
     ASSERT_LFLL_REL_EQ(0.56f, consequence1.getVal(1));
 
-    ASSERT_EQ(0, consequence1.getTermIndex(2));
+    ASSERT_EQ(0u, consequence1.getTermIndex(2));
     ASSERT_LFLL_REL_EQ(0.0f, consequence1.getVal(2));
 
 
-    ASSERT_EQ(0, consequence2.getTermIndex(0));
+    ASSERT_EQ(0u, consequence2.getTermIndex(0));
     ASSERT_LFLL_REL_EQ(0.0f, consequence2.getVal(0));
 
-    ASSERT_EQ(1, consequence2.getTermIndex(1));
+    ASSERT_EQ(1u, consequence2.getTermIndex(1));
     ASSERT_LFLL_REL_EQ(0.56f, consequence2.getVal(1));
 
-    ASSERT_EQ(1, consequence2.getTermIndex(2));
+    ASSERT_EQ(1u, consequence2.getTermIndex(2));
     ASSERT_LFLL_REL_EQ(1.f - 0.16f/2.f, consequence2.getVal(2));
 }

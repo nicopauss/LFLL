@@ -40,7 +40,7 @@ void processValueWithLoop(
     LFLL_NAMESPACE_NAME::LFLLArray<1>& outputs, 
     int nbProcess);
 
-int main(int argc, char* argv[])
+int main()
 {
     int nbProcess = 10000000;
     LFLL_NAMESPACE_NAME::LFLLArray<1> inputs = {0.2f};

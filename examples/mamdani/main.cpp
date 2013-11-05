@@ -27,7 +27,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include <iostream>
 #include "MamdaniAllTerms.h"
 
-int main(int argc, char* argv[])
+int main()
 {
     LFLL_NAMESPACE_NAME::LFLLArray<1> inputs = {0.2};
     LFLL_NAMESPACE_NAME::LFLLArray<1> outputs;

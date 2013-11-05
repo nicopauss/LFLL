@@ -31,7 +31,6 @@ TEST(LFLLCompleteTest, LFLLComplete)
     const size_t NTI2 = 2;
     const size_t NR = 6;
     const size_t NO = 1;
-    const size_t NTO = 3;
 
     const LFLLTriangle t11(-0.4f, .0f, .3f);
     const LFLLTriangle t12(0.05f, .3f, .9f);
@@ -91,7 +90,7 @@ TEST(LFLLCompleteTest, LFLLComplete)
 
     LFLLRulesEngine<NI, NR, NO> rulesEngine(rules);
 
-    LFLLArray<2> inputs = {.2f, .3f};
+    LFLLArray<2> inputs = {{.2f, .3f}};
 
     // Work
 

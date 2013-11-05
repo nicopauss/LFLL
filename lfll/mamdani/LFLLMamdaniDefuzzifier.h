@@ -51,6 +51,8 @@ LFLL_BEGIN_NAMESPACE
 
 /**
   * Mamdani defuzzifier
+  *
+  * @see LFLLMamdaniDefuzzifyMethod
   */
 template <class TermTuple,
     LFLLMamdaniDefuzzifyMethod D = LFLLMamdaniCentroid,

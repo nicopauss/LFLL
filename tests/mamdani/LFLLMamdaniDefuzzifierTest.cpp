@@ -28,7 +28,6 @@ static const lfll_uint TestDivisions = 10000;
 TEST(LFLLMamdaniDefuzzifier, TestCentroidMinMax)
 {
     const size_t NR = 3;
-    const size_t NT = 2;
 
     LFLLTriangle o1(0.0f, 0.3f, 1.0f);
     LFLLTriangle o2(0.0f, 0.6f, 1.0f);
@@ -64,7 +63,6 @@ TEST(LFLLMamdaniDefuzzifier, TestCentroidMinMax)
 TEST(LFLLMamdaniDefuzzifier, TestCentroidProb)
 {
     const size_t NR = 3;
-    const size_t NT = 2;
 
     LFLLTriangle o1(0.0f, 0.3f, 1.0f);
     LFLLTriangle o2(0.0f, 0.6f, 1.0f);
@@ -101,7 +99,6 @@ TEST(LFLLMamdaniDefuzzifier, TestCentroidProb)
 TEST(LFLLMamdaniDefuzzifier, TestBisector)
 {
     const size_t NR = 3;
-    const size_t NT = 2;
 
     LFLLTriangle o1(0.0f, 0.3f, 1.0f);
     LFLLTriangle o2(0.0f, 0.6f, 1.0f);
@@ -137,7 +134,6 @@ TEST(LFLLMamdaniDefuzzifier, TestBisector)
 TEST(LFLLMamdaniDefuzzifier, TestMeanOfMaximum)
 {
     const size_t NR = 3;
-    const size_t NT = 2;
 
     LFLLTriangle o1(0.0f, 0.3f, 1.0f);
     LFLLTriangle o2(0.0f, 0.6f, 1.0f);
@@ -174,7 +170,6 @@ TEST(LFLLMamdaniDefuzzifier, TestMeanOfMaximum)
 TEST(LFLLMamdaniDefuzzifier, TestSmallestOfMaximum)
 {
     const size_t NR = 3;
-    const size_t NT = 2;
 
     LFLLTriangle o1(0.0f, 0.3f, 1.0f);
     LFLLTriangle o2(0.0f, 0.6f, 1.0f);
@@ -211,7 +206,6 @@ TEST(LFLLMamdaniDefuzzifier, TestSmallestOfMaximum)
 TEST(LFLLMamdaniDefuzzifier, TestLargestOfMaximum)
 {
     const size_t NR = 3;
-    const size_t NT = 2;
 
     LFLLTriangle o1(0.0f, 0.3f, 1.0f);
     LFLLTriangle o2(0.0f, 0.6f, 1.0f);
