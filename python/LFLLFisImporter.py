@@ -9,8 +9,11 @@ import re
 
 if sys.hexversion > 0x03000000:
     _range = range
+    def _filter(function, iterable):
+    	return list(filter(function, iterable))
 else:
     _range = xrange
+    _filter = filter
 
 
 def checkDictKeysIsSeq(d):
@@ -344,7 +347,7 @@ class FisReader:
 				if (value[0] != "[" or value[-1] != "]" or len(value) == 2):
 					print('Error: Parse error, output non valid range "{}"'.format(value))
 					exit(-1)
-				self.outputResult.range = filter(None, value[1:-1].split()) 
+				self.outputResult.range = _filter(None, value[1:-1].split()) 
 				if len(self.outputResult.range) != 2:
 					print('Error: Parse error, output non valid range "{}"'.format(value))
 					exit(-1)
@@ -754,7 +757,10 @@ if __name__ == '__main__':
 		
 	args = parser.parse_args()
 	
-	(inputRoot, inputExt) = os.path.splitext(args.file.name)
+	filePath = args.file.name
+	fileName = os.path.basename(filePath)
+	
+	(inputRoot, inputExt) = os.path.splitext(fileName)
 	
 	if (args.output is None):
 		args.output = inputRoot
