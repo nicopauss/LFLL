@@ -48,15 +48,17 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // * custom_scalar operator*(custom_scalar, custom_scalar)
 // * custom_scalar operator+=(custom_scalar, custom_scalar)
 // * custom_scalar operator-=(custom_scalar, custom_scalar)
+// #define LFLL_CUSTOM_SCALAR custom_scalar
+
+// Define a custom scalar namespace for the math operations.
 // Custom scalar namespace must define at least the following functions:
 // * custom_scalar custom_scalar_namespace::abs(custom_scalar)
 // * custom_scalar custom_scalar_namespace::pow(custom_scalar,custom_scalar)
 // * custom_scalar custom_scalar_namespace::exp(custom_scalar)
 // If custom_scalar_namespace is not specified, the root namespace is used (::) 
-// #define LFLL_CUSTOM_SCALAR custom_scalar
 // #define LFLL_CUSTOM_SCALAR_NAMESPACE custom_scalar_namespace
 
-// Use namespace
+// Use a global namespace
 // #define LFLL_USE_NAMESPACE
 
 // Namespace name if activated
