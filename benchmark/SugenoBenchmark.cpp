@@ -20,18 +20,24 @@ COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
 IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
-#ifndef LFLLTESTS_H
-#define LFLLTESTS_H
 
-#include <gtest/gtest.h>
-#include <lfll/LFLL.h>
+#include "LFLLBenchmark.h"
+#include "SugenoAllTerms.h"
 
-#define ASSERT_LFLL_REL_EQ(val1, val2) \
-    ASSERT_NEAR((val1), (val2), ((val1)*SCALAR_DIFF_PRECISION));
+class SugenoFixture : public Hayai::Fixture
+{
+public:
+	virtual void SetUp()
+	{
+		inputs[0] = 0.2;
+	}
 
-#define ASSERT_LFLL_ABS_EQ(val1, val2) \
-    ASSERT_NEAR((val1), (val2), (SCALAR_DIFF_PRECISION));
+	LFLL_NAMESPACE_NAME::LFLLArray<1> inputs;
+    LFLL_NAMESPACE_NAME::LFLLArray<1> outputs;
+};
 
-LFLL_USING_NAMESPACE
 
-#endif LFLLTESTS_H
+BENCHMARK_F(SugenoFixture, AllTerms, 20, 100)
+{
+	SugenoAllTerms::process(inputs, outputs);
+}
