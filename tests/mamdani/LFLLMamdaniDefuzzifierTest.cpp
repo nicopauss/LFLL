@@ -22,7 +22,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 #include "../LFLLTests.h"
 
-static const lfll_uint TestDivisions = 10000;
+static const lfll_uint TestDivisions = 100000;
 
 
 TEST(LFLLMamdaniDefuzzifier, TestCentroidMinMax)
