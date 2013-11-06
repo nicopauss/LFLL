@@ -32,14 +32,14 @@ LFLL_BEGIN_NAMESPACE
 
 
 /**
-* Array with fixed size
+* \brief Fixed size array of scalar type.
+* \tparam N Array size
 */
 template <size_t N>
 class LFLLArray
 {
 public:
     static const size_t staticSize = N;
-	
 	scalar elements[N];
 public:
 	typedef scalar         value_type;

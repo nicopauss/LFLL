@@ -30,14 +30,15 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 LFLL_BEGIN_NAMESPACE
 
 /**
-  * Sigmoid difference term
+  * \brief Sigmoid difference term
   *
+  * Define the following membership function:
   * @f[
 \renewcommand{\arraystretch}{2.25}
 x:R,  \rightarrow  f(x; slope1, infl1, slope2, infl2) = |\frac{1}{1+e^{-slope1 (x - infl1)}} - \frac{1}{1+e^{-slope2 (x - infl2)}}|
   * @f]
   *
-  * http://www.mathworks.com/help/fuzzy/dsigmf.html
+  * It is similar to the Matlab function [dsigmf](http://www.mathworks.com/help/fuzzy/dsigmf.html).
   */
 class LFLLSigmoidDifference
 {
@@ -49,13 +50,13 @@ public:
         , m_sigmoid2(slope2, infl2)
     {}
 
-    inline scalar membership(const scalar val) const
+    inline scalar membership(const scalar x) const
     {
-        return lfll_math::abs(m_sigmoid1.membership(val) - 
-            m_sigmoid2.membership(val));
+        return lfll_math::abs(m_sigmoid1.membership(x) - 
+            m_sigmoid2.membership(x));
     }
 
-protected:
+private:
     LFLLSigmoid m_sigmoid1;
     LFLLSigmoid m_sigmoid2;
 };

@@ -24,16 +24,14 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #define LFLLTRIANGLE_H
 
 #include <lfll/engine/LFLLDefinitions.h>
-#include <lfll/terms/LFLLBoundedTerm.h>
 
 LFLL_BEGIN_NAMESPACE
 
 
 /**
-  * Traingle term
+  * \brief Triangle term
   *
-  * Special case of trapezoidal term where b = c
-  *
+  * Define the following membership function:
   * @f[
 \renewcommand{\arraystretch}{2.25}
 x:R \rightarrow  f(x) = \left \{
@@ -54,34 +52,37 @@ x:R \rightarrow  f(x) = \left \{
    ---       ---
   @endverbatim
   *
-  * http://www.mathworks.com/help/fuzzy/trimf.html
+  * It is similar to the Matlab function [trimf](http://www.mathworks.com/help/fuzzy/trimf.html).
   */
-class LFLLTriangle : public LFLLBoundedTerm
+class LFLLTriangle
 {
 public:
     LFLLTriangle(scalar a, scalar b, scalar c)
-        : LFLLBoundedTerm(a, c)
+        : m_a(a)
         , m_b(b)
+        , m_c(c)
         , m_invDiffAB(ONE_SCALAR / (b - a))
         , m_invDiffBC(ONE_SCALAR / (c - b))
     {}
 
-    inline scalar membership(const scalar val) const
+    inline scalar membership(const scalar x) const
     {
-        if ((val <= m_minLimit) ||
-            (val >= m_maxLimit)) {
+        if ((x <= m_a) ||
+            (x >= m_c)) {
             return ZERO_SCALAR;
-        } else if (val == m_b) {
+        } else if (x == m_b) {
             return ONE_SCALAR;
-        } else if (val > m_b) {
-            return (m_maxLimit - val) * m_invDiffBC;
+        } else if (x < m_b) {
+            return (x - m_a) * m_invDiffAB;
         } else {
-            return (val - m_minLimit) * m_invDiffAB;
+            return (m_c - x) * m_invDiffBC;
         }
     }
 
-protected:
+private:
+    scalar m_a;
     scalar m_b;
+    scalar m_c;
     scalar m_invDiffAB;
     scalar m_invDiffBC;
 };

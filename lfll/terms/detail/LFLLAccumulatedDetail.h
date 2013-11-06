@@ -38,13 +38,13 @@ struct LFLLAccumulatedImplIterator
     inline static scalar membership(
         const TermTuple* terms,
         const SNorm& sNorm,
-        const scalar val)
+        const scalar x)
     {
         const scalar prevMembership = 
             LFLLAccumulatedImplIterator<I-1, TermTuple, SNorm>::
-                membership(terms, sNorm, val);
+                membership(terms, sNorm, x);
         const scalar currentMembership = 
-            getLFLLTuple<I-1>(*terms)->membership(val);
+            getLFLLTuple<I-1>(*terms)->membership(x);
         return sNorm(prevMembership, currentMembership);
     }
 };
@@ -73,10 +73,10 @@ public:
         , m_sNorm()
     {}
 
-    inline scalar membership(const scalar val) const
+    inline scalar membership(const scalar x) const
     {
         return LFLLAccumulatedImplIterator<TermTuple::tupleSize, TermTuple, SNorm>::
-                membership(m_terms, m_sNorm, val);
+                membership(m_terms, m_sNorm, x);
     }
 
 private:

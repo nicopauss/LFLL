@@ -31,7 +31,7 @@ LFLL_BEGIN_NAMESPACE
 
 
 /**
-  * Accumulated term.
+  * \brief Accumulated term.
   *
   * Accumulate multiple term using a tuple of terms and an SNorm operator
   */
@@ -43,9 +43,9 @@ public:
         : m_impl(terms)
     {}
 
-    inline scalar membership(const scalar val) const
+    inline scalar membership(const scalar x) const
     {
-        return m_impl.membership(val);
+        return m_impl.membership(x);
     }
 
 private:

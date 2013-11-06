@@ -30,9 +30,12 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 LFLL_BEGIN_NAMESPACE
 
+/**
+ * \brief Sugeno defuzzify methods
+ */
 enum LFLLSugenoDefuzzifyMethod {
-    LFLLSugenoWeightedAverage,
-    LFLLSugenoWeightedSum
+    LFLLSugenoWeightedAverage, //< Weighted average
+    LFLLSugenoWeightedSum //< Weighted sum
 };
 
 LFLL_END_NAMESPACE
@@ -42,17 +45,38 @@ LFLL_END_NAMESPACE
 LFLL_BEGIN_NAMESPACE
 
 /**
-  * Sugeno defuzzifier
+  * \brief Sugeno defuzzifier
+  * \tparam TermTuple Tuple of terms type
+  * \tparam D Defuzzify method (enum LFLLSugenoDefuzzifyMethod), default is Weighted average
+  *
+  * \see LFLLSugenoDefuzzifyMethod
+  * \see LFLLSugenoZeroOrderTerm
+  * \see LFLLSugenoFirstOrderTerm
+  *
+  * \warning This class holds a pointer to the input terms and tuple. So the terms 
+  * variables and tuple must have the same or greater lifespan than this object.
   */
 template <class TermTuple,
     LFLLSugenoDefuzzifyMethod D = LFLLSugenoWeightedAverage>
 class LFLLSugenoDefuzzifier
 {
 public:
+	/**
+	 * \brief Constructor
+	 * \param terms Tuple of terms
+	 * 
+ 	 * \warning This class holds a pointer to the input terms and tuple. So the terms 
+     * variables and tuple must have the same or greater lifespan than this object.
+	 */
     LFLLSugenoDefuzzifier(const TermTuple& terms)
         : m_impl(terms)
     {}
 
+	/**
+	 * \brief Defuzzify consequence using inputs
+	 * \param inputs Inputs
+	 * \param consequence Consequence to defuzzify
+	 */
     template <size_t NI, size_t NR>
     scalar defuzzifyConsequence(
         const LFLLArray<NI>& inputs,

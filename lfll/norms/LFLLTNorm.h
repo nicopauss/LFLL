@@ -29,8 +29,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 LFLL_BEGIN_NAMESPACE
 
 /**
-  * Standard min
+  * \brief T-Norm - Standard min
   * 
+  * Define the following function:
   * @f[
 \renewcommand{\arraystretch}{2.25}
 a:[0,1], b:[0,1] \rightarrow  f(a, b) = min(a, b)
@@ -44,8 +45,9 @@ struct LFLLMin
 };
 
 /**
-  * Probabilistic product
+  * \brief T-Norm - Probabilistic product
   *
+  * Define the following function:
   * @f[
 \renewcommand{\arraystretch}{2.25}
 a:[0,1], b:[0,1] \rightarrow  f(a, b) = a * b
@@ -59,8 +61,9 @@ struct LFLLProbabilisticProduct
 };
 
 /**
-  * Bounded difference
+  * \brief T-Norm - Bounded difference
   * 
+  * Define the following function:
   * @f[
 \renewcommand{\arraystretch}{2.25}
 a:[0,1], b:[0,1] \rightarrow  f(a, b) = max(0, a + b - 1)
@@ -74,8 +77,9 @@ struct LFLLBoundedDifference
 };
 
 /**
-  * Drastic product
+  * \brief T-Norm - Drastic product
   * 
+  * Define the following function:
   * @f[
 \renewcommand{\arraystretch}{2.25}
 a:[0,1], b:[0,1] \rightarrow  f(a, b) = \left \{
@@ -98,8 +102,9 @@ struct LFLLDrasticProduct
 };
 
 /**
-  * Nilpotent min
+  * \brief T-Norm - Nilpotent min
   * 
+  * Define the following function:
   * @f[
 \renewcommand{\arraystretch}{2.25}
 a:[0,1], b:[0,1] \rightarrow  f(a, b) = \left \{
@@ -121,8 +126,9 @@ struct LFLLNilpotentMin
 };
 
 /**
-  * Einstein product
+  * \brief T-Norm - Einstein product
   * 
+  * Define the following function:
   * @f[
 \renewcommand{\arraystretch}{2.25}
 a:[0,1], b:[0,1] \rightarrow  f(a, b) = (a * b) / (2 - (a + b - a * b))
@@ -137,8 +143,9 @@ struct LFLLEinsteinProduct
 };
 
 /**
-  * Hamacher product
+  * \brief T-Norm - Hamacher product
   * 
+  * Define the following function:
   * @f[
 \renewcommand{\arraystretch}{2.25}
 a:[0,1], b:[0,1] \rightarrow  f(a, b) = \left \{

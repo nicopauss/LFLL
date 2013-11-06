@@ -31,12 +31,15 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 LFLL_BEGIN_NAMESPACE
 
+/**
+ * \brief Mamdani defuzzify methods
+ */
 enum LFLLMamdaniDefuzzifyMethod {
-    LFLLMamdaniCentroid,
-    LFLLMamdaniBisector,
-    LFLLMamdaniMeanOfMaximum,
-    LFLLMamdaniSmallestOfMaximum,
-    LFLLMamdaniLargestOfMaximum
+    LFLLMamdaniCentroid, //< Centroid
+    LFLLMamdaniBisector, //< Bisector
+    LFLLMamdaniMeanOfMaximum, //< Mean of maximum
+    LFLLMamdaniSmallestOfMaximum, //< Smallest of maximum
+    LFLLMamdaniLargestOfMaximum //< Largest of maximum
 };
 
 LFLL_END_NAMESPACE
@@ -50,9 +53,16 @@ LFLL_END_NAMESPACE
 LFLL_BEGIN_NAMESPACE
 
 /**
-  * Mamdani defuzzifier
+  * \brief Mamdani defuzzifier
+  * \tparam TermTuple Tuple of terms type
+  * \tparam D Defuzzify method (enum LFLLMamdaniDefuzzifyMethod), default is Centroid
+  * \tparam ImpMethod T-Norm implication method, default is Min
+  * \tparam AggMethod S-Norm aggregation method, default is Max
   *
-  * @see LFLLMamdaniDefuzzifyMethod
+  * \see LFLLMamdaniDefuzzifyMethod
+  *
+  * \warning This class holds a pointer to the input terms and tuple. So the terms 
+  * variables and tuple must have the same or greater lifespan than this object.
   */
 template <class TermTuple,
     LFLLMamdaniDefuzzifyMethod D = LFLLMamdaniCentroid,
@@ -61,9 +71,22 @@ template <class TermTuple,
 class LFLLMamdaniDefuzzifier
 {
 public:
+	/// Default number of divisions
     static const lfll_uint DefaultDivisions = 500;
 
 public:
+	/**
+	 * \brief Constructor
+	 * \param terms Tuple of terms
+	 * \param minRange Min range
+	 * \param maxRange Max range
+	 * \param divisions Number of divisions
+	 * \param impMethod Implication operator. Value is passed by copy.
+	 * \param aggMethod Aggregation operator. Value is passed by copy.
+	 * 
+ 	 * \warning This class holds a pointer to the input terms and tuple. So the terms 
+     * variables and tuple must have the same or greater lifespan than this object.
+	 */
     LFLLMamdaniDefuzzifier(
         const TermTuple& terms, 
         scalar minRange, scalar maxRange, 
@@ -73,6 +96,10 @@ public:
         : m_impl(terms, minRange, maxRange, divisions, impMethod, aggMethod)
     {}
 
+	/**
+	 * \brief Defuzzify consequence
+	 * \param consequence Consequence to defuzzify
+	 */
     template <size_t NR>
     scalar defuzzifyConsequence(
         const LFLLConsequence<NR>& consequence) const

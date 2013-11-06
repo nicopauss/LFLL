@@ -78,7 +78,6 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include <lfll/terms/LFLLAccumulated.h>
 #include <lfll/terms/LFLLBell.h>
 #include <lfll/terms/LFLLBoolean.h>
-#include <lfll/terms/LFLLBoundedTerm.h>
 #include <lfll/terms/LFLLFunction.h>
 #include <lfll/terms/LFLLFunctor.h>
 #include <lfll/terms/LFLLGaussian.h>

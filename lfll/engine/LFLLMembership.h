@@ -32,10 +32,10 @@ LFLL_BEGIN_NAMESPACE
 
 
 /**
-* Represent the degrees of membership for each terms for a variable.
-*
-* NT define the number of terms.
-*/
+ * \brief Represent the degrees of membership for each terms for a variable.
+ * 
+ * \tparam NT Number of terms.
+ */
 template <size_t NT>
 class LFLLMembership
 {
@@ -43,63 +43,112 @@ public:
     static const size_t nbTerms = NT;
 
 public:
+
+	/**
+	 * \brief Default constructor
+	 */
     LFLLMembership()
     {}
 
+	/**
+	 * \brief Copy constructor.
+	 * \param o An other membership
+	 */
     LFLLMembership(const LFLLMembership<NT>& o)
     {
         std::copy(o.m_array, o.m_array+NT, m_array);
     }
-
-    LFLLMembership(const scalar array[NT])
+    
+	/**
+	 * \brief Construct membership with external input iterator
+	 * \tparam InputIt Iterator type
+	 * \param iterator Input iterator
+	 */
+	template <class InputIt>
+    LFLLMembership(const InputIt iterator)
     {
-        std::copy(array, array+NT, m_array);
+        std::copy(iterator, iterator+NT, m_array);
     }
-
+    
+	/**
+	 * \brief Copy operator.
+	 * \param o An other consequence.
+	 */
     LFLLMembership<NT>& operator=(const LFLLMembership<NT>& o)
     {
         std::copy(o.m_array, o.m_array+NT, m_array);
         return *this;
     }
-
+    
+	/**
+	 * \brief Get number of terms.
+	 */
     inline size_t getNbTerms() const
     {
         return NT;
     }
 
+	/**
+	 * \brief Get value by index.
+	 * \param index Value index
+	 * \return Reference to value
+	 */
     inline scalar& operator[](size_t index)
     {
         assert(index < NT);
         return m_array[index];
     }
 
+	/**
+	 * \brief Get value by index.
+	 * \param index Value index
+	 * \return Value
+	 */
     inline scalar operator[](size_t index) const
     {
         assert(index < NT);
         return m_array[index];
     }
 
+	/**
+	 * \brief Get value by index.
+	 * \param index Value index
+	 * \return Reference to value
+	 */
     inline scalar& getVal(size_t index)
     {
         assert(index < NT);
         return m_array[index];
     }
 
+	/**
+	 * \brief Get value by index.
+	 * \param index Value index
+	 * \return Value
+	 */
     inline scalar getVal(size_t index) const
     {
         assert(index < NT);
         return m_array[index];
     }
 
+	/**
+	 * \brief Set value by index.
+	 * \param index Value index
+	 * \param val Value
+	 */
     inline void setVal(size_t index, scalar val)
     {
         assert(index < NT);
         m_array[index] = val;
     }
 
+	/**
+	 * \brief Reset values to ZERO_SCALAR
+	 */	
     inline void reset()
     {
-        memset(m_array, 0, sizeof(m_array));
+    	std::fill_n(m_array, NT, ZERO_SCALAR);
     }
 
 private:

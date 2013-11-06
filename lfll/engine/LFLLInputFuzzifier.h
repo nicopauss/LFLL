@@ -31,19 +31,30 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 LFLL_BEGIN_NAMESPACE
 
 
+/**
+ * \brief Fuzzify inputs to membership.
+ * 
+ * \tparam InputTermsType Tuple type of inputs
+ * \warning This class holds a pointer to the input terms and tuple. So the terms 
+ * and tuple variables must have the same or greater lifespan than this object.
+ */
 template <class InputTermsType>
 class LFLLInputFuzzifier {
 public:
     /**
-     * @brief Constructor
-     * @param terms Terms of the input variable.
-     * @warning The variable terms must have the same or greater lifespan than
-     *  this object.
+     * \brief Constructor
+     * \param terms Tuple of input terms.
+ 	 * \warning This class holds a pointer to the input terms and tuple. So the terms 
+     * variables and tuple must have the same or greater lifespan than this object.
      */
     LFLLInputFuzzifier(const InputTermsType& terms)
 		: m_impl(terms)
 	{}
 
+	/**
+	 * \brief Fuzzify input.
+	 * \return Membership of fuzzified input.
+	 */
     LFLLMembership<InputTermsType::tupleSize>
             fuzzifyVariable(scalar input) const
 	{

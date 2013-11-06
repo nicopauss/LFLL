@@ -29,14 +29,15 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 LFLL_BEGIN_NAMESPACE
 
 /**
-  * Gaussian term
+  * \brief Gaussian term
   *
+  * Define the following membership function:
   * @f[
 \renewcommand{\arraystretch}{2.25}
 x:R,  \rightarrow  f(x, \sigma, \mu) = e^(\frac{-(x - \mu)^2}{2 \sigma^2})
   * @f]
   *
-  * http://www.mathworks.com/help/fuzzy/gaussmf.html
+  * It is similar to the Matlab function [gaussmf](http://www.mathworks.com/help/fuzzy/gaussmf.html).
   */
 class LFLLGaussian
 {
@@ -46,13 +47,13 @@ public:
         , m_mean(mean)
     {}
 
-    inline scalar membership(const scalar val) const
+    inline scalar membership(const scalar x) const
     {
-        const scalar diffValMean = val - m_mean;
+        const scalar diffValMean = x - m_mean;
         return lfll_math::exp(diffValMean * diffValMean * m_negInvTwiceSigmaSquare);
     }
 
-protected:
+private:
     scalar m_negInvTwiceSigmaSquare;
     scalar m_mean;
 };

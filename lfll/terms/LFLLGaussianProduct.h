@@ -29,8 +29,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 LFLL_BEGIN_NAMESPACE
 
 /**
-  * Gaussian product term
+  * \brief Gaussian product term
   *
+  * Define the following membership function:
   * @f[
 \renewcommand{\arraystretch}{2.25}
 x:R \rightarrow  f(x, \sigma1, \mu1, \sigma2, \mu2) = \left \{
@@ -41,12 +42,8 @@ x:R \rightarrow  f(x, \sigma1, \mu1, \sigma2, \mu2) = \left \{
    \end{array}
 \right \}
   * @f]
-  * @f[
-\renewcommand{\arraystretch}{2.25}
-x:R,  \rightarrow   = 
-  * @f]
   *
-  * http://www.mathworks.com/help/fuzzy/gauss2mf.html
+  * It is similar to the Matlab function [gauss2mf](http://www.mathworks.com/help/fuzzy/gauss2mf.html).
   */
 class LFLLGaussianProduct
 {
@@ -58,20 +55,20 @@ public:
         , m_mean2(mean2)
     {}
 
-    inline scalar membership(const scalar val) const
+    inline scalar membership(const scalar x) const
     {
-        if (val < m_mean1) {
-            const scalar diffValMean1 = val - m_mean1;
+        if (x < m_mean1) {
+            const scalar diffValMean1 = x - m_mean1;
             return lfll_math::exp(diffValMean1 * diffValMean1 * m_negInvTwiceSigma1Square);
-        } else if (val > m_mean2) {
-            const scalar diffValMean2 = val - m_mean2;
+        } else if (x > m_mean2) {
+            const scalar diffValMean2 = x - m_mean2;
             return lfll_math::exp(diffValMean2 * diffValMean2 * m_negInvTwiceSigma2Square);
         } else {
             return ONE_SCALAR;
         }
     }
 
-protected:
+private:
     scalar m_negInvTwiceSigma1Square;
     scalar m_mean1;
     scalar m_negInvTwiceSigma2Square;

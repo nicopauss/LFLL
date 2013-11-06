@@ -29,7 +29,7 @@ LFLL_BEGIN_NAMESPACE
 
 
 /**
-  * Functor term.
+  * \brief Functor term.
   *
   * Apply a functor to get membership.
   */
@@ -41,9 +41,9 @@ public:
         : m_fn(fn)
     {}
 
-    inline scalar membership(const scalar val) const
+    inline scalar membership(const scalar x) const
     {
-        return m_fn(val);
+        return m_fn(x);
     }
 
 private:

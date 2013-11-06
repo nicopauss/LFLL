@@ -24,52 +24,54 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #define LFLLZSHAPE_H
 
 #include <lfll/engine/LFLLDefinitions.h>
-#include <lfll/engine/LFLLMath.h>
-#include <lfll/terms/LFLLBoundedTerm.h>
 
 LFLL_BEGIN_NAMESPACE
 
 /**
-  * Z-Shape term
+  * \brief Z-Shape term
   *
+  * Define the following membership function:
   * @f[
 \renewcommand{\arraystretch}{2.25}
-x:R \rightarrow  f(x) = \left \{
+x:R \rightarrow  f(x ; a, b) = \left \{
    \begin{array}{cc}
-     1, & x \leq minLim \\
-     1 - 2 * (\frac{\displaystyle x - minLim}{\displaystyle maxLim-minLim})^2, & minLim < x < \frac{\displaystyle minLim+maxLim}{\displaystyle 2} \\
-     2 * (\frac{\displaystyle x - maxLim}{\displaystyle maxLim-minLim})^2, & \frac{\displaystyle minLim+maxLim}{\displaystyle 2} \leq x < maxLim \\
-     0, & x \geq maxLim \\
+     1, & x \leq a \\
+     1 - 2 * (\frac{\displaystyle x - a}{\displaystyle b-a})^2, & a < x < \frac{\displaystyle a+b}{\displaystyle 2} \\
+     2 * (\frac{\displaystyle x - b}{\displaystyle b-a})^2, & \frac{\displaystyle a+b}{\displaystyle 2} \leq x < b \\
+     0, & x \geq b \\
    \end{array}
 \right \}
   * @f]
   *
-  * http://www.mathworks.com/help/fuzzy/zmf.html
+  * It is similar to the Matlab function [zmf](http://www.mathworks.com/help/fuzzy/zmf.html).
   */
-class LFLLZShape : public LFLLBoundedTerm
+class LFLLZShape
 {
 public:
-    LFLLZShape(scalar minLimit, scalar maxLimit)
-        : LFLLBoundedTerm(minLimit, maxLimit)
-        , m_invDifference(ONE_SCALAR / (maxLimit - minLimit))
-        , m_halfRange((minLimit + maxLimit) / TWO_SCALAR)
+    LFLLZShape(scalar a, scalar b)
+        : m_a(a)
+        , m_b(b)
+        , m_invDifference(ONE_SCALAR / (b - a))
+        , m_halfRange((a + b) / TWO_SCALAR)
     {}
 
-    inline scalar membership(const scalar val) const {
-        if (val <= m_minLimit) {
+    inline scalar membership(const scalar x) const {
+        if (x <= m_a) {
             return ONE_SCALAR;
-        } else if (val >= m_maxLimit) {
+        } else if (x >= m_b) {
             return ZERO_SCALAR;
-        } else if (val <= m_halfRange) {
-            const scalar midVal = (val - m_minLimit) * m_invDifference;
+        } else if (x <= m_halfRange) {
+            const scalar midVal = (x - m_a) * m_invDifference;
             return ONE_SCALAR - TWO_SCALAR * midVal * midVal;
         } else {
-            const scalar midVal = (val - m_maxLimit) * m_invDifference;
+            const scalar midVal = (x - m_b) * m_invDifference;
             return TWO_SCALAR * midVal * midVal;
         }
     }
 
-protected:
+private:
+	scalar m_a;
+	scalar m_b;
     scalar m_invDifference;
     scalar m_halfRange;
 };

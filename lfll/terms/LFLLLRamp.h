@@ -25,20 +25,20 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #include <lfll/engine/LFLLDefinitions.h>
 #include <lfll/engine/LFLLMath.h>
-#include <lfll/terms/LFLLBoundedTerm.h>
 
 LFLL_BEGIN_NAMESPACE
 
 /**
-  * L Ramp term
+  * \brief L Ramp term
   *
+  * Define the following membership function:
   * @f[
 \renewcommand{\arraystretch}{2.25}
-x:R \rightarrow  f(x) = \left \{
+x:R \rightarrow  f(x ; a, b) = \left \{
    \begin{array}{cc}
-     1, & x \leq minLim \\
-     \frac{\displaystyle maxLim - x}{\displaystyle maxLim-minLim}, & minLim < x < maxLim \\
-     0, & x \geq maxLim \\
+     1, & x \leq a \\
+     \frac{\displaystyle b - x}{\displaystyle b-a}, & a < x < b \\
+     0, & x \geq b \\
    \end{array}
 \right \}
   * @f]
@@ -49,28 +49,31 @@ x:R \rightarrow  f(x) = \left \{
        \
         \
          ---
+     a  b
   @endverbatim
   */
-class LFLLLRamp : public LFLLBoundedTerm
+class LFLLLRamp
 {
 public:
-    LFLLLRamp(scalar minLimit, scalar maxLimit)
-        : LFLLBoundedTerm(minLimit, maxLimit)
-        , m_invDifference(ONE_SCALAR / (maxLimit - minLimit))
+    LFLLLRamp(scalar a, scalar b)
+        : m_a(a)
+        , m_b(b)
+        , m_invDifference(ONE_SCALAR / (b - a))
     {}
 
-    inline scalar membership(const scalar val) const
+    inline scalar membership(const scalar x) const
     {
-        if (lfll_math::isLessOrEqualTo(val, m_minLimit)) {
+        if (x <= m_a) {
             return ONE_SCALAR;
-        } else if (lfll_math::isGreaterOrEqualTo(val, m_maxLimit)) {
+        } else if (x >= m_b) {
             return ZERO_SCALAR;
         }
-
-        return (m_maxLimit - val) * m_invDifference;
+        return (m_b - x) * m_invDifference;
     }
 
-protected:
+private:
+	scalar m_a;
+	scalar m_b;
     scalar m_invDifference;
 };
 

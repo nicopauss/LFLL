@@ -29,8 +29,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 LFLL_BEGIN_NAMESPACE
 
 /**
-  * Singleton Term
+  * \brief Singleton Term
   *
+  * Define the following membership function:
   * @f[
 \renewcommand{\arraystretch}{2.25}
 x:R \rightarrow  f(x) = \left \{
@@ -49,9 +50,9 @@ public:
         : m_val(val)
     {}
 
-    inline scalar membership(const scalar val) const
+    inline scalar membership(const scalar x) const
     {
-        if (lfll_math::isEqualTo(val, m_val)) {
+        if (lfll_math::isEqualTo(x, m_val)) {
             return ONE_SCALAR;
         }
         return ZERO_SCALAR;

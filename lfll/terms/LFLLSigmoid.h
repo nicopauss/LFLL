@@ -29,14 +29,15 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 LFLL_BEGIN_NAMESPACE
 
 /**
-  * Sigmoid term
+  * \brief Sigmoid term
   *
+  * Define the following membership function:
   * @f[
 \renewcommand{\arraystretch}{2.25}
 x:R,  \rightarrow  f(x; slope, infl) = \frac{1}{1+e^{-slope (x - infl)}}
   * @f]
   *
-  * http://www.mathworks.com/help/fuzzy/sigmf.html
+  * It is similar to the Matlab function [sigmf](http://www.mathworks.com/help/fuzzy/sigmf.html).
   */
 class LFLLSigmoid
 {
@@ -46,9 +47,9 @@ public:
         , m_infl(infl)
     {}
 
-    inline scalar membership(const scalar val) const
+    inline scalar membership(const scalar x) const
     {
-        return ONE_SCALAR / (ONE_SCALAR + lfll_math::exp(m_negSlope * (val - m_infl)));
+        return ONE_SCALAR / (ONE_SCALAR + lfll_math::exp(m_negSlope * (x - m_infl)));
     }
 
 protected:

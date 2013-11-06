@@ -28,8 +28,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 LFLL_BEGIN_NAMESPACE
 
 /**
-  * Standard complement operator
+  * \brief C-Norm - Standard complement operator
   *
+  * Define the following function:
   * @f[
 \renewcommand{\arraystretch}{2.25}
 x:[0,1] \rightarrow  f(x) = 1 - x

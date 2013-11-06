@@ -23,23 +23,17 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #ifndef LFLLTRAPEZOID_H
 #define LFLLTRAPEZOID_H
 
-#include <cassert>
-
 #include <lfll/engine/LFLLDefinitions.h>
-#include <lfll/engine/LFLLMath.h>
-#include <lfll/terms/LFLLLRamp.h>
-#include <lfll/terms/LFLLRRamp.h>
 
 LFLL_BEGIN_NAMESPACE
 
 /**
-  * Trapezoidal term
+  * \brief Trapezoidal term
   *
-  * Combinaison of R-Ramp and L-Ramp
-  *
+  * Define the following membership function:
   * @f[
 \renewcommand{\arraystretch}{2.25}
-x:R \rightarrow  f(x) = \left \{
+x:R \rightarrow  f(x ; a, b, c, d) = \left \{
    \begin{array}{cc}
      0, & x \leq a \\
      \frac{\displaystyle x - a}{\displaystyle b - a}, & a < x < b \\
@@ -58,26 +52,41 @@ x:R \rightarrow  f(x) = \left \{
    ---         ---
   @endverbatim
   *
-  * http://www.mathworks.com/help/fuzzy/trapmf.html
+  * It is similar to the Matlab function [trapmf](http://www.mathworks.com/help/fuzzy/trapmf.html).
   */
 class LFLLTrapezoid
 {
 public:
     LFLLTrapezoid(scalar a, scalar b, scalar c, scalar d)
-        : m_rRamp(a, b)
-        , m_lRamp(c, d)
+        : m_a(a)
+        , m_b(b)
+        , m_c(c)
+        , m_d(d)
+        , m_invDifferenceAB(ONE_SCALAR / (b - a))
+        , m_invDifferenceCD(ONE_SCALAR / (d - c))
     {}
 
-    inline scalar membership(const scalar val) const
+    inline scalar membership(const scalar x) const
     {
-        if (lfll_math::isGreaterThan(val, m_rRamp.getMaxLimit())) {
-            return m_lRamp.membership(val);
-        }
-        return m_rRamp.membership(val);
+    	if (x <= m_a) {
+    		return ZERO_SCALAR;
+    	} else if (x >= m_b) {
+    		if (x <= m_c) {
+    			return ONE_SCALAR;
+    		} else if (x >= m_d) {
+    			return ZERO_SCALAR;
+    		}
+    		return (m_d - x) * m_invDifferenceCD;
+    	}
+    	return (x - m_a) * m_invDifferenceAB;
     }
 private:
-    LFLLRRamp m_rRamp;
-    LFLLLRamp m_lRamp;
+	scalar m_a;
+	scalar m_b;
+	scalar m_c;
+	scalar m_d;
+    scalar m_invDifferenceAB;
+    scalar m_invDifferenceCD;
 };
 
 LFLL_END_NAMESPACE

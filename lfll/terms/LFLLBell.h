@@ -29,14 +29,15 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 LFLL_BEGIN_NAMESPACE
 
 /**
-  * Bell term
+  * \brief Bell term
   *
+  * Define the following membership function:
   * @f[
 \renewcommand{\arraystretch}{2.25}
 x:R,  \rightarrow  f(x; a, b, c) = \frac{1}{1+|\frac{x-c}{a}|^{2b}}
   * @f]
   *
-  * http://www.mathworks.com/help/fuzzy/gbellmf.html
+  * It is similar to the Matlab function [gbellmf](http://www.mathworks.com/help/fuzzy/gbellmf.html).
   */
 class LFLLBell
 {
@@ -48,17 +49,16 @@ public:
         , m_c(c)
     {}
 
-    inline scalar membership(const scalar val) const
+    inline scalar membership(const scalar x) const
     {
         return ONE_SCALAR / (ONE_SCALAR + 
-          lfll_math::pow(lfll_math::abs((val - m_c) * m_invA), m_twiceB));
+          lfll_math::pow(lfll_math::abs((x - m_c) * m_invA), m_twiceB));
     }
 
-protected:
+private:
     scalar m_invA;
     scalar m_twiceB;
     scalar m_c;
-
 };
 
 LFLL_END_NAMESPACE

@@ -35,14 +35,17 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 LFLL_BEGIN_NAMESPACE
 
 /**
-  * LFLL rules engine.
+  * \brief Apply rules.
   *
-  * NI is the number of input variables.
-  * NR is the number of rules.
-  * NO is the number of output variables.
-  * AndOperator Binary operator defining the AND operator
-  * OrOperator Binary operator defining the OR operator
-  * NotOperator Unary operator defining the NOT operator
+  * \tparam NI Number of input variables
+  * \tparam NR Number of rules
+  * \tparam NO Number of output variables
+  * \tparam AndOperator T-Norm operator defining the AND operator, default is Min
+  * \tparam OrOperator S-Norm operator defining the OR operator, default is Max
+  * \tparam NotOperator C-Norm operator defining the NOT operator, default is Not
+  *
+  * \warning This class holds a pointer to the rules. So the rules 
+  * variable must have the same or greater lifespan than this object.
   */
 template<size_t NI,
          size_t NR,
@@ -53,6 +56,16 @@ template<size_t NI,
 class LFLLRulesEngine
 {
 public:
+	/**
+	 * \brief Constructor
+	 * \param rules The rules
+	 * \param andOp AND operator. Value is passed by copy.
+	 * \param orOp OR operator. Value is passed by copy.
+	 * \param notOp NOT operator. Value is passed by copy.
+	 * 
+ 	 * \warning This class holds a pointer to the rules. So the rules 
+     * variable must have the same or greater lifespan than this object.
+	 */
     LFLLRulesEngine(
         const LFLLRules<NI, NR, NO>& rules,
         AndOperator andOp = AndOperator(),
@@ -64,6 +77,11 @@ public:
         , m_notOp(notOp)
     {}
 
+	/**
+	 * \brief Apply rules
+	 * \param antecedents Antecedents input
+	 * \param consequences Consequences output
+	 */
     template <class AntecedentTuple, class ConsequenceTuple>
     void applyRules(
         const AntecedentTuple& antecedents,

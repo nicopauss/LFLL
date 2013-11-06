@@ -25,39 +25,45 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #include <lfll/engine/LFLLDefinitions.h>
 #include <lfll/engine/LFLLMath.h>
-#include <lfll/terms/LFLLBoundedTerm.h>
 
 LFLL_BEGIN_NAMESPACE
 
 /**
-  * Rectangle term
+  * \brief Rectangle term
   *
+  * Define the following membership function:
   * @f[
 \renewcommand{\arraystretch}{2.25}
-x:R \rightarrow  f(x) = \left \{
+x:R \rightarrow  f(x ; a, b) = \left \{
    \begin{array}{cc}
-     0, & x \leq minLim \\
-     1, & minLim < x < maxLim \\
-     0, & x \geq maxLim \\
+     0, & x \leq a \\
+     1, & a < x < c \\
+     0, & x \geq b \\
    \end{array}
 \right \}
   * @f]
   */
-class LFLLRectangle : public LFLLBoundedTerm
+class LFLLRectangle
 {
 public:
-    LFLLRectangle(scalar minLimit, scalar maxLimit)
-        : LFLLBoundedTerm(minLimit, maxLimit)
+    LFLLRectangle(scalar a, scalar b)
+        : m_a(a)
+        , m_b(b)
     {}
 
 
-    inline scalar membership(const scalar val) const {
-        if (lfll_math::isGreaterOrEqualTo(val, m_minLimit) &&
-            lfll_math::isLessOrEqualTo(val, m_maxLimit)) {
+    inline scalar membership(const scalar x) const {
+        if (lfll_math::isGreaterOrEqualTo(x, m_a) &&
+            lfll_math::isLessOrEqualTo(x, m_b))
+        {
                 return ONE_SCALAR;
         }
         return ZERO_SCALAR;
     }
+    
+private:
+	scalar m_a;
+	scalar m_b;
 };
 
 LFLL_END_NAMESPACE

@@ -29,10 +29,16 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 LFLL_BEGIN_NAMESPACE
 
+/**
+ * \brief Sugeno zero order term
+ */
 struct LFLLSugenoZeroOrderTerm
 {
     scalar value;
 
+	/** 
+	 * \brief Compute term value
+	 */
 	template <size_t N>
     scalar computeTermValue(const LFLLArray<N>&) const
     {
@@ -40,12 +46,19 @@ struct LFLLSugenoZeroOrderTerm
     }
 };
 
-
+/**
+ * \brief Sugeno first order term
+ * \tparam NI Number of inputs
+ */
 template <size_t NI>
 struct LFLLSugenoFirstOrderTerm
 {
     scalar values[NI+1];
 
+	/** 
+	 * \brief Compute term value
+	 * \param inputs Inputs
+	 */
     scalar computeTermValue(const LFLLArray<NI>& inputs) const
     {
         scalar result = values[NI];

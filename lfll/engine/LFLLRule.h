@@ -28,16 +28,17 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 LFLL_BEGIN_NAMESPACE
 
 /**
-  * Represent a fuzzy rule.
-  *
-  * NI is the number of input variables.
-  * NO is the number of output variables.
+  * \brief Represent a fuzzy rule.
   *
   * It uses a syntax similar to Matlab fuzzy logic toolbox.
   * For inputVariables and outputVariables,
   * you can use the negative form, -n, to use the
   * NOT operator, and you can use 0 as the any value.
-  * @see LFLLRules
+  *
+  * \tparam NI Number of input variables
+  * \tparam NO Number of output variables
+  *
+  * \see LFLLRules
   */
 template <size_t NI, size_t NO>
 struct LFLLRule
@@ -49,10 +50,7 @@ struct LFLLRule
 };
 
 /**
-  * Combination of rules.
-  * NI is the number of input variables.
-  * NR is the number of rules.
-  * NO is the number of output variables.
+  * \brief List of rules.
   *
   * Can be initialized like an array:
   * \code
@@ -61,11 +59,15 @@ struct LFLLRule
   *   {{2, 1}, {1}, .5f, false}
   * }};
   * \endcode
+  *
+  * \tparam NI Number of input variables
+  * \tparam NR Number of rules
+  * \tparam NO Number of output variables
   */
 template <size_t NI, size_t NR, size_t NO>
 struct LFLLRules
 {
-    LFLLRule<NI, NO> rules[NR];
+    LFLLRule<NI, NO> rules[NR]; //< Rules
 };
 
 LFLL_END_NAMESPACE

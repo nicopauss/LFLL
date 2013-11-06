@@ -24,52 +24,78 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #define LFLLPISHAPE_H
 
 #include <lfll/engine/LFLLDefinitions.h>
-#include <lfll/engine/LFLLMath.h>
-#include <lfll/terms/LFLLSShape.h>
-#include <lfll/terms/LFLLZShape.h>
 
 LFLL_BEGIN_NAMESPACE
 
 /**
-  * Combination of S-Shape and Z-Shape
+  * \brief Combination of S-Shape and Z-Shape
   *
+  * Define the following membership function:
   * @f[
 \renewcommand{\arraystretch}{2.25}
-x:R \rightarrow  f(x) = \left \{
+x:R \rightarrow  f(x ; a, b, c, d) = \left \{
    \begin{array}{cc}
-     0, & x \leq sMinLim \\
-     2 * (\frac{\displaystyle x - sMinLim}{\displaystyle sMaxLim-sMinLim})^2, & sMinLim < x < \frac{\displaystyle sMinLim+sMaxLim}{\displaystyle 2} \\
-     1 - 2 * (\frac{\displaystyle x - sMaxLim}{\displaystyle sMaxLim-sMinLim})^2, & \frac{\displaystyle sMinLim+sMaxLim}{\displaystyle 2} \leq x < sMaxLim \\
-     1, & sMaxLim \leq x \leq zMinLim \\
-     1 - 2 * (\frac{\displaystyle x - zMinLim}{\displaystyle zMaxLim-zMinLim})^2, & zMinLim < x < \frac{\displaystyle zMinLim+zMaxLim}{\displaystyle 2} \\
-     2 * (\frac{\displaystyle x - zMaxLim}{\displaystyle zMaxLim-zMinLim})^2, & \frac{\displaystyle zMinLim+zMaxLim}{\displaystyle 2} \leq x < zMaxLim \\
-     0, & x \geq zMaxLim \\
+     0, & x \leq a \\
+     2 * (\frac{\displaystyle x - a}{\displaystyle b-a})^2, & a < x < \frac{\displaystyle a+b}{\displaystyle 2} \\
+     1 - 2 * (\frac{\displaystyle x - b}{\displaystyle b-a})^2, & \frac{\displaystyle a+b}{\displaystyle 2} \leq x < b \\
+     1, & b \leq x \leq c \\
+     1 - 2 * (\frac{\displaystyle x - c}{\displaystyle d-c})^2, & c < x < \frac{\displaystyle c+d}{\displaystyle 2} \\
+     2 * (\frac{\displaystyle x - d}{\displaystyle d-c})^2, & \frac{\displaystyle c+d}{\displaystyle 2} \leq x < d \\
+     0, & x \geq d \\
    \end{array}
 \right \}
   * @f]
   *
-  * http://www.mathworks.com/help/fuzzy/pimf.html
+  * It is similar to the Matlab function [pimf](http://www.mathworks.com/help/fuzzy/pimf.html).
   */
 class LFLLPiShape
 {
 public:
-    LFLLPiShape(scalar sMinLim, scalar sMaxLim,
-        scalar zMinLim, scalar zMaxLim)
-        : m_sShape(sMinLim, sMaxLim)
-        , m_zShape(zMinLim, zMaxLim)
+    LFLLPiShape(scalar a, scalar b, scalar c, scalar d)
+        : m_a(a)
+        , m_b(b)
+        , m_c(c)
+        , m_d(d)
+        , m_invDifferenceS(ONE_SCALAR / (b - a))
+        , m_halfRangeS((a + b) / TWO_SCALAR)
+        , m_invDifferenceZ(ONE_SCALAR / (d - c))
+        , m_halfRangeZ((c + d) / TWO_SCALAR)
     {}
 
-    inline scalar membership(const scalar val) const
+    inline scalar membership(const scalar x) const
     {
-        if (lfll_math::isGreaterThan(val, m_sShape.getMaxLimit())) {
-            return m_zShape.membership(val);
+    	if (x <= m_a) {
+            return ZERO_SCALAR;
+        } else if (x >= m_b) {
+        	if (x <= m_c) {
+				return ONE_SCALAR;
+			} else if (x >= m_d) {
+				return ZERO_SCALAR;
+			} else if (x <= m_halfRangeZ) {
+				const scalar midVal = (x - m_c) * m_invDifferenceZ;
+				return ONE_SCALAR - TWO_SCALAR * midVal * midVal;
+			} else {
+				const scalar midVal = (x - m_d) * m_invDifferenceZ;
+				return TWO_SCALAR * midVal * midVal;
+			}
+        } else if (x <= m_halfRangeS) {
+            const scalar midVal = (x - m_a) * m_invDifferenceS;
+            return TWO_SCALAR * midVal * midVal;
+        } else {
+            const scalar midVal = (x - m_b) * m_invDifferenceS;
+            return ONE_SCALAR - TWO_SCALAR * midVal * midVal;
         }
-        return m_sShape.membership(val);
     }
 
 private:
-    LFLLSShape m_sShape;
-    LFLLZShape m_zShape;
+	scalar m_a;
+	scalar m_b;
+	scalar m_c;
+	scalar m_d;
+    scalar m_invDifferenceS;
+    scalar m_halfRangeS;
+    scalar m_invDifferenceZ;
+    scalar m_halfRangeZ;
 };
 
 LFLL_END_NAMESPACE

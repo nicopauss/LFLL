@@ -32,8 +32,9 @@ LFLL_BEGIN_NAMESPACE
 
 
 /**
-  * Consequences from rules.
-  * Destined to be dufuzzified or aggregated.
+  * \brief Consequences from rules.
+  * Destined to be defuzzified or aggregated.
+  * \tparam NR Number of rules.
   */
 template <size_t NR>
 class LFLLConsequence
@@ -42,9 +43,6 @@ public:
     static const size_t nbRules = NR;
 
 private:
-    /**
-      * Consequence from a single rule.
-      */
     struct RuleConsequence
     {
         lfll_uint termIndex;
@@ -53,55 +51,100 @@ private:
     };
 
 public:
+	/**
+	 * \brief Default constructor
+	 */
     LFLLConsequence()
     {}
 
+	/**
+	 * \brief Copy constructor.
+	 * \param o An other consequence.
+	 */
     LFLLConsequence(const LFLLConsequence<NR>& o)
     {
         std::copy(o.m_values, o.m_values+NR, m_values);
     }
 
+	/**
+	 * \brief Copy operator.
+	 * \param o An other consequence.
+	 */
     LFLLConsequence<NR>& operator=(const LFLLConsequence<NR>& o)
     {
         std::copy(o.m_values, o.m_values+NR, m_values);
         return *this;
     }
 
+	
+	/**
+	 * \brief Get number of rules.
+	 */
     inline size_t getNbRules() const
     {
         return NR;
     }
-
+    
+	/**
+	 * \brief Get term index for specified rule index.
+	 * \param rule Rule index
+	 * \return Reference to term index
+	 */
     inline lfll_uint& getTermIndex(size_t rule) 
     {
         assert(rule < NR);
         return m_values[rule].termIndex;
     }
-
+    
+	/**
+	 * \brief Get term index for specified rule index.
+	 * \param rule Rule index
+	 * \return Term index
+	 */
     inline lfll_uint getTermIndex(size_t rule) const
     {
         assert(rule < NR);
         return m_values[rule].termIndex;
     }
-
+    
+	/**
+	 * \brief Get value for specified rule index.
+	 * \param rule Rule index
+	 * \return Reference to value
+	 */
     inline scalar& getVal(size_t rule)
     {
         assert(rule < NR);
         return m_values[rule].value;
     }
-
+    
+	/**
+	 * \brief Get value for specified rule index.
+	 * \param rule Rule index
+	 * \return Value
+	 */
     inline scalar getVal(size_t rule) const
     {
         assert(rule < NR);
         return m_values[rule].value;
     }
-
+    
+	/**
+	 * \brief Set term index for specified rule index.
+	 * \param rule Rule index
+	 * \param termIndex Term index
+	 */
     inline void setTermIndex(size_t rule, lfll_uint termIndex)
     {
         assert(rule < NR);
         m_values[rule].termIndex = termIndex;
     }
 
+	/**
+	 * \brief Set value for specified rule index.
+	 * \param rule Rule index
+	 * \param val Value
+	 */
     inline void setVal(size_t rule, scalar val)
     {
         assert(rule < NR);

@@ -33,18 +33,32 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 LFLL_BEGIN_NAMESPACE
 
 /**
- * Aggregate consequences to membership using a s-norm operator.
- * Default is max operator.
+ * \brief Aggregate consequences to membership using a s-norm operator.
+ *
  * It is useful if you want to chain up systems.
+ * \tparam NT Number of terms
+ * \tparam SNorm S-norm operator. Default is Max.
  */
 template<size_t NT, typename SNorm = LFLLMax>
 class LFLLAggregator
 {
 public:
-    LFLLAggregator()
-        : m_sNorm()
+    /**
+     * \brief Constructor.
+     * \param sNorm SNorm to be used. Value is passed by copy
+     */
+     
+    LFLLAggregator(const SNorm sNorm = SNorm())
+        : m_sNorm(sNorm)
     {}
 
+	/**
+	 * \brief Aggregate consequences to membership.
+	 * \tparam NR Number of rules
+	 * \param consequence Consequence to aggregate
+	 * \return Membership result
+	 */
+	 
     template <size_t NR>
     LFLLMembership<NT> aggregateConsequence(
         const LFLLConsequence<NR>& consequence) const

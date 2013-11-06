@@ -29,8 +29,9 @@ LFLL_BEGIN_NAMESPACE
 
 
 /**
-  * Boolean term.
+  * \brief Boolean term.
   *
+  * Define the following membership function:
   * @f[
 \renewcommand{\arraystretch}{2.25}
 x:R \rightarrow  f(x) = \left \{
@@ -48,9 +49,9 @@ public:
         : m_boolVal(val)
     {}
 
-    inline scalar membership(const scalar val) const
+    inline scalar membership(const scalar x) const
     {
-        return ((val >= HALF_SCALAR) == m_boolVal) ? ONE_SCALAR : ZERO_SCALAR;
+        return ((x >= HALF_SCALAR) == m_boolVal) ? ONE_SCALAR : ZERO_SCALAR;
     }
 
 private:

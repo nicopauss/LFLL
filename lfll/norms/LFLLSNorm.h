@@ -29,8 +29,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 LFLL_BEGIN_NAMESPACE
 
 /**
-  * Standard Max
+  * \brief S-Norm - Standard Max
   * 
+  * Define the following function:
   * @f[
 \renewcommand{\arraystretch}{2.25}
 a:[0,1], b:[0,1] \rightarrow  f(a, b) = max(a, b)
@@ -44,8 +45,9 @@ struct LFLLMax
 };
 
 /**
-  * Probabilistic sum
+  * \brief S-Norm - Probabilistic sum
   * 
+  * Define the following function:
   * @f[
 \renewcommand{\arraystretch}{2.25}
 a:[0,1], b:[0,1] \rightarrow  f(a, b) = a + b - (a * b)
@@ -59,8 +61,9 @@ struct LFLLProbabilisticSum
 };
 
 /**
-  * Bounded sum
+  * \brief S-Norm - Bounded sum
   * 
+  * Define the following function:
   * @f[
 \renewcommand{\arraystretch}{2.25}
 a:[0,1], b:[0,1] \rightarrow  f(a, b) = max(1, a + b)
@@ -74,8 +77,9 @@ struct LFLLBoundedSum
 };
 
 /**
-  * Drastic sum
+  * \brief S-Norm - Drastic sum
   * 
+  * Define the following function:
   * @f[
 \renewcommand{\arraystretch}{2.25}
 a:[0,1], b:[0,1] \rightarrow  f(a, b) = \left \{
@@ -98,8 +102,9 @@ struct LFLLDrasticSum
 };
 
 /**
-  * Nilpotent max
+  * \brief S-Norm - Nilpotent max
   * 
+  * Define the following function:
   * @f[
 \renewcommand{\arraystretch}{2.25}
 a:[0,1], b:[0,1] \rightarrow  f(a, b) = \left \{
@@ -122,8 +127,9 @@ struct LFLLNilpotentMax
 
 
 /**
-  * Einstein sum
+  * \brief S-Norm - Einstein sum
   * 
+  * Define the following function:
   * @f[
 \renewcommand{\arraystretch}{2.25}
 a:[0,1], b:[0,1] \rightarrow  f(a, b) = (a + b) / (1 + (a * b))
@@ -137,8 +143,9 @@ struct LFLLEinsteinSum
 };
 
 /**
-  * Hamacher sum
+  * \brief S-Norm - Hamacher sum
   *
+  * Define the following function:
   * @f[
 \renewcommand{\arraystretch}{2.25}
 a:[0,1], b:[0,1] \rightarrow  f(a, b) = (a + b - 2 * a * b) / (1 - a * b)

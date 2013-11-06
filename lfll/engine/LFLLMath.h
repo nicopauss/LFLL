@@ -32,11 +32,11 @@ LFLL_BEGIN_NAMESPACE
 namespace lfll_math {
 
     /**
-      * Get relative value between minVal and maxVal
-      * @param val Scalar value between 0.0 and 1.0
-      * @param minVal Min value
-      * @param maxVal Max value
-      * @return (val * (maxVal - minVal)) + minVal
+      * \brief Get relative value between minVal and maxVal
+      * \param val Scalar value between 0.0 and 1.0
+      * \param minVal Min value
+      * \param maxVal Max value
+      * \return (val * (maxVal - minVal)) + minVal
       */
     inline scalar srel(const scalar val, const scalar minVal, const scalar maxVal)
     {
@@ -50,7 +50,7 @@ namespace lfll_math {
     }
 
     /**
-    * Test if scalar a is less than scalar b with given precision
+    * \brief Test if scalar _a_ is less than scalar _b_ with given _precision_
     */
     inline bool isLessThan(const scalar a, const scalar b,
                            const scalar precision = SCALAR_DIFF_PRECISION) {
@@ -58,7 +58,7 @@ namespace lfll_math {
     }
 
     /**
-    * Test if scalar a is greater than scalar b with given precision
+    * \brief Test if scalar _a_ is greater than scalar _b_ with given _precision_
     */
     inline bool isGreaterThan(const scalar a, const scalar b,
                               const scalar precision = SCALAR_DIFF_PRECISION) {
@@ -66,7 +66,7 @@ namespace lfll_math {
     }
 
     /**
-    * Test if scalar a is equal to scalar b with given precision
+    * \brief Test if scalar _a_ is equal to scalar _b_ with given _precision_
     */
     inline bool isEqualTo(const scalar a, const scalar b,
                           const scalar precision = SCALAR_DIFF_PRECISION) {
@@ -74,7 +74,7 @@ namespace lfll_math {
     }
 
     /**
-    * Test if scalar a is less or equal to scalar b with given precision
+    * \brief Test if scalar _a_ is less or equal to scalar _b_ with given _precision_
     */
     inline bool isLessOrEqualTo(const scalar a, const scalar b,
                                 const scalar precision = SCALAR_DIFF_PRECISION) {
@@ -82,7 +82,7 @@ namespace lfll_math {
     }
 
     /**
-    * Test if scalar a is less or equal to scalar b with given precision
+    * \brief Test if scalar _a_ is less or equal to scalar _b_ with given _precision_
     */
     inline bool isGreaterOrEqualTo(const scalar a, const scalar b,
                                    const scalar precision = SCALAR_DIFF_PRECISION) {
@@ -90,16 +90,16 @@ namespace lfll_math {
     }
 
     /**
-      * Max
-      */
+     * \brief Max(a, b)
+     */
     inline scalar max(const scalar a, const scalar b)
     {
         return (a < b) ? b : a;
     }
 
     /**
-      * Min
-      */
+     * \brief Min(a, b)
+     */
     inline scalar min(const scalar a, const scalar b)
     {
         return (a < b) ? a : b;
