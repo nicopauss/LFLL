@@ -89,6 +89,11 @@ private:
     const detail::LFLLSugenoDefuzzifierImpl<TermTuple, D> m_impl;
 };
 
+/**
+  * \example sugeno/SugenoAllTerms.h
+  * \example sugeno/SugenoAllTerms.cpp
+  */
+
 LFLL_END_NAMESPACE
 
 

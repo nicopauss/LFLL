@@ -113,6 +113,11 @@ private:
     const DefuzzifierMethod m_impl;
 };
 
+/**
+  * \example mamdani/MamdaniAllTerms.h
+  * \example mamdani/MamdaniAllTerms.cpp
+  */
+
 LFLL_END_NAMESPACE
 
 

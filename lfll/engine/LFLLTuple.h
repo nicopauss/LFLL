@@ -33,7 +33,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 LFLL_BEGIN_NAMESPACE
 
 /**
- * \brief Tuple of pointers
+ * \brief Tuple of pointers.
+ *
  * This tuple hold pointers of given values.
  * If you want a real tuple, use std::tuple (C++11) or boost::tuple
  * You can create this tuple more easily by using makeLFLLTuple()

@@ -29,6 +29,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 LFLL_BEGIN_NAMESPACE
 
+/**
+ * \brief Private namespace for LFLL math functions.
+ */
 namespace lfll_math {
 
     /**
