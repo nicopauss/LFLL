@@ -106,9 +106,11 @@ LFLL itself is a header-only library, so it doesn't require to be compiled direc
 If you want to try LFLL you can compile it using the following commands.
 
 For Linux:
-```
+```sh
 $ git clone https://github.com/nicopauss/LFLL.git LFLL # clone LFLL
 $ cd LFLL # get into cloned repo
+$ git submodule init # init submodules
+$ git submodule update # get hayai
 $ mkdir build # create a build directory
 $ cd build # get into build directory
 $ cmake .. # add commands if you want to
@@ -117,9 +119,11 @@ $ make install # install library
 ```
 
 For Mac:
-```
+```sh
 $ git clone https://github.com/nicopauss/LFLL.git LFLL # clone LFLL
 $ cd LFLL # get into cloned repo
+$ git submodule init # init submodules
+$ git submodule update # get hayai
 $ mkdir build # create a build directory
 $ cd build # get into build directory
 $ cmake -G"Unix Makefiles" .. # add commands if you want to
@@ -128,9 +132,11 @@ $ make install # install library
 ```
 
 For Windows, use VisualStudio command prompt or Cygwin:
-```
+```sh
 $ git clone https://github.com/nicopauss/LFLL.git LFLL # clone LFLL
 $ cd LFLL # get into cloned repo
+$ git submodule init # init submodules
+$ git submodule update # get hayai
 $ mkdir build # create a build directory
 $ cd build # get into build directory
 $ cmake -G"NMake Makefiles" .. # add commands if you want to
@@ -140,7 +146,7 @@ $ nmake install # install library
 
 
 You can then run the examples, benchmark and unit tests:
-```
+```sh
 $ examples/mamdani/example_mamdani # mamdani example
 $ examples/sugeno/example_sugeno # sugeno example
 $ examples/fixedpt/example_fixedpt # fixed-point numeric example
@@ -152,10 +158,62 @@ $ tests/tests # unit tests
 ### Documentation
 LFLL is documented using [Doxygen](http://www.doxygen.org). In the library's root directory, run `doxygen`. The documentation will be available in `doc/html/index.html`.
 
+
+### Benchmarks
+
+The benchmarks are done with a Core i7 2.0Ghz with Visual Studio 2012 with [Hayai](https://github.com/nicopauss/hayai).
+
+```
+[==========] Running 2 benchmarks.
+[ RUN      ] MamdaniFixture.AllTerms (20 runs, 100 iterations per run)
+[     DONE ] MamdaniFixture.AllTerms (224.517495 ms)
+[   RUNS   ]
+          Average time: 11225.874750 us
+               Fastest: 10871.695000 us (-354.179750 us / -3.155030 %)
+               Slowest: 11780.492000 us (+554.617250 us / +4.940526 %)
+
+   Average performance: 89.079918 runs/s
+      Best performance: 91.981977 runs/s (+2.902059 runs/s / +3.257815 %)
+     Worst performance: 84.886098 runs/s (-4.193820 runs/s / -4.707929 %)
+[ITERATIONS]
+          Average time: 112.258747 us
+               Fastest: 108.716950 us (-3.541797 us / -3.155030 %)
+               Slowest: 117.804920 us (+5.546173 us / +4.940526 %)
+
+   Average performance: 8907.991780 iterations/s
+      Best performance: 9198.197705 iterations/s (+290.205925 iterations/s / +3.257815 %)
+     Worst performance: 8488.609814 iterations/s (-419.381967 iterations/s / -4.707929 %)
+[ RUN      ] SugenoFixture.AllTerms (20 runs, 10000 iterations per run)
+[     DONE ] SugenoFixture.AllTerms (81.332961 ms)
+[   RUNS   ]
+          Average time: 4066.648050 us
+               Fastest: 3888.173000 us (-178.475050 us / -4.388751 %)
+               Slowest: 4217.618000 us (+150.969950 us / +3.712393 %)
+
+   Average performance: 245.902765 runs/s
+      Best performance: 257.190202 runs/s (+11.287437 runs/s / +4.590203 %)
+     Worst performance: 237.100657 runs/s (-8.802108 runs/s / -3.579507 %)
+[ITERATIONS]
+          Average time: 0.406665 us
+               Fastest: 0.388817 us (-0.017848 us / -4.388751 %)
+               Slowest: 0.421762 us (+0.015097 us / +3.712393 %)
+
+   Average performance: 2459027.650549 iterations/s
+      Best performance: 2571902.021849 iterations/s (+112874.371301 iterations/s / +4.590203 %)
+     Worst performance: 2371006.572904 iterations/s (-88021.077644 iterations/s / -3.579507 %)
+[==========] Ran 2 benchmarks.
+```
+
+Sugeno is way faster than Mamdani. 
+One iteration correponds to an entire circle fuzzification->rules->defuzzification.
+
+
 ### Supported Platforms
+
 LFLL is tested with the following compilers:
-* gcc 4.8
-* llvm-gcc 4.2
-* clang 3.3
-* vc++ 11
-* vc++ 10
+
+* gcc 4.8.2
+* llvm-gcc 4.2.1
+* clang 3.0
+* vc++ 2012
+* vc++ 2010
