@@ -37,7 +37,7 @@ public:
 };
 
 
-BENCHMARK_F(SugenoFixture, AllTerms, 20, 100)
+BENCHMARK_F(SugenoFixture, AllTerms, 20, 10000)
 {
 	SugenoAllTerms::process(inputs, outputs);
 }

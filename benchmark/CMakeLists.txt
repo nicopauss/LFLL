@@ -21,7 +21,9 @@ else()
 		(CMAKE_CXX_COMPILER_VERSION VERSION_GREATER "4.7.0" OR
 		CMAKE_CXX_COMPILER_VERSION VERSION_EQUAL "4.7.0"))
 		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-delete-non-virtual-dtor")
-	endif()
+	elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
+    endif()
+
 	
 	include_directories(${HAYAI_INCLUDE_DIR})
 	file(GLOB SOURCES_FILES *.h *cpp)
