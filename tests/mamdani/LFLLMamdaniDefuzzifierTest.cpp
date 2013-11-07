@@ -22,7 +22,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 #include "../LFLLTests.h"
 
-static const lfll_uint TestDivisions = 100000;
+static const lfll_uint TestDivisions = 50000;
 
 
 TEST(LFLLMamdaniDefuzzifier, TestCentroidMinMax)
@@ -57,7 +57,7 @@ TEST(LFLLMamdaniDefuzzifier, TestCentroidMinMax)
 
     scalar ret = defuzzifier.defuzzifyConsequence(consequence);
 
-    ASSERT_LFLL_REL_EQ(0.521078431372555f, ret);
+    ASSERT_LFLL_REL_EQ(0.52094513177871704f, ret);
 }
 
 TEST(LFLLMamdaniDefuzzifier, TestCentroidProb)
@@ -92,7 +92,7 @@ TEST(LFLLMamdaniDefuzzifier, TestCentroidProb)
 
     scalar ret = defuzzifier.defuzzifyConsequence(consequence);
 
-    ASSERT_LFLL_REL_EQ(0.512889616875108f, ret);
+    ASSERT_LFLL_REL_EQ(0.51275676488876343f, ret);
 }
 
 
@@ -128,7 +128,7 @@ TEST(LFLLMamdaniDefuzzifier, TestBisector)
 
     scalar ret = defuzzifier.defuzzifyConsequence(consequence);
 
-    ASSERT_LFLL_REL_EQ(0.531249765624883f, ret);
+    ASSERT_LFLL_REL_EQ(0.53103470802307129f, ret);
 }
 
 TEST(LFLLMamdaniDefuzzifier, TestMeanOfMaximum)
