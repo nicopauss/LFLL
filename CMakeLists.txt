@@ -22,7 +22,7 @@ if (${STRICT_MODE})
 	message(STATUS "Strict mode activated")
 	message(STATUS "CMAKE_CXX_COMPILER_VERSION = ${CMAKE_CXX_COMPILER_VERSION}")
 	if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
-	  	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -W -Wall -Wshadow -Wno-unused-local-typedefs -Wno-missing-braces -Werror")
+	  	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -W -Wall -Wshadow -Wno-missing-braces -Werror")
 	elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
 		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -W -Wall -Wshadow -Wno-missing-braces -Werror")
 		if (CMAKE_CXX_COMPILER_VERSION VERSION_GREATER "4.8.0" OR
