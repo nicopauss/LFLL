@@ -173,46 +173,46 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
   * 
   * ### Benchmarks
   * 
-  * The benchmarks are done with a Core i7 2.0Ghz with Visual Studio 2012 with [Hayai](https://github.com/nicopauss/hayai).
+  * The benchmarks are done with a Core i7 2.2Ghz with GCC 4.8.2 with [Hayai](https://github.com/nicopauss/hayai).
   * 
   * ~~~
     [==========] Running 2 benchmarks.
     [ RUN      ] MamdaniFixture.AllTerms (20 runs, 100 iterations per run)
-    [     DONE ] MamdaniFixture.AllTerms (224.517495 ms)
-    [   RUNS   ]
-              Average time: 11225.874750 us
-                   Fastest: 10871.695000 us (-354.179750 us / -3.155030 %)
-                   Slowest: 11780.492000 us (+554.617250 us / +4.940526 %)
-    
-       Average performance: 89.079918 runs/s
-          Best performance: 91.981977 runs/s (+2.902059 runs/s / +3.257815 %)
-         Worst performance: 84.886098 runs/s (-4.193820 runs/s / -4.707929 %)
-    [ITERATIONS]
-              Average time: 112.258747 us
-                   Fastest: 108.716950 us (-3.541797 us / -3.155030 %)
-                   Slowest: 117.804920 us (+5.546173 us / +4.940526 %)
-    
-       Average performance: 8907.991780 iterations/s
-          Best performance: 9198.197705 iterations/s (+290.205925 iterations/s / +3.257815 %)
-         Worst performance: 8488.609814 iterations/s (-419.381967 iterations/s / -4.707929 %)
+    [     DONE ] MamdaniFixture.AllTerms (146.915000 ms)
+    [   RUNS   ] 
+              Average time: 7345.750000 us
+                   Fastest: 7113.000000 us (-232.750000 us / -3.168499 %)
+                   Slowest: 7623.000000 us (+277.250000 us / +3.774291 %)
+                        
+       Average performance: 136.133138 runs/s
+          Best performance: 140.587656 runs/s (+4.454518 runs/s / +3.272178 %)
+         Worst performance: 131.181949 runs/s (-4.951189 runs/s / -3.637020 %)
+    [ITERATIONS] 
+              Average time: 73.457500 us
+                   Fastest: 71.130000 us (-2.327500 us / -3.168499 %)
+                   Slowest: 76.230000 us (+2.772500 us / +3.774291 %)
+                        
+       Average performance: 13613.313821 iterations/s
+          Best performance: 14058.765640 iterations/s (+445.451819 iterations/s / +3.272178 %)
+         Worst performance: 13118.194936 iterations/s (-495.118885 iterations/s / -3.637020 %)
     [ RUN      ] SugenoFixture.AllTerms (20 runs, 10000 iterations per run)
-    [     DONE ] SugenoFixture.AllTerms (81.332961 ms)
-    [   RUNS   ]
-              Average time: 4066.648050 us
-                   Fastest: 3888.173000 us (-178.475050 us / -4.388751 %)
-                   Slowest: 4217.618000 us (+150.969950 us / +3.712393 %)
-    
-       Average performance: 245.902765 runs/s
-          Best performance: 257.190202 runs/s (+11.287437 runs/s / +4.590203 %)
-         Worst performance: 237.100657 runs/s (-8.802108 runs/s / -3.579507 %)
-    [ITERATIONS]
-              Average time: 0.406665 us
-                   Fastest: 0.388817 us (-0.017848 us / -4.388751 %)
-                   Slowest: 0.421762 us (+0.015097 us / +3.712393 %)
-    
-       Average performance: 2459027.650549 iterations/s
-          Best performance: 2571902.021849 iterations/s (+112874.371301 iterations/s / +4.590203 %)
-         Worst performance: 2371006.572904 iterations/s (-88021.077644 iterations/s / -3.579507 %)
+    [     DONE ] SugenoFixture.AllTerms (37.545000 ms)
+    [   RUNS   ] 
+              Average time: 1877.250000 us
+                   Fastest: 1822.000000 us (-55.250000 us / -2.943135 %)
+                   Slowest: 2036.000000 us (+158.750000 us / +8.456519 %)
+                        
+       Average performance: 532.694100 runs/s
+          Best performance: 548.847420 runs/s (+16.153320 runs/s / +3.032382 %)
+         Worst performance: 491.159136 runs/s (-41.534965 runs/s / -7.797151 %)
+    [ITERATIONS] 
+              Average time: 0.187725 us
+                   Fastest: 0.182200 us (-0.005525 us / -2.943135 %)
+                   Slowest: 0.203600 us (+0.015875 us / +8.456519 %)
+                        
+       Average performance: 5326941.004128 iterations/s
+          Best performance: 5488474.204171 iterations/s (+161533.200043 iterations/s / +3.032382 %)
+         Worst performance: 4911591.355599 iterations/s (-415349.648529 iterations/s / -7.797151 %)
     [==========] Ran 2 benchmarks.
     ~~~
   * 
@@ -237,7 +237,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #define LFLL_MAJOR_VERSION 1
 #define LFLL_MINOR_VERSION 0
-#define LFLL_PATCH_VERSION 0
+#define LFLL_PATCH_VERSION 1
 #define LFLL_VERSION "LFLL_MAJOR_VERSION.LFLL_MINOR_VERSION.LFLL_PATCH_VERSION"
 
 
