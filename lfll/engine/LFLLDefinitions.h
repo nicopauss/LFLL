@@ -88,7 +88,7 @@ const scalar ZERO_SCALAR = scalar(0);
 const scalar ONE_SCALAR = scalar(1);
 const scalar TWO_SCALAR = scalar(2);
 const scalar HALF_SCALAR = ONE_SCALAR / TWO_SCALAR;
-const scalar SCALAR_DIFF_PRECISION = ONE_SCALAR / scalar(1e4);
+const scalar SCALAR_DIFF_PRECISION = ONE_SCALAR / scalar(10000);
 
 /************************************************************************/
 /* Unisgned int */

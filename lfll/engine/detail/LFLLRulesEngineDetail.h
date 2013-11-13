@@ -61,9 +61,9 @@ public:
         // else
         //    m_membershipIndex = (membershipIndex -1)
         , m_membershipIndex(m_ignore ? 0 :
-            ((m_useNotOp ?
-                -rule.inputVariables[InputIndex-1] :
-                rule.inputVariables[InputIndex-1]) - 1))
+            static_cast<lfll_uint>(m_useNotOp ? 
+                (-rule.inputVariables[InputIndex-1] - 1) :
+                (rule.inputVariables[InputIndex-1] - 1)))
     {}
 
 
@@ -165,9 +165,10 @@ public:
         // if membershipIndex < 0, then
         //    m_membershipIndex = -membershipIndex
         // else m_membershipIndex = membershipIndex
-        , m_membershipIndex(m_useNotOp ?
+        , m_membershipIndex(static_cast<lfll_uint>(
+            m_useNotOp ?
                 -rule.outputVariables[OutputIndex-1] :
-                rule.outputVariables[OutputIndex-1])
+                rule.outputVariables[OutputIndex-1]))
     {}
 
 

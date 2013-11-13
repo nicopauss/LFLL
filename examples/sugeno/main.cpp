@@ -30,7 +30,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 int main()
 {
-    LFLLArray<1> inputs = {0.2};
+    LFLLArray<1> inputs = {0.2f};
     LFLLArray<1> outputs;
 	
 	SugenoAllTerms::process(inputs, outputs);

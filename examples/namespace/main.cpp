@@ -32,7 +32,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 int main()
 {
-    lfll::LFLLArray<1> inputs = {0.2};
+    lfll::LFLLArray<1> inputs = {0.2f};
     lfll::LFLLArray<1> outputs;
 	
 	NamespaceAllTerms::process(inputs, outputs);

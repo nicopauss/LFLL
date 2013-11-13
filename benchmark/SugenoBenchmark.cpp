@@ -29,7 +29,7 @@ class SugenoFixture : public Hayai::Fixture
 public:
 	virtual void SetUp()
 	{
-		inputs[0] = 0.2;
+		inputs[0] = 0.2f;
 	}
 
 	LFLLArray<1> inputs;
