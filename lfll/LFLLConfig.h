@@ -59,11 +59,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // #define LFLL_CUSTOM_SCALAR_NAMESPACE custom_scalar_namespace
 
 // Use a global namespace
-// #define LFLL_USE_NAMESPACE
-
-// Namespace name if activated
-// Default is lfll
-// #define LFLL_NAMESPACE_NAME lfll
+// #define LFLL_NAMESPACE lfll
 
 
 #endif //LFLLCONFIG_H

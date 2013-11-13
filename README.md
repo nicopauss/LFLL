@@ -93,8 +93,7 @@ LFLL can be configurated by modifying `lfll/LFLLConfig.h` or by defining the cor
 | LFLL_USE_DOUBLE_SCALAR | Use double instead of float for the scalar type. Not really useful and slower. | Not defined |    
 | LFLL_CUSTOM_SCALAR | Define a custom-type scalar. | Not defined |  
 | LFLL_CUSTOM_SCALAR_NAMESPACE |  Define a custom scalar namespace for the math operations. | Not defined |
-| LFLL_USE_NAMESPACE | Use a global namespace. | Not defined |
-| LFLL_NAMESPACE_NAME | Namespace name if activated. | lfll | 
+| LFLL_NAMESPACE | Use a global namespace. | Not defined |
 
 For more details, see `lfll/LFLLConfig.h`.
 

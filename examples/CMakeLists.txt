@@ -7,4 +7,5 @@ add_subdirectory(mamdani)
 add_subdirectory(sugeno)
 add_subdirectory(openmp)
 add_subdirectory(fixedpt)
+add_subdirectory(namespace)
 

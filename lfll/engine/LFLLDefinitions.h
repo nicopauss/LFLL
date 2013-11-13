@@ -34,23 +34,14 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 /* Namespace definition */
 /************************************************************************/
 
-#ifdef LFLL_USE_NAMESPACE
+#ifdef LFLL_NAMESPACE
 
-#ifndef LFLL_NAMESPACE_NAME
-#define LFLL_NAMESPACE_NAME lfll
-#endif
-
-#define LFLL_BEGIN_NAMESPACE namespace LFLL_NAMESPACE_NAME {
+#define LFLL_BEGIN_NAMESPACE namespace LFLL_NAMESPACE {
 #define LFLL_END_NAMESPACE }
-#define LFLL_USING_NAMESPACE using namespace LFLL_NAMESPACE_NAME;
+#define LFLL_USING_NAMESPACE using namespace LFLL_NAMESPACE;
 
-#else //LFLL_USE_NAMESPACE
+#else //LFLL_NAMESPACE
 
-#ifdef LFLL_NAMESPACE_NAME
-#undef LFLL_NAMESPACE_NAME
-#endif
-
-#define LFLL_NAMESPACE_NAME
 #define LFLL_BEGIN_NAMESPACE
 #define LFLL_END_NAMESPACE
 #define LFLL_USING_NAMESPACE

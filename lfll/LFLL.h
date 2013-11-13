@@ -114,8 +114,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
   *  | LFLL_USE_DOUBLE_SCALAR | Use double instead of float for the scalar type. Not really useful and slower. | Not defined |    
   *  | LFLL_CUSTOM_SCALAR | Define a custom-type scalar. | Not defined |  
   *  | LFLL_CUSTOM_SCALAR_NAMESPACE |  Define a custom scalar namespace for the math operations. | Not defined |
-  *  | LFLL_USE_NAMESPACE | Use a global namespace. | Not defined |
-  *  | LFLL_NAMESPACE_NAME | Namespace name if activated. | lfll | 
+  *  | LFLL_NAMESPACE | Use a global namespace. | Not defined |
   *  
   *  For more details, see `lfll/LFLLConfig.h`.
   *  
@@ -236,8 +235,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #define LFLL_H
 
 #define LFLL_MAJOR_VERSION 1
-#define LFLL_MINOR_VERSION 0
-#define LFLL_PATCH_VERSION 1
+#define LFLL_MINOR_VERSION 1
+#define LFLL_PATCH_VERSION 0
 #define LFLL_VERSION "LFLL_MAJOR_VERSION.LFLL_MINOR_VERSION.LFLL_PATCH_VERSION"
 
 
