@@ -20,6 +20,6 @@ install:
 
 script:
  - cd build
- - cmake -DSTRICT_MODE=ON -Wdev --debug-output ..
+ - cmake -DSTRICT_MODE=ON -Wdev --debug-output --trace ..
  - make
  - tests/tests
