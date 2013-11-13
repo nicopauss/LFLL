@@ -4,6 +4,10 @@ compiler:
   - gcc
   - clang
 
+branches:
+ only:
+  - master
+
 # Init and update submodule
 before_install:
   - git submodule update --init --recursive
