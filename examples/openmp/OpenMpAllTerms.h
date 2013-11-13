@@ -29,8 +29,8 @@ class OpenMpAllTerms
 {
 public:
 	static void process(
-		const LFLL_NAMESPACE_NAME::LFLLArray<1>& inputs,
-		LFLL_NAMESPACE_NAME::LFLLArray<1>& outputs);
+		const LFLLArray<1>& inputs,
+		LFLLArray<1>& outputs);
 
 private:
 	OpenMpAllTerms() {}

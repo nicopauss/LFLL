@@ -32,8 +32,8 @@ public:
 		inputs[0] = 0.2;
 	}
 
-	LFLL_NAMESPACE_NAME::LFLLArray<1> inputs;
-    LFLL_NAMESPACE_NAME::LFLLArray<1> outputs;
+	LFLLArray<1> inputs;
+    LFLLArray<1> outputs;
 };
 
 

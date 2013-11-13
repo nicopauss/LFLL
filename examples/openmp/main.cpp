@@ -20,15 +20,10 @@ COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
 IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
-/************************************************************************/
-/** @mainpage
-* Here is an example of how to use the library ElectronicHorizonLFLL. \n
-*
-* You can activate OpenMP to get a better speed.
-*
-* To compile this example, undefine every preprocessor macros in LFLLConfig.h.
-*/
-/************************************************************************/
+/********************************************************************************
+    This is an example of how to use OpenMP with LFLL
+    To compile this example, undefine every preprocessor macros in LFLLConfig.h
+*********************************************************************************/
 
 #include <iostream>
 #include <omp.h>
@@ -36,15 +31,15 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include "OpenMpAllTerms.h"
 
 void processValueWithLoop(
-    const LFLL_NAMESPACE_NAME::LFLLArray<1>& inputs, 
-    LFLL_NAMESPACE_NAME::LFLLArray<1>& outputs, 
+    const LFLLArray<1>& inputs, 
+    LFLLArray<1>& outputs, 
     int nbProcess);
 
 int main()
 {
     int nbProcess = 10000000;
-    LFLL_NAMESPACE_NAME::LFLLArray<1> inputs = {0.2f};
-    LFLL_NAMESPACE_NAME::LFLLArray<1> outputs;
+    LFLLArray<1> inputs = {0.2f};
+    LFLLArray<1> outputs;
 
     double start = omp_get_wtime();
     processValueWithLoop(inputs, outputs, nbProcess);
@@ -59,8 +54,8 @@ int main()
 }
 
 void processValueWithLoop(
-    const LFLL_NAMESPACE_NAME::LFLLArray<1>& inputs, 
-    LFLL_NAMESPACE_NAME::LFLLArray<1>& outputs, 
+    const LFLLArray<1>& inputs, 
+    LFLLArray<1>& outputs, 
     int nbProcess)
 {
 	#pragma omp parallel for

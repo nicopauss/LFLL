@@ -25,6 +25,13 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #include "FixedPt32.h"
 
+#ifdef LFLL_CUSTOM_SCALAR
+#undef LFLL_CUSTOM_SCALAR
+#endif
+#ifdef LFLL_CUSTOM_SCALAR_NAMESPACE
+#undef LFLL_CUSTOM_SCALAR_NAMESPACE
+#endif
+
 #define LFLL_CUSTOM_SCALAR FixedPt32
 #define LFLL_CUSTOM_SCALAR_NAMESPACE fixedpt_math
 
@@ -34,8 +41,8 @@ class FixedPtAllTerms
 {
 public:
 	static void process(
-		const LFLL_NAMESPACE_NAME::LFLLArray<1>& inputs,
-		LFLL_NAMESPACE_NAME::LFLLArray<1>& outputs);
+		const LFLLArray<1>& inputs,
+		LFLLArray<1>& outputs);
 
 private:
 	FixedPtAllTerms() {}

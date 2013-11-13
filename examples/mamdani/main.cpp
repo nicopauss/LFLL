@@ -20,17 +20,18 @@ COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
 IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
-/************************************************************************
-  Here is an example of how to use LFLL. \n
-*************************************************************************/
+/********************************************************************************
+    This is an example of how to use Mamdani FIS with LFLL
+    To compile this example, undefine every preprocessor macros in LFLLConfig.h
+*********************************************************************************/
 
 #include <iostream>
 #include "MamdaniAllTerms.h"
 
 int main()
 {
-    LFLL_NAMESPACE_NAME::LFLLArray<1> inputs = {0.2};
-    LFLL_NAMESPACE_NAME::LFLLArray<1> outputs;
+    LFLLArray<1> inputs = {0.2};
+    LFLLArray<1> outputs;
 	
 	MamdaniAllTerms::process(inputs, outputs);
 
