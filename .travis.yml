@@ -1,0 +1,21 @@
+language: cpp
+
+compiler:
+  - gcc
+  - clang
+
+# Init and update submodule
+before_install:
+  - git submodule update --init --recursive
+
+# Make sure CMake is installed
+install:
+ - sudo apt-get update
+ - sudo apt-get install cmake
+ - mkdir build
+
+script:
+ - cd build
+ - cmake -DSTRICT_MODE=ON ..
+ - make
+ - tests/tests
