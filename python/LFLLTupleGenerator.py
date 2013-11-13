@@ -62,54 +62,54 @@ LFLL_BEGIN_NAMESPACE
 template <${defClassAll}>
 class LFLLTuple
 {
-	/**
-	 * \\brief Get element at index I
-	 * \\tparam I Index of element
-	 * \\param tuple Tuple
-	 * \\return Pointer to element
-	 */
+    /**
+     * \\brief Get element at index I
+     * \\tparam I Index of element
+     * \\param tuple Tuple
+     * \\return Pointer to element
+     */
     template <size_t I, ${defClassAlter}>
     friend
     typename detail::LFLLTupleValueTypes<I, $useClassAlter>::type*
     getLFLLTuple(LFLLTuple<$useClassAlter>& tuple);
     
-	/**
-	 * \\brief Get element at index I
-	 * \\tparam I Index of element
-	 * \\param tuple Tuple
-	 * \\return Pointer to element
-	 */
+    /**
+     * \\brief Get element at index I
+     * \\tparam I Index of element
+     * \\param tuple Tuple
+     * \\return Pointer to element
+     */
     template <size_t I, ${defClassAlter}>
     friend
     const typename detail::LFLLTupleValueTypes<I, $useClassAlter>::type*
     getLFLLTuple(const LFLLTuple<$useClassAlter>& tuple);
 
 public:
-	/// Static tuple size
+    /// Static tuple size
     static const size_t tupleSize = detail::LFLLTupleImpl<$useClassAll>::tupleSize;
 
 public:
-	/**
-	 * \\brief Constructor with value pointers
-	 */
+    /**
+     * \\brief Constructor with value pointers
+     */
     LFLLTuple($argsPtrWithTypeAndDefault)
         : m_impl($argsPtrAll)
     {}
-	
-	/**
-	 * \\brief Get tuple size
-	 * \\return Tuple size
-	 */
+    
+    /**
+     * \\brief Get tuple size
+     * \\return Tuple size
+     */
     size_t size() const
     {
         return tupleSize;
     }
 
-	/**
-	 * \\brief Get element at index I
-	 * \\tparam I Index of element
-	 * \\return Pointer to element
-	 */
+    /**
+     * \\brief Get element at index I
+     * \\tparam I Index of element
+     * \\return Pointer to element
+     */
     template <size_t I>
     typename detail::LFLLTupleValueTypes<I, $useClassAll>::type*
     get()
@@ -120,11 +120,11 @@ public:
         return static_cast<typename ElementTypes::type&>(m_impl).get();
     }
 
-	/**
-	 * \\brief Get element at index I
-	 * \\tparam I Index of element
-	 * \\return Pointer to element
-	 */
+    /**
+     * \\brief Get element at index I
+     * \\tparam I Index of element
+     * \\return Pointer to element
+     */
     template <size_t I>
     const typename detail::LFLLTupleValueTypes<I, $useClassAll>::type*
     get() const
