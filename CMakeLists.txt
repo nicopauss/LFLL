@@ -52,7 +52,6 @@ add_subdirectory(tests)
 add_subdirectory(examples)
 add_subdirectory(benchmark)
 
-export(PACKAGE LFLL)
 
 # Install FindLFLL.cmake
 install(FILES
