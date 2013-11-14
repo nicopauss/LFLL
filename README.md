@@ -216,3 +216,6 @@ LFLL is tested with the following compilers:
 * clang 3.0
 * vc++ 2012
 * vc++ 2010
+
+
+[![Build Status](https://travis-ci.org/nicopauss/LFLL.png?branch=master)](https://travis-ci.org/nicopauss/LFLL)
