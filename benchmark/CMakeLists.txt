@@ -39,9 +39,14 @@ else()
         elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
         endif()
     endif()
-
+    
+    include(CheckLibraryExists)
+    CHECK_LIBRARY_EXISTS(rt clock_gettime "time.h" NEED_RT_LIB)
 	
 	include_directories(${HAYAI_INCLUDE_DIR})
-	add_executable(benchmark ${SOURCES_FILES})	
+	add_executable(benchmark ${SOURCES_FILES})
+	if (${NEED_RT_LIB})
+	    target_link_libraries(benchmark rt)
+	endif()
 endif()
 
