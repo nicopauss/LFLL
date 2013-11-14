@@ -53,14 +53,21 @@ else()
     if (${STRICT_MODE})
         # Catch warning ignore
         if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
-            set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-unused-but-set-variable")
+            set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-unused-variable")
             set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-shadow")
         elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
-            set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-unused-but-set-variable")
+            set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-unused-variable")
             set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-shadow")
+            if (CMAKE_CXX_COMPILER_VERSION VERSION_EQUAL "4.6.0" OR
+                CMAKE_CXX_COMPILER_VERSION VERSION_GREATER "4.6.0")
+                set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-unused-but-set-variable")
+            endif()
+            set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-extra")
         elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
         endif()
     endif()
+    
+    
     
 	
 	include_directories(${CATCH_INCLUDE_DIR})
