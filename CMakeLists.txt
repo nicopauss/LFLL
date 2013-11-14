@@ -36,16 +36,7 @@ if (${STRICT_MODE})
 	endif()
 endif()
 
-  
-set(SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/lfll")
-
-# lfll custom target
-file(GLOB_RECURSE HEADERS_FILES RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}" "${SOURCE_DIR}/*.h")
-install(DIRECTORY ${SOURCE_DIR}
-    DESTINATION "${INSTALL_INCLUDE_DIR}"
-	FILES_MATCHING PATTERN "*.h")
-add_custom_target(lfll SOURCES ${HEADERS_FILES})
-
+include(LFLLTarget.cmake)
 
 add_subdirectory(tests)
 add_subdirectory(examples)
