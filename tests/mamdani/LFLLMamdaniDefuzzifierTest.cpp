@@ -25,7 +25,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 static const lfll_uint TestDivisions = 50000;
 
 
-TEST(LFLLMamdaniDefuzzifier, TestCentroidMinMax)
+TEST_CASE("LFLLMamdaniDefuzzifier - TestCentroidMinMax", "")
 {
     const size_t NR = 3;
 
@@ -57,10 +57,10 @@ TEST(LFLLMamdaniDefuzzifier, TestCentroidMinMax)
 
     scalar ret = defuzzifier.defuzzifyConsequence(consequence);
 
-    ASSERT_LFLL_REL_EQ(0.52094513177871704f, ret);
+    REQUIRE(LFLL_APPROX(0.52094513177871704f) == ret);
 }
 
-TEST(LFLLMamdaniDefuzzifier, TestCentroidProb)
+TEST_CASE("LFLLMamdaniDefuzzifier - TestCentroidProb", "")
 {
     const size_t NR = 3;
 
@@ -92,11 +92,11 @@ TEST(LFLLMamdaniDefuzzifier, TestCentroidProb)
 
     scalar ret = defuzzifier.defuzzifyConsequence(consequence);
 
-    ASSERT_LFLL_REL_EQ(0.51275676488876343f, ret);
+    REQUIRE(LFLL_APPROX(0.51275676488876343f) == ret);
 }
 
 
-TEST(LFLLMamdaniDefuzzifier, TestBisector)
+TEST_CASE("LFLLMamdaniDefuzzifier - TestBisector", "")
 {
     const size_t NR = 3;
 
@@ -128,10 +128,10 @@ TEST(LFLLMamdaniDefuzzifier, TestBisector)
 
     scalar ret = defuzzifier.defuzzifyConsequence(consequence);
 
-    ASSERT_LFLL_REL_EQ(0.53103470802307129f, ret);
+    REQUIRE(LFLL_APPROX(0.53103470802307129f) == ret);
 }
 
-TEST(LFLLMamdaniDefuzzifier, TestMeanOfMaximum)
+TEST_CASE("LFLLMamdaniDefuzzifier - TestMeanOfMaximum", "")
 {
     const size_t NR = 3;
 
@@ -163,11 +163,11 @@ TEST(LFLLMamdaniDefuzzifier, TestMeanOfMaximum)
 
     scalar ret = defuzzifier.defuzzifyConsequence(consequence);
 
-    ASSERT_LFLL_REL_EQ(0.575f, ret);
+    REQUIRE(LFLL_APPROX(0.575f) == ret);
 }
 
 
-TEST(LFLLMamdaniDefuzzifier, TestSmallestOfMaximum)
+TEST_CASE("LFLLMamdaniDefuzzifier - TestSmallestOfMaximum", "")
 {
     const size_t NR = 3;
 
@@ -199,11 +199,11 @@ TEST(LFLLMamdaniDefuzzifier, TestSmallestOfMaximum)
 
     scalar ret = defuzzifier.defuzzifyConsequence(consequence);
 
-    ASSERT_LFLL_REL_EQ(0.45f, ret);
+    REQUIRE(LFLL_APPROX(0.45f) == ret);
 }
 
 
-TEST(LFLLMamdaniDefuzzifier, TestLargestOfMaximum)
+TEST_CASE("LFLLMamdaniDefuzzifier - TestLargestOfMaximum", "")
 {
     const size_t NR = 3;
 
@@ -235,7 +235,7 @@ TEST(LFLLMamdaniDefuzzifier, TestLargestOfMaximum)
 
     scalar ret = defuzzifier.defuzzifyConsequence(consequence);
 
-    ASSERT_LFLL_REL_EQ(0.70f, ret);
+    REQUIRE(LFLL_APPROX(0.70f) == ret);
 }
 
 

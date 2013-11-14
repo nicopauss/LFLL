@@ -24,66 +24,66 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 using namespace lfll_math;
 
-TEST(LFLLMathTest, Srel)
+TEST_CASE("LFLLMathTest - Srel", "")
 {
-    ASSERT_EQ(42.f, srel(0.42f, 0.f, 100.f));
-    ASSERT_EQ(75.f, srel(0.5f, 50.f, 100.f));
+    REQUIRE(42.f == srel(0.42f, 0.f, 100.f));
+    REQUIRE(75.f == srel(0.5f, 50.f, 100.f));
 }
 
-TEST(LFLLMathTest, IsLessThan)
+TEST_CASE("LFLLMathTest - IsLessThan", "")
 {
-    ASSERT_FALSE(isLessThan(0.5f, 0.5f));
-    ASSERT_FALSE(isLessThan(0.501f, 0.5f));
-    ASSERT_FALSE(isLessThan(0.49999999f, 0.5f));
-    ASSERT_TRUE(isLessThan(0.499f, 0.5f));
-}
-
-
-TEST(LFLLMathTest, IsGreaterThan)
-{
-    ASSERT_FALSE(isGreaterThan(0.5f, 0.5f));
-    ASSERT_FALSE(isGreaterThan(0.499f, 0.5f));
-    ASSERT_FALSE(isGreaterThan(0.50000001f, 0.5f));
-    ASSERT_TRUE(isGreaterThan(0.501f, 0.5f));
+    REQUIRE_FALSE(isLessThan(0.5f, 0.5f));
+    REQUIRE_FALSE(isLessThan(0.501f, 0.5f));
+    REQUIRE_FALSE(isLessThan(0.49999999f, 0.5f));
+    REQUIRE(isLessThan(0.499f, 0.5f));
 }
 
 
-TEST(LFLLMathTest, IsEqualTo)
+TEST_CASE("LFLLMathTest - IsGreaterThan", "")
 {
-    ASSERT_TRUE(isEqualTo(0.50000001f, 0.5f));
-    ASSERT_TRUE(isEqualTo(0.5f, 0.5f));
-    ASSERT_TRUE(isEqualTo(0.49999999f, 0.5f));
-    ASSERT_FALSE(isEqualTo(0.499f, 0.5f));
-    ASSERT_FALSE(isEqualTo(0.501f, 0.5f));
+    REQUIRE_FALSE(isGreaterThan(0.5f, 0.5f));
+    REQUIRE_FALSE(isGreaterThan(0.499f, 0.5f));
+    REQUIRE_FALSE(isGreaterThan(0.50000001f, 0.5f));
+    REQUIRE(isGreaterThan(0.501f, 0.5f));
 }
 
-TEST(LFLLMathTest, IsLessOrEqualTo)
+
+TEST_CASE("LFLLMathTest - IsEqualTo", "")
 {
-    ASSERT_TRUE(isLessOrEqualTo(0.5f, 0.5f));
-    ASSERT_TRUE(isLessOrEqualTo(0.499f, 0.5f));
-    ASSERT_TRUE(isLessOrEqualTo(0.49999999f, 0.5f));
-    ASSERT_TRUE(isLessOrEqualTo(0.50000001f, 0.5f));
-    ASSERT_FALSE(isLessOrEqualTo(0.501f, 0.5f));
+    REQUIRE(isEqualTo(0.50000001f, 0.5f));
+    REQUIRE(isEqualTo(0.5f, 0.5f));
+    REQUIRE(isEqualTo(0.49999999f, 0.5f));
+    REQUIRE_FALSE(isEqualTo(0.499f, 0.5f));
+    REQUIRE_FALSE(isEqualTo(0.501f, 0.5f));
 }
 
-TEST(LFLLMathTest, IsGreaterOrEqualTo)
+TEST_CASE("LFLLMathTest - IsLessOrEqualTo", "")
 {
-    ASSERT_TRUE(isGreaterOrEqualTo(0.5f, 0.5f));
-    ASSERT_TRUE(isGreaterOrEqualTo(0.501f, 0.5f));
-    ASSERT_TRUE(isGreaterOrEqualTo(0.49999999f, 0.5f));
-    ASSERT_TRUE(isGreaterOrEqualTo(0.50000001f, 0.5f));
-    ASSERT_FALSE(isGreaterOrEqualTo(0.499f, 0.5f));
+    REQUIRE(isLessOrEqualTo(0.5f, 0.5f));
+    REQUIRE(isLessOrEqualTo(0.499f, 0.5f));
+    REQUIRE(isLessOrEqualTo(0.49999999f, 0.5f));
+    REQUIRE(isLessOrEqualTo(0.50000001f, 0.5f));
+    REQUIRE_FALSE(isLessOrEqualTo(0.501f, 0.5f));
 }
 
-TEST(LFLLMathTest, Max)
+TEST_CASE("LFLLMathTest - IsGreaterOrEqualTo", "")
 {
-    ASSERT_EQ(0.4f, max(0.4f, 0.2f));
-    ASSERT_EQ(0.8f, max(0.8f, 0.1f));
+    REQUIRE(isGreaterOrEqualTo(0.5f, 0.5f));
+    REQUIRE(isGreaterOrEqualTo(0.501f, 0.5f));
+    REQUIRE(isGreaterOrEqualTo(0.49999999f, 0.5f));
+    REQUIRE(isGreaterOrEqualTo(0.50000001f, 0.5f));
+    REQUIRE_FALSE(isGreaterOrEqualTo(0.499f, 0.5f));
 }
 
-TEST(LFLLMathTest, Min)
+TEST_CASE("LFLLMathTest - Max", "")
 {
-    ASSERT_EQ(0.2f, min(0.4f, 0.2f));
-    ASSERT_EQ(0.1f, min(0.8f, 0.1f));
+    REQUIRE(0.4f == max(0.4f, 0.2f));
+    REQUIRE(0.8f == max(0.8f, 0.1f));
+}
+
+TEST_CASE("LFLLMathTest - Min", "")
+{
+    REQUIRE(0.2f == min(0.4f, 0.2f));
+    REQUIRE(0.1f == min(0.8f, 0.1f));
 }
 

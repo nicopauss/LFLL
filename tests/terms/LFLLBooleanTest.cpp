@@ -22,32 +22,32 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 #include "../LFLLTests.h"
 
-TEST(LFLLBoolean, Test1)
+TEST_CASE("LFLLBoolean - Test1", "")
 {
     LFLLBoolean booleanLFLL(true);
 
-    ASSERT_EQ(ONE_SCALAR, booleanLFLL.membership(true));
+    REQUIRE(ONE_SCALAR == booleanLFLL.membership(true));
 }
 
 
-TEST(LFLLBoolean, Test2)
+TEST_CASE("LFLLBoolean - Test2", "")
 {
     LFLLBoolean booleanLFLL(true);
 
-    ASSERT_EQ(ZERO_SCALAR, booleanLFLL.membership(false));
+    REQUIRE(ZERO_SCALAR == booleanLFLL.membership(false));
 }
 
-TEST(LFLLBoolean, Test3)
+TEST_CASE("LFLLBoolean - Test3", "")
 {
     LFLLBoolean booleanLFLL(false);
 
-    ASSERT_EQ(ZERO_SCALAR, booleanLFLL.membership(true));
+    REQUIRE(ZERO_SCALAR == booleanLFLL.membership(true));
 }
 
 
-TEST(LFLLBoolean, Test4)
+TEST_CASE("LFLLBoolean - Test4", "")
 {
     LFLLBoolean booleanLFLL(false);
 
-    ASSERT_EQ(ONE_SCALAR, booleanLFLL.membership(false));
+    REQUIRE(ONE_SCALAR == booleanLFLL.membership(false));
 }

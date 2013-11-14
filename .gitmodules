@@ -1,3 +1,6 @@
 [submodule "benchmark/hayai"]
 	path = benchmark/hayai
 	url = https://github.com/nicopauss/hayai.git
+[submodule "tests/catch"]
+	path = tests/catch
+	url = https://github.com/philsquared/Catch.git

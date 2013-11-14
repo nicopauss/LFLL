@@ -22,16 +22,16 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 #include "../LFLLTests.h"
 
-TEST(LFLLBell, Test)
+TEST_CASE("LFLLBell - Test", "")
 {
     LFLLBell term(0.4f, 3.0f, 0.0f);
 
-    ASSERT_LFLL_ABS_EQ(0.0004f, term.membership(-1.5f));
-    ASSERT_LFLL_ABS_EQ(0.0041f, term.membership(-1.0f));
-    ASSERT_LFLL_ABS_EQ(0.5f, term.membership(-0.4f));
-    ASSERT_LFLL_ABS_EQ(1.0f, term.membership(0.0f));
-    ASSERT_LFLL_ABS_EQ(0.9846f, term.membership(0.2f));
-    ASSERT_LFLL_ABS_EQ(0.0154f, term.membership(0.8f));
-    ASSERT_LFLL_ABS_EQ(0.0041f, term.membership(1.0f));
-    ASSERT_LFLL_ABS_EQ(0.0005f, term.membership(1.4f));
+    REQUIRE(LFLL_APPROX(0.0004f) == term.membership(-1.5f));
+    REQUIRE(LFLL_APPROX(0.0041f) == term.membership(-1.0f));
+    REQUIRE(LFLL_APPROX(0.5f) == term.membership(-0.4f));
+    REQUIRE(LFLL_APPROX(1.0f) == term.membership(0.0f));
+    REQUIRE(LFLL_APPROX(0.9846f) == term.membership(0.2f));
+    REQUIRE(LFLL_APPROX(0.0154f) == term.membership(0.8f));
+    REQUIRE(LFLL_APPROX(0.0041f) == term.membership(1.0f));
+    REQUIRE(LFLL_APPROX(0.0005f) == term.membership(1.4f));
 }

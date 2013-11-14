@@ -22,16 +22,16 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 #include "../LFLLTests.h"
 
-TEST(LFLLPiShape, Test)
+TEST_CASE("LFLLPiShape - Test", "")
 {
     LFLLPiShape term(-1.0f, -0.05f, 0.1f, 1.0f);
 
-    ASSERT_LFLL_ABS_EQ(0.0f, term.membership(-1.5f));
-    ASSERT_LFLL_ABS_EQ(0.0f, term.membership(-1.0f));
-    ASSERT_LFLL_ABS_EQ(0.7285f, term.membership(-0.4f));
-    ASSERT_LFLL_ABS_EQ(1.0f, term.membership(0.0f));
-    ASSERT_LFLL_ABS_EQ(0.9753f, term.membership(0.2f));
-    ASSERT_LFLL_ABS_EQ(0.0988f, term.membership(0.8f));
-    ASSERT_LFLL_ABS_EQ(0.0f, term.membership(1.0f));
-    ASSERT_LFLL_ABS_EQ(0.0f, term.membership(1.4f));
+    REQUIRE(LFLL_APPROX(0.0f) == term.membership(-1.5f));
+    REQUIRE(LFLL_APPROX(0.0f) == term.membership(-1.0f));
+    REQUIRE(LFLL_APPROX(0.7285f) == term.membership(-0.4f));
+    REQUIRE(LFLL_APPROX(1.0f) == term.membership(0.0f));
+    REQUIRE(LFLL_APPROX(0.9753f) == term.membership(0.2f));
+    REQUIRE(LFLL_APPROX(0.0988f) == term.membership(0.8f));
+    REQUIRE(LFLL_APPROX(0.0f) == term.membership(1.0f));
+    REQUIRE(LFLL_APPROX(0.0f) == term.membership(1.4f));
 }

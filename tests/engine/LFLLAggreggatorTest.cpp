@@ -22,7 +22,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 #include "../LFLLTests.h"
 
-TEST(LFLLAggregatorTest, Agregator)
+TEST_CASE("LFLLAggregatorTest - Agregator", "")
 {
     const size_t NR = 3;
     const size_t NT = 2;
@@ -42,6 +42,6 @@ TEST(LFLLAggregatorTest, Agregator)
 
     LFLLMembership<NT> membership = aggregator.aggregateConsequence(consequence);
 
-    ASSERT_EQ(membership[0], 0.25f);
-    ASSERT_EQ(membership[1], 0.75f);
+    REQUIRE(membership[0] == 0.25f);
+    REQUIRE(membership[1] == 0.75f);
 }

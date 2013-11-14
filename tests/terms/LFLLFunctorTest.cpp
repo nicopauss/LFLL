@@ -36,15 +36,15 @@ namespace {
 }
 
 
-TEST(LFLLFunctor, Test)
+TEST_CASE("LFLLFunctor - Test", "")
 {
     LFLLFunctor<TestFunctor> term;
-    ASSERT_LFLL_ABS_EQ(ONE_SCALAR, term.membership(-1.5f));
-    ASSERT_LFLL_ABS_EQ(ONE_SCALAR, term.membership(-1.0f));
-    ASSERT_LFLL_ABS_EQ(ZERO_SCALAR, term.membership(-0.4f));
-    ASSERT_LFLL_ABS_EQ(ZERO_SCALAR, term.membership(0.0f));
-    ASSERT_LFLL_ABS_EQ(ZERO_SCALAR, term.membership(0.2f));
-    ASSERT_LFLL_ABS_EQ(ZERO_SCALAR, term.membership(0.8f));
-    ASSERT_LFLL_ABS_EQ(ONE_SCALAR, term.membership(1.0f));
-    ASSERT_LFLL_ABS_EQ(ONE_SCALAR, term.membership(1.4f));
+    REQUIRE(LFLL_APPROX(ONE_SCALAR) == term.membership(-1.5f));
+    REQUIRE(LFLL_APPROX(ONE_SCALAR) == term.membership(-1.0f));
+    REQUIRE(LFLL_APPROX(ZERO_SCALAR) == term.membership(-0.4f));
+    REQUIRE(LFLL_APPROX(ZERO_SCALAR) == term.membership(0.0f));
+    REQUIRE(LFLL_APPROX(ZERO_SCALAR) == term.membership(0.2f));
+    REQUIRE(LFLL_APPROX(ZERO_SCALAR) == term.membership(0.8f));
+    REQUIRE(LFLL_APPROX(ONE_SCALAR) == term.membership(1.0f));
+    REQUIRE(LFLL_APPROX(ONE_SCALAR) == term.membership(1.4f));
 }

@@ -22,7 +22,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 #include "../LFLLTests.h"
 
-TEST(LFLLAccumulated, TestMax)
+TEST_CASE("LFLLAccumulated - TestMax", "")
 {
     LFLLBell bell(0.4f, 3.0f, 0.0f);
     LFLLGaussian gaussian(0.3f, 0.0f);
@@ -34,17 +34,17 @@ TEST(LFLLAccumulated, TestMax)
     LFLLAccumulated<TermTuple, LFLLMax> term(terms);
 
 
-    ASSERT_LFLL_ABS_EQ(0.0004f, term.membership(-1.5f));
-    ASSERT_LFLL_ABS_EQ(0.0041f, term.membership(-1.0f));
-    ASSERT_LFLL_ABS_EQ(0.7285f, term.membership(-0.4f));
-    ASSERT_LFLL_ABS_EQ(1.0f, term.membership(0.0f));
-    ASSERT_LFLL_ABS_EQ(0.9846f, term.membership(0.2f));
-    ASSERT_LFLL_ABS_EQ(0.0988f, term.membership(0.8f));
-    ASSERT_LFLL_ABS_EQ(0.0041f, term.membership(1.0f));
-    ASSERT_LFLL_ABS_EQ(0.0005f, term.membership(1.4f));
+    REQUIRE(LFLL_APPROX(0.0004f) == term.membership(-1.5f));
+    REQUIRE(LFLL_APPROX(0.0041f) == term.membership(-1.0f));
+    REQUIRE(LFLL_APPROX(0.7285f) == term.membership(-0.4f));
+    REQUIRE(LFLL_APPROX(1.0f) == term.membership(0.0f));
+    REQUIRE(LFLL_APPROX(0.9846f) == term.membership(0.2f));
+    REQUIRE(LFLL_APPROX(0.0988f) == term.membership(0.8f));
+    REQUIRE(LFLL_APPROX(0.0041f) == term.membership(1.0f));
+    REQUIRE(LFLL_APPROX(0.0005f) == term.membership(1.4f));
 }
 
-TEST(LFLLAccumulated, TestBoundedSum)
+TEST_CASE("LFLLAccumulated - TestBoundedSum", "")
 {
     LFLLBell bell(0.4f, 3.0f, 0.0f);
     LFLLGaussian gaussian(0.3f, 0.0f);
@@ -56,13 +56,13 @@ TEST(LFLLAccumulated, TestBoundedSum)
     LFLLAccumulated<TermTuple, LFLLBoundedSum> term(terms);
 
 
-    ASSERT_LFLL_ABS_EQ(0.0004f, term.membership(-1.5f));
-    ASSERT_LFLL_ABS_EQ(0.0080f, term.membership(-1.0f));
-    ASSERT_LFLL_ABS_EQ(1.0f, term.membership(-0.4f));
-    ASSERT_LFLL_ABS_EQ(1.0f, term.membership(0.0f));
-    ASSERT_LFLL_ABS_EQ(1.0f, term.membership(0.2f));
-    ASSERT_LFLL_ABS_EQ(0.1428f, term.membership(0.8f));
-    ASSERT_LFLL_ABS_EQ(0.0080f, term.membership(1.0f));
-    ASSERT_LFLL_ABS_EQ(0.0005f, term.membership(1.4f));
+    REQUIRE(LFLL_APPROX(0.0004f) == term.membership(-1.5f));
+    REQUIRE(LFLL_APPROX(0.0080f) == term.membership(-1.0f));
+    REQUIRE(LFLL_APPROX(1.0f) == term.membership(-0.4f));
+    REQUIRE(LFLL_APPROX(1.0f) == term.membership(0.0f));
+    REQUIRE(LFLL_APPROX(1.0f) == term.membership(0.2f));
+    REQUIRE(LFLL_APPROX(0.1428f) == term.membership(0.8f));
+    REQUIRE(LFLL_APPROX(0.0080f) == term.membership(1.0f));
+    REQUIRE(LFLL_APPROX(0.0005f) == term.membership(1.4f));
 }
 

@@ -22,17 +22,17 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 #include "../LFLLTests.h"
 
-TEST(LFLLSigmoidDifference, Test)
+TEST_CASE("LFLLSigmoidDifference - Test", "")
 {
     LFLLSigmoidDifference term(
         8.77f, -0.442f, 12.5f, 0.468f);
 
-    ASSERT_LFLL_ABS_EQ(0.0001f, term.membership(-1.5f));
-    ASSERT_LFLL_ABS_EQ(0.0074f, term.membership(-1.0f));
-    ASSERT_LFLL_ABS_EQ(0.5910f, term.membership(-0.4f));
-    ASSERT_LFLL_ABS_EQ(0.9768f, term.membership(0.0f));
-    ASSERT_LFLL_ABS_EQ(0.9625f, term.membership(0.2f));
-    ASSERT_LFLL_ABS_EQ(0.0155f, term.membership(0.8f));
-    ASSERT_LFLL_ABS_EQ(0.0013f, term.membership(1.0f));
-    ASSERT_LFLL_ABS_EQ(0.0f, term.membership(1.4f));
+    REQUIRE(LFLL_APPROX(0.0001f) == term.membership(-1.5f));
+    REQUIRE(LFLL_APPROX(0.0074f) == term.membership(-1.0f));
+    REQUIRE(LFLL_APPROX(0.5910f) == term.membership(-0.4f));
+    REQUIRE(LFLL_APPROX(0.9768f) == term.membership(0.0f));
+    REQUIRE(LFLL_APPROX(0.9625f) == term.membership(0.2f));
+    REQUIRE(LFLL_APPROX(0.0155f) == term.membership(0.8f));
+    REQUIRE(LFLL_APPROX(0.0013f) == term.membership(1.0f));
+    REQUIRE(LFLL_APPROX(0.0f) == term.membership(1.4f));
 }

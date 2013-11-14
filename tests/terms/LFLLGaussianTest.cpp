@@ -22,16 +22,16 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 #include "../LFLLTests.h"
 
-TEST(LFLLGaussian, Test)
+TEST_CASE("LFLLGaussian - Test", "")
 {
     LFLLGaussian term(0.3f, 0.0f);
 
-    ASSERT_LFLL_ABS_EQ(0.0f, term.membership(-1.5f));
-    ASSERT_LFLL_ABS_EQ(0.0039f, term.membership(-1.0f));
-    ASSERT_LFLL_ABS_EQ(0.4111f, term.membership(-0.4f));
-    ASSERT_LFLL_ABS_EQ(1.0f, term.membership(0.0f));
-    ASSERT_LFLL_ABS_EQ(0.8007f, term.membership(0.2f));
-    ASSERT_LFLL_ABS_EQ(0.0286f, term.membership(0.8f));
-    ASSERT_LFLL_ABS_EQ(0.0039f, term.membership(1.0f));
-    ASSERT_LFLL_ABS_EQ(0.0f, term.membership(1.4f));
+    REQUIRE(LFLL_APPROX(0.0f) == term.membership(-1.5f));
+    REQUIRE(LFLL_APPROX(0.0039f) == term.membership(-1.0f));
+    REQUIRE(LFLL_APPROX(0.4111f) == term.membership(-0.4f));
+    REQUIRE(LFLL_APPROX(1.0f) == term.membership(0.0f));
+    REQUIRE(LFLL_APPROX(0.8007f) == term.membership(0.2f));
+    REQUIRE(LFLL_APPROX(0.0286f) == term.membership(0.8f));
+    REQUIRE(LFLL_APPROX(0.0039f) == term.membership(1.0f));
+    REQUIRE(LFLL_APPROX(0.0f) == term.membership(1.4f));
 }

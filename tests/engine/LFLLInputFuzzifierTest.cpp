@@ -22,7 +22,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 #include "../LFLLTests.h"
 
-TEST(LFLLInputFuzzifierTest, Test1)
+TEST_CASE("LFLLInputFuzzifierTest - Test1", "")
 {
     LFLLPiShape piShape(0.f, 2.5f, 7.5f, 10.f);
     LFLLTrapezoid trapezoid(0.f, 2.5f, 7.5f, 10.f);
@@ -42,15 +42,15 @@ TEST(LFLLInputFuzzifierTest, Test1)
     LFLLMembership<5> degrees =
         inputFuzzifier.fuzzifyVariable(1.64f);
 
-    ASSERT_LFLL_REL_EQ(0.763328f, degrees[0]);
-    ASSERT_LFLL_REL_EQ(0.656f, degrees[1]);
-    ASSERT_LFLL_REL_EQ(0.328f, degrees[2]);
-    ASSERT_LFLL_REL_EQ(0.0f, degrees[3]);
-    ASSERT_LFLL_REL_EQ(1.0f, degrees[4]);
+    REQUIRE(LFLL_APPROX(0.763328f) == degrees[0]);
+    REQUIRE(LFLL_APPROX(0.656f) == degrees[1]);
+    REQUIRE(LFLL_APPROX(0.328f) == degrees[2]);
+    REQUIRE(LFLL_APPROX(0.0f) == degrees[3]);
+    REQUIRE(LFLL_APPROX(1.0f) == degrees[4]);
 }
 
 
-TEST(LFLLInputFuzzifierTest, Test2)
+TEST_CASE("LFLLInputFuzzifierTest - Test2", "")
 {
     LFLLPiShape piShape(0.f, 2.5f, 7.5f, 10.f);
     LFLLTrapezoid trapezoid(0.f, 2.5f, 7.5f, 10.f);
@@ -70,10 +70,10 @@ TEST(LFLLInputFuzzifierTest, Test2)
     LFLLMembership<5> degrees =
         inputFuzzifier.fuzzifyVariable(8.47f);
 
-    ASSERT_LFLL_REL_EQ(0.698912f, degrees[0]);
-    ASSERT_LFLL_REL_EQ(0.612f, degrees[1]);
-    ASSERT_LFLL_REL_EQ(0.306f, degrees[2]);
-    ASSERT_LFLL_REL_EQ(1.0f, degrees[3]);
-    ASSERT_LFLL_REL_EQ(0.0f, degrees[4]);
+    REQUIRE(LFLL_APPROX(0.698912f) == degrees[0]);
+    REQUIRE(LFLL_APPROX(0.612f) == degrees[1]);
+    REQUIRE(LFLL_APPROX(0.306f) == degrees[2]);
+    REQUIRE(LFLL_APPROX(1.0f) == degrees[3]);
+    REQUIRE(LFLL_APPROX(0.0f) == degrees[4]);
 }
 

@@ -23,7 +23,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include "../LFLLTests.h"
 
 
-TEST(LFLLSugenoDefuzzifier, TestZeroOrderAverage)
+TEST_CASE("LFLLSugenoDefuzzifier - TestZeroOrderAverage", "")
 {
     const size_t NR = 3;
 
@@ -56,11 +56,11 @@ TEST(LFLLSugenoDefuzzifier, TestZeroOrderAverage)
 
     scalar ret = defuzzifier.defuzzifyConsequence(inputs, consequence);
 
-    ASSERT_LFLL_REL_EQ(0.8863636363636362f, ret);
+    REQUIRE(LFLL_APPROX(0.8863636363636362f) == ret);
 }
 
 
-TEST(LFLLSugenoDefuzzifier, TestZeroOrderSum)
+TEST_CASE("LFLLSugenoDefuzzifier - TestZeroOrderSum", "")
 {
     const size_t NR = 3;
 
@@ -92,11 +92,11 @@ TEST(LFLLSugenoDefuzzifier, TestZeroOrderSum)
 
     scalar ret = defuzzifier.defuzzifyConsequence(inputs, consequence);
 
-    ASSERT_LFLL_REL_EQ(0.975f, ret);
+    REQUIRE(LFLL_APPROX(0.975f) == ret);
 }
 
 
-TEST(LFLLSugenoDefuzzifier, TestFirstOrderAverage)
+TEST_CASE("LFLLSugenoDefuzzifier - TestFirstOrderAverage", "")
 {
     const size_t NR = 3;
 
@@ -130,11 +130,11 @@ TEST(LFLLSugenoDefuzzifier, TestFirstOrderAverage)
 
     scalar ret = defuzzifier.defuzzifyConsequence(inputs, consequence);
 
-    ASSERT_LFLL_REL_EQ(5.738636363636363f, ret);
+    REQUIRE(LFLL_APPROX(5.738636363636363f) == ret);
 }
 
 
-TEST(LFLLSugenoDefuzzifier, TestFirstOrderSum)
+TEST_CASE("LFLLSugenoDefuzzifier - TestFirstOrderSum", "")
 {
     const size_t NR = 3;
 
@@ -168,5 +168,5 @@ TEST(LFLLSugenoDefuzzifier, TestFirstOrderSum)
 
     scalar ret = defuzzifier.defuzzifyConsequence(inputs, consequence);
 
-    ASSERT_LFLL_REL_EQ(6.3125f, ret);
+    REQUIRE(LFLL_APPROX(6.3125f) == ret);
 }

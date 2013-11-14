@@ -23,14 +23,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #ifndef LFLLTESTS_H
 #define LFLLTESTS_H
 
-#include <gtest/gtest.h>
+#include <catch.hpp>
 #include <lfll/LFLL.h>
-
-#define ASSERT_LFLL_REL_EQ(val1, val2) \
-    ASSERT_NEAR((val1), (val2), ((val1)*SCALAR_DIFF_PRECISION*10));
-
-#define ASSERT_LFLL_ABS_EQ(val1, val2) \
-    ASSERT_NEAR((val1), (val2), (SCALAR_DIFF_PRECISION));
+    
+static Approx LFLL_APPROX = Approx::custom().epsilon(SCALAR_DIFF_PRECISION);
 
 LFLL_USING_NAMESPACE
 

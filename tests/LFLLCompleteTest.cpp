@@ -22,7 +22,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 #include "LFLLTests.h"
 
-TEST(LFLLCompleteTest, LFLLComplete)
+TEST_CASE("LFLLCompleteTest - LFLLComplete", "")
 {
     // Creation
 
@@ -120,5 +120,5 @@ TEST(LFLLCompleteTest, LFLLComplete)
     scalar ret = defuzzifier.defuzzifyConsequence(inputs, consequence);
 
     // Test
-    ASSERT_LFLL_REL_EQ(0.350281350482315f, ret);
+    REQUIRE(LFLL_APPROX(0.350281350482315f) == ret);
 }

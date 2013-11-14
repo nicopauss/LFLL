@@ -22,7 +22,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 #include "../LFLLTests.h"
 
-TEST(LFLLRulesEngineTest, Test)
+TEST_CASE("LFLLRulesEngineTest - Test", "")
 {
     const size_t NI = 2;
     const size_t NR = 3;
@@ -80,22 +80,22 @@ TEST(LFLLRulesEngineTest, Test)
 
     fTr.applyRules(antecedents, consequences);
 
-    ASSERT_EQ(1u, consequence1.getTermIndex(0));
-    ASSERT_LFLL_REL_EQ(0.16f, consequence1.getVal(0));
+    REQUIRE(1u == consequence1.getTermIndex(0));
+    REQUIRE(LFLL_APPROX(0.16f) == consequence1.getVal(0));
 
-    ASSERT_EQ(2u, consequence1.getTermIndex(1));
-    ASSERT_LFLL_REL_EQ(0.56f, consequence1.getVal(1));
+    REQUIRE(2u == consequence1.getTermIndex(1));
+    REQUIRE(LFLL_APPROX(0.56f) == consequence1.getVal(1));
 
-    ASSERT_EQ(0u, consequence1.getTermIndex(2));
-    ASSERT_LFLL_REL_EQ(0.0f, consequence1.getVal(2));
+    REQUIRE(0u == consequence1.getTermIndex(2));
+    REQUIRE(LFLL_APPROX(0.0f) == consequence1.getVal(2));
 
 
-    ASSERT_EQ(0u, consequence2.getTermIndex(0));
-    ASSERT_LFLL_REL_EQ(0.0f, consequence2.getVal(0));
+    REQUIRE(0u == consequence2.getTermIndex(0));
+    REQUIRE(LFLL_APPROX(0.0f) == consequence2.getVal(0));
 
-    ASSERT_EQ(1u, consequence2.getTermIndex(1));
-    ASSERT_LFLL_REL_EQ(0.56f, consequence2.getVal(1));
+    REQUIRE(1u == consequence2.getTermIndex(1));
+    REQUIRE(LFLL_APPROX(0.56f) == consequence2.getVal(1));
 
-    ASSERT_EQ(1u, consequence2.getTermIndex(2));
-    ASSERT_LFLL_REL_EQ(1.f - 0.16f/2.f, consequence2.getVal(2));
+    REQUIRE(1u == consequence2.getTermIndex(2));
+    REQUIRE(LFLL_APPROX(1.f - 0.16f/2.f) == consequence2.getVal(2));
 }

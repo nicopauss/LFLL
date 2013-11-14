@@ -24,11 +24,6 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     Unit tests for the library LFLL.
 *********************************************************************************/
 
-#include <gtest/gtest.h>
 
-
-int main(int argc, char** argv)
-{
-    testing::InitGoogleTest(&argc, argv);
-    return RUN_ALL_TESTS();
-}
+#define CATCH_CONFIG_MAIN
+#include <catch.hpp>
