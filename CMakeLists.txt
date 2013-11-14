@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8)
-project(LFLL CXX)
+project(LFLL CXX C)
 
   
 set(INSTALL_INCLUDE_DIR include CACHE PATH
@@ -36,7 +36,6 @@ if (${STRICT_MODE})
 	endif()
 endif()
 
-
   
 set(SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/lfll")
 
@@ -52,6 +51,7 @@ add_subdirectory(tests)
 add_subdirectory(examples)
 add_subdirectory(benchmark)
 
+export(PACKAGE LFLL)
 
 # Install FindLFLL.cmake
 install(FILES

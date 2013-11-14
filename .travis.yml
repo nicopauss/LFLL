@@ -17,9 +17,7 @@ install:
  - sudo apt-get update
  - sudo apt-get install cmake
  - mkdir build
+ - cd build
 
 script:
- - cd build
- - cmake -DSTRICT_MODE=ON -Wdev --debug-output --trace ..
- - make
- - tests/tests
+ - cmake -DSTRICT_MODE=ON .. && make && tests/tests
