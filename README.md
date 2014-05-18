@@ -90,19 +90,30 @@ LFLL can be configurated by modifying `lfll/LFLLConfig.h` or by defining the cor
 
 |  Macro  |   Description  |  Default value  |  
 |:--------|:---------------|:----------------|
-| LFLL_USE_DOUBLE_SCALAR | Use double instead of float for the scalar type. Not really useful and slower. | Not defined |    
-| LFLL_CUSTOM_SCALAR | Define a custom-type scalar. | Not defined |  
-| LFLL_CUSTOM_SCALAR_NAMESPACE |  Define a custom scalar namespace for the math operations. | Not defined |
-| LFLL_NAMESPACE | Use a global namespace. | Not defined |
+| LFLL_USE_DOUBLE_SCALAR | Use double instead of float for the scalar type. Not really useful and slower | Not defined |    
+| LFLL_CUSTOM_SCALAR | Define a custom-type scalar | Not defined |  
+| LFLL_CUSTOM_SCALAR_NAMESPACE |  Define a custom scalar namespace for the math operations | Not defined |
+| LFLL_NAMESPACE | Use a global namespace | Not defined |
 
 For more details, see `lfll/LFLLConfig.h`.
 
 
 ### Compile LFLL
 
-LFLL itself is a header-only library, so it doesn't require to be compiled directly. Nevertheless, the project uses CMake to compile examples, benchmark and unit tests. CMake is also used to install the library into the appropriate directories.
+LFLL itself is a header-only library, so it doesn't require to be compiled directly. 
+Nevertheless, the project uses CMake to compile examples, benchmark and unit tests. 
+CMake is also used to install the library into the appropriate directories.
 
 If you want to try LFLL you can compile it using the following commands.
+[OPTIONS] refers to one or more of the following values:
+
+|  Option  |   Description  |  Default value  |  
+|:---------|:---------------|:----------------|
+| -DSTRICT_MODE | Enable every warnings and treat warnings as errors | OFF |    
+| -DDONT_BUILD_TESTS | Don't build unit tests | OFF |  
+| -DDONT_BUILD_EXAMPLES |  Don't build examples | OFF |
+| -DDONT_BUILD_BENCHMARKS | Don't build benchmarks | OFF |
+
 
 For Linux:
 ```sh
@@ -112,7 +123,7 @@ $ git submodule init # init submodules
 $ git submodule update # get hayai
 $ mkdir build # create a build directory
 $ cd build # get into build directory
-$ cmake .. # add commands if you want to
+$ cmake [OPTIONS] .. # replace options and add commands if you want to
 $ make # compile examples, benchmark and unit tests
 $ make install # install library
 ```
@@ -125,7 +136,7 @@ $ git submodule init # init submodules
 $ git submodule update # get hayai
 $ mkdir build # create a build directory
 $ cd build # get into build directory
-$ cmake -G"Unix Makefiles" .. # add commands if you want to
+$ cmake -G"Unix Makefiles" [OPTIONS] .. # replace options and add commands if you want to
 $ make # compile examples, benchmark and unit tests
 $ make install # install library
 ```
@@ -138,7 +149,7 @@ $ git submodule init # init submodules
 $ git submodule update # get hayai
 $ mkdir build # create a build directory
 $ cd build # get into build directory
-$ cmake -G"NMake Makefiles" .. # add commands if you want to
+$ cmake -G"NMake Makefiles" [OPTIONS] .. # replace options and add commands if you want to
 $ nmake # compile examples, benchmark and unit tests
 $ nmake install # install library
 ```
@@ -150,7 +161,8 @@ $ examples/mamdani/example_mamdani # mamdani example
 $ examples/sugeno/example_sugeno # sugeno example
 $ examples/fixedpt/example_fixedpt # fixed-point numeric example
 $ examples/openmp/example_openmp # openmp example
-$ benchmark/benchmark # benchmark
+$ benchmarks/allterms/benchmarks_allterms # allterms benchmark
+$ benchmarks/fuzzylite/benchmarks_fuzzylite # fuzzylite benchmark
 $ tests/tests # unit tests
 ```
 
@@ -205,6 +217,77 @@ The benchmarks are done with a Core i7 2.2Ghz with GCC 4.8.2 with [Hayai](https:
 
 Sugeno is way faster than Mamdani. 
 One iteration correponds to an entire circle fuzzification->rules->defuzzification.
+
+LFLL is faster than [Fuzzylite](http://www.fuzzylite.com), around 3.8 times faster for Mamdani and 58.4 times for Sugeno.
+
+```
+[==========] Running 4 benchmarks.
+[ RUN      ] MamdaniFixture.Fuzzylite (20 runs, 100 iterations per run)
+[     DONE ] MamdaniFixture.Fuzzylite (217.866291 ms)
+[   RUNS   ]        Average time: 10893.315 us
+                         Fastest: 10402.406 us (-490.909 us / -4.507 %)
+                         Slowest: 14480.123 us (+3586.808 us / +32.927 %)
+
+             Average performance: 91.79942 runs/s
+                Best performance: 96.13161 runs/s (+4.33218 runs/s / +4.71918 %)
+               Worst performance: 69.06019 runs/s (-22.73924 runs/s / -24.77057 %)
+[ITERATIONS]        Average time: 108.933 us
+                         Fastest: 104.024 us (-4.909 us / -0.000 %)
+                         Slowest: 144.801 us (+35.868 us / +0.000 %)
+
+             Average performance: 9179.94239 iterations/s
+                Best performance: 9613.16065 iterations/s (+433.21826 iterations/s / +4.71918 %)
+               Worst performance: 6906.01869 iterations/s (-2273.92370 iterations/s / -24.77057 %)
+[ RUN      ] SugenoFixture.Fuzzylite (20 runs, 10000 iterations per run)
+[     DONE ] SugenoFixture.Fuzzylite (1098.741110 ms)
+[   RUNS   ]        Average time: 54937.056 us
+                         Fastest: 53470.978 us (-1466.077 us / -2.669 %)
+                         Slowest: 57493.064 us (+2556.008 us / +4.653 %)
+
+             Average performance: 18.20265 runs/s
+                Best performance: 18.70173 runs/s (+0.49908 runs/s / +2.74182 %)
+               Worst performance: 17.39340 runs/s (-0.80925 runs/s / -4.44577 %)
+[ITERATIONS]        Average time: 5.494 us
+                         Fastest: 5.347 us (-0.147 us / -0.000 %)
+                         Slowest: 5.749 us (+0.256 us / +0.000 %)
+
+             Average performance: 182026.50122 iterations/s
+                Best performance: 187017.33864 iterations/s (+4990.83742 iterations/s / +2.74182 %)
+               Worst performance: 173934.02446 iterations/s (-8092.47676 iterations/s / -4.44577 %)
+[ RUN      ] MamdaniFixture.LFLL (20 runs, 100 iterations per run)
+[     DONE ] MamdaniFixture.LFLL (57.867087 ms)
+[   RUNS   ]        Average time: 2893.354 us
+                         Fastest: 2779.036 us (-114.318 us / -3.951 %)
+                         Slowest: 3080.603 us (+187.249 us / +6.472 %)
+
+             Average performance: 345.61961 runs/s
+                Best performance: 359.83701 runs/s (+14.21740 runs/s / +4.11360 %)
+               Worst performance: 324.61177 runs/s (-21.00784 runs/s / -6.07831 %)
+[ITERATIONS]        Average time: 28.934 us
+                         Fastest: 27.790 us (-1.143 us / -0.000 %)
+                         Slowest: 30.806 us (+1.872 us / +0.000 %)
+
+             Average performance: 34561.96093 iterations/s
+                Best performance: 35983.70082 iterations/s (+1421.73989 iterations/s / +4.11360 %)
+               Worst performance: 32461.17724 iterations/s (-2100.78369 iterations/s / -6.07831 %)
+[ RUN      ] SugenoFixture.LFLL (20 runs, 10000 iterations per run)
+[     DONE ] SugenoFixture.LFLL (18.842513 ms)
+[   RUNS   ]        Average time: 942.126 us
+                         Fastest: 900.390 us (-41.736 us / -4.430 %)
+                         Slowest: 1013.311 us (+71.185 us / +7.556 %)
+
+             Average performance: 1061.42954 runs/s
+                Best performance: 1110.62984 runs/s (+49.20029 runs/s / +4.63529 %)
+               Worst performance: 986.86386 runs/s (-74.56569 runs/s / -7.02502 %)
+[ITERATIONS]        Average time: 0.094 us
+                         Fastest: 0.090 us (-0.004 us / -0.000 %)
+                         Slowest: 0.101 us (+0.007 us / +0.000 %)
+
+             Average performance: 10614295.44987 iterations/s
+                Best performance: 11106298.38181 iterations/s (+492002.93194 iterations/s / +4.63529 %)
+               Worst performance: 9868638.55223 iterations/s (-745656.89764 iterations/s / -7.02502 %)
+[==========] Ran 4 benchmarks.
+``
 
 
 ### Supported Platforms
