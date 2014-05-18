@@ -119,8 +119,6 @@ For Linux:
 ```sh
 $ git clone https://github.com/nicopauss/LFLL.git LFLL # clone LFLL
 $ cd LFLL # get into cloned repo
-$ git submodule init # init submodules
-$ git submodule update # get hayai
 $ mkdir build # create a build directory
 $ cd build # get into build directory
 $ cmake [OPTIONS] .. # replace options and add commands if you want to
@@ -132,8 +130,6 @@ For Mac:
 ```sh
 $ git clone https://github.com/nicopauss/LFLL.git LFLL # clone LFLL
 $ cd LFLL # get into cloned repo
-$ git submodule init # init submodules
-$ git submodule update # get hayai
 $ mkdir build # create a build directory
 $ cd build # get into build directory
 $ cmake -G"Unix Makefiles" [OPTIONS] .. # replace options and add commands if you want to
@@ -145,8 +141,6 @@ For Windows, use VisualStudio command prompt or Cygwin:
 ```sh
 $ git clone https://github.com/nicopauss/LFLL.git LFLL # clone LFLL
 $ cd LFLL # get into cloned repo
-$ git submodule init # init submodules
-$ git submodule update # get hayai
 $ mkdir build # create a build directory
 $ cd build # get into build directory
 $ cmake -G"NMake Makefiles" [OPTIONS] .. # replace options and add commands if you want to

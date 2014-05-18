@@ -8,10 +8,6 @@ branches:
  only:
   - master
 
-# Init and update submodule
-before_install:
-  - git submodule update --init --recursive
-
 # Make sure CMake is installed
 install:
  - sudo apt-get update
