@@ -287,7 +287,7 @@ LFLL is faster than [Fuzzylite](http://www.fuzzylite.com), around 3.8 times fast
                 Best performance: 11106298.38181 iterations/s (+492002.93194 iterations/s / +4.63529 %)
                Worst performance: 9868638.55223 iterations/s (-745656.89764 iterations/s / -7.02502 %)
 [==========] Ran 4 benchmarks.
-``
+```
 
 
 ### Supported Platforms
