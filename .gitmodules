@@ -1,3 +1,0 @@
-[submodule "tests/catch"]
-	path = tests/catch
-	url = https://github.com/nicopauss/Catch.git
