@@ -21,21 +21,24 @@ IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
+#include <hayai.hpp>
+#include "LFLLSimpleSugeno.h"
 
-#ifndef LFLLSIMPLESUGENO_H
-#define LFLLSIMPLESUGENO_H
-
-#include <lfll/LFLL.h>
-
-class SimpleSugeno
+class SugenoFixture : public hayai::Fixture
 {
 public:
-	static void process(
-		const LFLLArray<2>& inputs,
-		LFLLArray<1>& outputs);
+	virtual void SetUp()
+	{
+		inputs[0] = 0.2f;
+		inputs[1] = 0.5f;
+	}
 
-private:
-	SimpleSugeno() {}
+	LFLLArray<2> inputs;
+    LFLLArray<1> outputs;
 };
 
-#endif // LFLLSIMPLESUGENO_H
+
+BENCHMARK_F(SugenoFixture, LFLL, 20, 10000)
+{
+	SimpleSugeno::process(inputs, outputs);
+}

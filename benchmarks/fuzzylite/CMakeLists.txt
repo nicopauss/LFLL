@@ -1,10 +1,14 @@
 set(SOURCES_FILES
 
 main.cpp
+FuzzyliteMamdaniBenchmark.cpp
+FuzzyliteSugenoBenchmark.cpp
+LFLLMamdaniBenchmark.cpp
 LFLLSimpleMamdani.cpp
 LFLLSimpleMamdani.h
 LFLLSimpleSugeno.cpp
 LFLLSimpleSugeno.h
+LFLLSugenoBenchmark.cpp
 )
 
 set(FUZZYLITE_PREFIX
@@ -35,7 +39,7 @@ ExternalProject_Add(
 
 include_directories(${FUZZYLITE_SRC_DIR})
 
-add_executable(benchmarks_fuzzylite main.cpp)
-add_dependencies(benchmarks_fuzzylite fuzzylite)
+add_executable(benchmarks_fuzzylite ${SOURCES_FILES})
+add_dependencies(benchmarks_fuzzylite hayai fuzzylite)
 target_link_libraries(benchmarks_fuzzylite ${FUZZYLITE_LIB})
 
