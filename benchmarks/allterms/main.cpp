@@ -20,24 +20,13 @@ COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
 IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
+#include <hayai.hpp>
 
-#include "LFLLBenchmark.h"
-#include "SugenoAllTerms.h"
-
-class SugenoFixture : public Hayai::Fixture
+int main()
 {
-public:
-	virtual void SetUp()
-	{
-		inputs[0] = 0.2f;
-	}
+    hayai::ConsoleOutputter consoleOutputter;
 
-	LFLLArray<1> inputs;
-    LFLLArray<1> outputs;
-};
-
-
-BENCHMARK_F(SugenoFixture, AllTerms, 20, 10000)
-{
-	SugenoAllTerms::process(inputs, outputs);
+    hayai::Benchmarker::AddOutputter(consoleOutputter);
+    hayai::Benchmarker::RunAllTests();
+    return 0;
 }

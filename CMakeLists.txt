@@ -7,6 +7,9 @@ set(INSTALL_INCLUDE_DIR include CACHE PATH
 set(INSTALL_CMAKE_DIR "${CMAKE_ROOT}/Modules" CACHE PATH
 	"Installation directory for CMake files")
 option(STRICT_MODE "Strict mode, enable every warnings and treat warnings as errors" OFF)
+option(DONT_BUILD_TESTS "Don't build unit tests" OFF)
+option(DONT_BUILD_EXAMPLES "Don't build examples" OFF)
+option(DONT_BUILD_BENCHMARKS "Don't build benchmarks" OFF)
 
 # Set a default build type if none was specified
 if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
@@ -38,9 +41,15 @@ endif()
 
 include(LFLLTarget.cmake)
 
-add_subdirectory(tests)
-add_subdirectory(examples)
-add_subdirectory(benchmark)
+if (NOT ${DONT_BUILD_TESTS})
+    add_subdirectory(tests)
+endif()
+if (NOT ${DONT_BUILD_EXAMPLES})
+    add_subdirectory(examples)
+endif()
+if (NOT ${DONT_BUILD_BENCHMARKS})
+    add_subdirectory(benchmarks)
+endif()
 
 export(PACKAGE LFLL)
 

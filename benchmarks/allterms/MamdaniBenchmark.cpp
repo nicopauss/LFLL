@@ -24,7 +24,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include "LFLLBenchmark.h"
 #include "MamdaniAllTerms.h"
 
-class MamdaniFixture : public Hayai::Fixture
+class MamdaniFixture : public hayai::Fixture
 {
 public:
 	virtual void SetUp()

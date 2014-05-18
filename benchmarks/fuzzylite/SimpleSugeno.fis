@@ -1,0 +1,55 @@
+[System]
+Name='SimpleSugeno'
+Type='sugeno'
+NumInputs=2
+NumOutputs=1
+NumRules=12
+AndMethod='min'
+OrMethod='max'
+ImpMethod='min'
+AggMethod='max'
+DefuzzMethod='wtaver'
+
+[Input1]
+Enabled=1
+Name='i1'
+Range=[0.000 1.000]
+NumMFs=4
+MF1='t1':'gaussmf',[0.200 0.200]
+MF2='t2':'trapmf',[0.000 0.350 0.550 1.000]
+MF3='t3':'pimf',[0.000 0.730 0.790 1.000]
+MF4='t4':'smf',[0.000 1.000]
+
+[Input2]
+Enabled=1
+Name='i2'
+Range=[0.000 1.000]
+NumMFs=3
+MF1='t1':'trimf',[-0.060 0.500 1.000]
+MF2='t2':'rectmf',[0.110 0.370]
+MF3='t3':'rampmf',[0.000 1.000]
+
+[Output1]
+Enabled=1
+Name='o1'
+Range=[0.000 1.000]
+Default=nan
+LockValid=0
+LockRange=0
+NumMFs=2
+MF1='t1':'constant',[0.250]
+MF2='t2':'constant',[0.750]
+
+[Rules]
+1 1 , 1 (1) : 1
+1 2 , 2 (1) : 1
+1 3 , 1 (1) : 1
+2 1 , 2 (1) : 1
+2 2 , 1 (1) : 1
+2 3 , 2 (1) : 1
+3 1 , 1 (1) : 1
+3 2 , 2 (1) : 1
+3 3 , 1 (1) : 1
+4 1 , 2 (1) : 1
+4 2 , 1 (1) : 1
+4 3 , 2 (1) : 1

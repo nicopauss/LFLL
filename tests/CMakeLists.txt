@@ -39,37 +39,44 @@ find_package(LFLL REQUIRED)
 include_directories(${LFLL_INCLUDE_DIR})
 
 
-find_path(CATCH_INCLUDE_DIR catch.hpp 
-  "${CMAKE_CURRENT_SOURCE_DIR}/catch/include"
-   ${CMAKE_SYSTEM_INCLUDE_DIRECTORIES}
+set(CATCH_PREFIX
+    ${CMAKE_CURRENT_BINARY_DIR}/catch
+)
+set(CATCH_SRC_DIR
+    ${CATCH_PREFIX}/src/catch/include
 )
 
-message(STATUS "CATCH_INCLUDE_DIR = ${CATCH_INCLUDE_DIR}")
-if(${CATCH_INCLUDE_DIR} STREQUAL "CATCH_INCLUDE_DIR-NOTFOUND")
-	message(WARNING "Catch not found, unit tests have been deactivated. "
-		"You should run 'git submodule init && git submodule update' before running cmake")
-else()
+include(ExternalProject)
 
-    if (${STRICT_MODE})
-        # Catch warning ignore
-        if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
-            set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-unused-variable")
-            set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-shadow")
-        elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
-            set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-unused-variable")
-            set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-shadow")
-            if (CMAKE_CXX_COMPILER_VERSION VERSION_EQUAL "4.6.0" OR
-                CMAKE_CXX_COMPILER_VERSION VERSION_GREATER "4.6.0")
-                set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-unused-but-set-variable")
-            endif()
-            set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-extra")
-        elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
+ExternalProject_Add(
+    catch
+    GIT_REPOSITORY https://github.com/philsquared/Catch.git
+    PREFIX ${CATCH_PREFIX}
+    CONFIGURE_COMMAND ""
+    BUILD_COMMAND ""
+    INSTALL_COMMAND ""
+)
+
+include_directories(${CATCH_SRC_DIR})
+
+if (${STRICT_MODE})
+    # Catch warning ignore
+    if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-unused-variable")
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-shadow")
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-return-type")
+    elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-unused-variable")
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-shadow")
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-return-type")
+        if (CMAKE_CXX_COMPILER_VERSION VERSION_EQUAL "4.6.0" OR
+            CMAKE_CXX_COMPILER_VERSION VERSION_GREATER "4.6.0")
+            set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-unused-but-set-variable")
         endif()
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-extra")
+    elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
     endif()
-    
-    
-    
-	
-	include_directories(${CATCH_INCLUDE_DIR})
-	add_executable(tests ${SOURCES_FILES})	
 endif()
+
+add_executable(tests ${SOURCES_FILES})
+add_dependencies(tests catch)
