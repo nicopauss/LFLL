@@ -29,12 +29,13 @@ if (${STRICT_MODE})
     # Catch warning ignore
     if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
     elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-extra")
         if (CMAKE_CXX_COMPILER_VERSION VERSION_EQUAL "4.6.0" OR
             CMAKE_CXX_COMPILER_VERSION VERSION_GREATER "4.6.0")
             set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-maybe-uninitialized")
         endif()
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-extra")
     elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4305 /wd4244")
     endif()
 endif()
 
