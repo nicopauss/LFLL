@@ -109,4 +109,7 @@ add_dependencies(fuzzylite_static fuzzylite)
 add_executable(benchmarks_fuzzylite ${SOURCES_FILES})
 add_dependencies(benchmarks_fuzzylite hayai fuzzylite_static)
 target_link_libraries(benchmarks_fuzzylite fuzzylite_static ${FUZZYLITE_EXT_LIB})
+if (${NEED_RT_LIB})
+    target_link_libraries(benchmarks_fuzzylite rt)
+endif()
 

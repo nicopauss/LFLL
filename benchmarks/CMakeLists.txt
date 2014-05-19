@@ -39,6 +39,8 @@ if (${STRICT_MODE})
     endif()
 endif()
 
+include(CheckLibraryExists)
+CHECK_LIBRARY_EXISTS(rt clock_gettime "time.h" NEED_RT_LIB)
 
 add_subdirectory(allterms)
 add_subdirectory(fuzzylite)
