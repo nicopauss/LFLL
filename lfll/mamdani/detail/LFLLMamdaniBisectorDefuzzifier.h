@@ -46,10 +46,10 @@ public:
         ImpMethod impMethod,
         AggMethod aggMethod)
         : m_termsValuesDefuzzifier(terms, impMethod, aggMethod)
-        , m_minRange(minRange)
-        , m_maxRange(maxRange)
         , m_divisions(divisions)
         , m_dx((maxRange - minRange) / divisions)
+        , m_xLeftBegin(minRange + HALF_SCALAR * m_dx)
+        , m_xRightBegin(maxRange - HALF_SCALAR * m_dx)
     {}
 
 
@@ -57,11 +57,11 @@ public:
     scalar defuzzifyConsequence(
         const LFLLConsequence<NR>& consequence) const
     {
-        const scalar halfDx = HALF_SCALAR * m_dx;
-        scalar xLeft = m_minRange + halfDx;
-        scalar xRight = m_maxRange - halfDx;
-        scalar leftArea = ZERO_SCALAR, rightArea = ZERO_SCALAR;
-        for (lfll_uint i = 0 ; i < m_divisions ; ++i) {
+        scalar xLeft = m_xLeftBegin;
+        scalar xRight = m_xRightBegin;
+        scalar leftArea = ZERO_SCALAR;
+        scalar rightArea = ZERO_SCALAR;
+        for (lfll_uint i = m_divisions ; i > 0 ; --i) {
             if (leftArea <= rightArea) {
                 leftArea +=
                     m_termsValuesDefuzzifier.computeTermValue(
@@ -82,11 +82,10 @@ public:
 private:
     const LFLLMamdaniDefuzzifierTermsValues<TermTuple, ImpMethod, AggMethod>
         m_termsValuesDefuzzifier;
-    const scalar m_minRange;
-    const scalar m_maxRange;
     const lfll_uint m_divisions;
     const scalar m_dx;
-
+    const scalar m_xLeftBegin;
+    const scalar m_xRightBegin;
 };
 
 

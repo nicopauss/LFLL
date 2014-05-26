@@ -50,6 +50,7 @@ public:
         , m_maxRange(maxRange)
         , m_divisions(divisions)
         , m_dx((maxRange - minRange) / divisions)
+        , m_xBegin(minRange + HALF_SCALAR * m_dx)
     {}
 
 
@@ -57,13 +58,13 @@ public:
     scalar defuzzifyConsequence(
         const LFLLConsequence<NR>& consequence) const
     {
-        scalar x = m_minRange + HALF_SCALAR * m_dx;
+        scalar x = m_xBegin;
         scalar yMax = ZERO_SCALAR;
         scalar xLeft = m_minRange;
         scalar xRight = m_maxRange;
         bool sameValue = false;
         
-        for (lfll_uint i = 0 ; i < m_divisions ; ++i, x += m_dx) {
+        for (lfll_uint i = m_divisions ; i > 0 ; --i, x += m_dx) {
             const scalar y = 
                 m_termsValuesDefuzzifier.computeTermValue(
                     x, consequence);
@@ -89,6 +90,7 @@ private:
     const scalar m_maxRange;
     const lfll_uint m_divisions;
     const scalar m_dx;
+    const scalar m_xBegin;
 
 };
 
