@@ -43,14 +43,15 @@ set(CATCH_PREFIX
     ${CMAKE_CURRENT_BINARY_DIR}/catch
 )
 set(CATCH_SRC_DIR
-    ${CATCH_PREFIX}/src/catch/single_include
+    ${CATCH_PREFIX}/src/catch/include
 )
 
 include(ExternalProject)
 
 ExternalProject_Add(
     catch
-    GIT_REPOSITORY https://github.com/philsquared/Catch.git
+    GIT_REPOSITORY https://github.com/catchorg/Catch2.git
+    GIT_TAG origin/Catch1.x
     PREFIX ${CATCH_PREFIX}
     CONFIGURE_COMMAND ""
     BUILD_COMMAND ""
