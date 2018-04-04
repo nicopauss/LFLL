@@ -26,7 +26,7 @@ else()
 endif()
 
 set(FUZZYLITE_URL
-    https://code.google.com/p/fuzzylite/
+    https://github.com/fuzzylite/fuzzylite.git
 )
 set(FUZZYLITE_GIT_BRANCH
     fuzzylite-4.x
