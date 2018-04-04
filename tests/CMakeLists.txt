@@ -43,7 +43,7 @@ set(CATCH_PREFIX
     ${CMAKE_CURRENT_BINARY_DIR}/catch
 )
 set(CATCH_SRC_DIR
-    ${CATCH_PREFIX}/src/catch/include
+    ${CATCH_PREFIX}/src/catch/single_include
 )
 
 include(ExternalProject)
