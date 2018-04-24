@@ -38,6 +38,7 @@ LFLL_BEGIN_NAMESPACE
     {\
         detail::LFLLStaticAssert<static_cast<bool>((expression))> LFLL_CONCATENATE(LFLL_CONCATENATE(LFLL_CONCATENATE(STATIC_ASSERTION_FAILED_AT_LINE_, __LINE__), _), message);\
     };\
+    __attribute__ ((unused)) \
     typedef detail::LFLLStaticAssertionTest<sizeof(LFLL_CONCATENATE(__static_assertion_at_line_, __LINE__))> LFLL_CONCATENATE(__static_assertion_test_at_line_, __LINE__)
 
 namespace detail {
